@@ -1,0 +1,59 @@
+{
+  "purpose": "MC raw-object re-ntupling feasibility pilot; not a VBF yield result",
+  "raw_input": "/eos/cms/store/group/phys_bphys/trigger/yiyangz-contact/h4l/cms_opendata_2017_full_production/nanoaod_modified/VBF_HToZZ/230000/3602787B-E4E1-784B-95EE-663C48DB1CE6_scale_smear.root",
+  "flat_input": "/eos/cms/store/group/phys_bphys/trigger/yiyangz-contact/h4l/cms_opendata_2017_full_production/h4l_mc_modified/VBF_HToZZ/230000/3602787B-E4E1-784B-95EE-663C48DB1CE6_scale_smear_h4l.root",
+  "output_root": "phase1_strategy/outputs/raw_object_pilot_vbf_v1.root",
+  "raw_events": 8000,
+  "flat_candidates": 1198,
+  "matched_candidates": 1198,
+  "match_fraction": 1.0,
+  "candidate_events_in_105_140_GeV": 1134,
+  "candidate_events_with_at_least_two_clean_jets": 711,
+  "mass_window_events_with_at_least_two_clean_jets": 671,
+  "candidate_events_with_fsr_photon": 37,
+  "candidate_events_with_muon_fsr_association": 37,
+  "required_branch_groups": {
+    "event_identity": [
+      "run",
+      "luminosityBlock",
+      "event"
+    ],
+    "jets_and_btag": [
+      "Jet_pt",
+      "Jet_eta",
+      "Jet_phi",
+      "Jet_mass",
+      "Jet_jetId",
+      "Jet_rawFactor",
+      "Jet_btagDeepFlavB"
+    ],
+    "fsr": [
+      "FsrPhoton_pt",
+      "FsrPhoton_eta",
+      "FsrPhoton_phi",
+      "FsrPhoton_relIso03",
+      "FsrPhoton_muonIdx",
+      "Photon_pt",
+      "Photon_eta",
+      "Photon_phi",
+      "Photon_pfRelIso03_all"
+    ]
+  },
+  "missing_required_branches": {
+    "event_identity": [],
+    "jets_and_btag": [],
+    "fsr": []
+  },
+  "jet_object_probe": {
+    "pt_min_GeV": 30.0,
+    "abs_eta_max": 4.7,
+    "jetId_min": 2,
+    "lepton_jet_deltaR_min": 0.4
+  },
+  "limits": [
+    "This verifies a matched MC raw-object route only.",
+    "No raw-data NanoAOD provenance is supplied by the production root.",
+    "The final VBF category requires the separate reference-like D_2jet implementation and expected-yield study.",
+    "The final FSR algorithm must validate muon-indexed FsrPhoton and electron-associated Photon recovery."
+  ]
+}

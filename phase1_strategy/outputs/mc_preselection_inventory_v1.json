@@ -1,0 +1,211 @@
+{
+  "purpose": "Current-flat preselection inventory, not a final category or fit yield table.",
+  "input_root": "/eos/cms/store/group/phys_bphys/trigger/yiyangz-contact/h4l/cms_opendata_2017_full_production/h4l_mc_nominal",
+  "luminosity_pb_inverse": 10000.0,
+  "normalization": "cross_section_pb * luminosity_pb_inverse / sum(Metadata.nEvents)",
+  "mass_window_GeV": [
+    105.0,
+    140.0
+  ],
+  "category_limit": "The current flat tree has no jets or FSR; VBF/non-VBF and NN-score splits require the raw-object re-ntupling route.",
+  "samples": {
+    "GluGluToHToZZ": {
+      "files": 24,
+      "cross_section_pb": 0.006024,
+      "metadata_nEvents": 2998842,
+      "flat_selected_entries": 420327,
+      "entries_105_to_140_GeV": {
+        "4mu": 136309,
+        "4e": 84104,
+        "2e2mu": 189833
+      },
+      "weight_at_10fb": 2.0087753872994974e-05,
+      "expected_105_to_140_GeV": {
+        "4mu": 2.738141642674072,
+        "4e": 1.6894604517343692,
+        "2e2mu": 3.813318580972255
+      },
+      "expected_total_105_to_140_GeV": 8.240920675380696
+    },
+    "VBF_HToZZ": {
+      "files": 14,
+      "cross_section_pb": 0.00048794,
+      "metadata_nEvents": 499000,
+      "flat_selected_entries": 78510,
+      "entries_105_to_140_GeV": {
+        "4mu": 25067,
+        "4e": 15643,
+        "2e2mu": 35243
+      },
+      "weight_at_10fb": 9.778356713426855e-06,
+      "expected_105_to_140_GeV": {
+        "4mu": 0.24511406773547098,
+        "4e": 0.1529628340681363,
+        "2e2mu": 0.34461862565130263
+      },
+      "expected_total_105_to_140_GeV": 0.7426955274549099
+    },
+    "ZHToZZ": {
+      "files": 2,
+      "cross_section_pb": 9.8394e-05,
+      "metadata_nEvents": 520283,
+      "flat_selected_entries": 73557,
+      "entries_105_to_140_GeV": {
+        "4mu": 9353,
+        "4e": 5919,
+        "2e2mu": 13465
+      },
+      "weight_at_10fb": 1.8911630785553246e-06,
+      "expected_105_to_140_GeV": {
+        "4mu": 0.01768804827372795,
+        "4e": 0.011193794261968967,
+        "2e2mu": 0.025464510852747445
+      },
+      "expected_total_105_to_140_GeV": 0.05434635338844437
+    },
+    "WPHToZZ": {
+      "files": 18,
+      "cross_section_pb": 0.0001072352,
+      "metadata_nEvents": 299992,
+      "flat_selected_entries": 37923,
+      "entries_105_to_140_GeV": {
+        "4mu": 10614,
+        "4e": 6743,
+        "2e2mu": 14843
+      },
+      "weight_at_10fb": 3.5746019893863834e-06,
+      "expected_105_to_140_GeV": {
+        "4mu": 0.037940825515347075,
+        "4e": 0.024103541214432384,
+        "2e2mu": 0.05305781732846209
+      },
+      "expected_total_105_to_140_GeV": 0.11510218405824155
+    },
+    "WMHToZZ": {
+      "files": 17,
+      "cross_section_pb": 6.706e-05,
+      "metadata_nEvents": 198461,
+      "flat_selected_entries": 28370,
+      "entries_105_to_140_GeV": {
+        "4mu": 8002,
+        "4e": 5115,
+        "2e2mu": 11132
+      },
+      "weight_at_10fb": 3.379001415895314e-06,
+      "expected_105_to_140_GeV": {
+        "4mu": 0.027038769329994303,
+        "4e": 0.01728359224230453,
+        "2e2mu": 0.03761504376174664
+      },
+      "expected_total_105_to_140_GeV": 0.08193740533404548
+    },
+    "ZZTo4L": {
+      "files": 109,
+      "cross_section_pb": 1.325,
+      "metadata_nEvents": 99388000,
+      "flat_selected_entries": 3335838,
+      "entries_105_to_140_GeV": {
+        "4mu": 90121,
+        "4e": 42842,
+        "2e2mu": 122776
+      },
+      "weight_at_10fb": 0.00013331589326679276,
+      "expected_105_to_140_GeV": {
+        "4mu": 12.01456161709663,
+        "4e": 5.711519499335935,
+        "2e2mu": 16.367992111723748
+      },
+      "expected_total_105_to_140_GeV": 34.09407322815631
+    },
+    "DYJetsToLL": {
+      "files": 75,
+      "cross_section_pb": 5396.0,
+      "metadata_nEvents": 102863931,
+      "flat_selected_entries": 416,
+      "entries_105_to_140_GeV": {
+        "4mu": 3,
+        "4e": 56,
+        "2e2mu": 63
+      },
+      "weight_at_10fb": 0.5245764912484241,
+      "expected_105_to_140_GeV": {
+        "4mu": 1.5737294737452723,
+        "4e": 29.37628350991175,
+        "2e2mu": 33.04831894865072
+      },
+      "expected_total_105_to_140_GeV": 63.99833193230774
+    },
+    "TTBar": {
+      "files": 66,
+      "cross_section_pb": 52.7,
+      "metadata_nEvents": 30027144,
+      "flat_selected_entries": 789,
+      "entries_105_to_140_GeV": {
+        "4mu": 11,
+        "4e": 51,
+        "2e2mu": 88
+      },
+      "weight_at_10fb": 0.017550786714847073,
+      "expected_105_to_140_GeV": {
+        "4mu": 0.1930586538633178,
+        "4e": 0.8950901224572007,
+        "2e2mu": 1.5444692309065424
+      },
+      "expected_total_105_to_140_GeV": 2.632618007227061
+    },
+    "GGZZ2E2Mu": {
+      "files": 22,
+      "cross_section_pb": 0.003185,
+      "metadata_nEvents": 500000,
+      "flat_selected_entries": 237270,
+      "entries_105_to_140_GeV": {
+        "4mu": 0,
+        "4e": 1,
+        "2e2mu": 7379
+      },
+      "weight_at_10fb": 6.369999999999999e-05,
+      "expected_105_to_140_GeV": {
+        "4mu": 0.0,
+        "4e": 6.369999999999999e-05,
+        "2e2mu": 0.4700422999999999
+      },
+      "expected_total_105_to_140_GeV": 0.4701059999999999
+    },
+    "GGZZ4Mu": {
+      "files": 31,
+      "cross_section_pb": 0.001575,
+      "metadata_nEvents": 975090,
+      "flat_selected_entries": 562493,
+      "entries_105_to_140_GeV": {
+        "4mu": 22489,
+        "4e": 0,
+        "2e2mu": 9
+      },
+      "weight_at_10fb": 1.6152355167215334e-05,
+      "expected_105_to_140_GeV": {
+        "4mu": 0.3632503153555056,
+        "4e": 0.0,
+        "2e2mu": 0.00014537119650493801
+      },
+      "expected_total_105_to_140_GeV": 0.3633956865520106
+    },
+    "GGZZ4E": {
+      "files": 26,
+      "cross_section_pb": 0.001619,
+      "metadata_nEvents": 997000,
+      "flat_selected_entries": 420018,
+      "entries_105_to_140_GeV": {
+        "4mu": 0,
+        "4e": 12801,
+        "2e2mu": 1
+      },
+      "weight_at_10fb": 1.6238716148445338e-05,
+      "expected_105_to_140_GeV": {
+        "4mu": 0.0,
+        "4e": 0.20787180541624878,
+        "2e2mu": 1.6238716148445338e-05
+      },
+      "expected_total_105_to_140_GeV": 0.2078880441323972
+    }
+  }
+}

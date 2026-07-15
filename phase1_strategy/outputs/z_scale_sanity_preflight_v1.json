@@ -1,0 +1,40 @@
+{
+  "purpose": "Pre-fit numerical scale-reach input; this is not a fitted Z peak, calibration correction, mH, or mu result.",
+  "input": "/eos/cms/store/group/phys_bphys/trigger/yiyangz-contact/h4l/cms_opendata_2017_full_production/fake_data/fake_data_dilep_10fb.root:dilepTree",
+  "control_selection": {
+    "common": "OSSF pair supplied by dilep ntuplizer; 70<mll<110 GeV, nPV>0, |dz1-dz2|<0.1 cm, both relIso03<0.15.",
+    "mumu": "finalState=0, one of the single/double/triple-muon trigger bits 0,1,2,3,8, both medium-ID and PF-or-global muons.",
+    "ee": "finalState=1, one of electron trigger bits 4,5, both MVA-WP90 electrons."
+  },
+  "method": "RMS/sqrt(N) over the broad fit domain is a conservative statistical floor proxy; the Phase 3 peak-fit covariance supersedes it.",
+  "controls": {
+    "ee": {
+      "selected_candidates": 4508686,
+      "broad_window_mean_GeV": 85.701287794071,
+      "broad_window_rms_GeV": 4.976686628480367,
+      "rms_over_sqrtN_GeV": 0.0023437716656380227,
+      "relative_scale_statistical_floor": 2.5702745391237654e-05
+    },
+    "mumu": {
+      "selected_candidates": 6284267,
+      "broad_window_mean_GeV": 86.19130246833807,
+      "broad_window_rms_GeV": 4.723866082185169,
+      "rms_over_sqrtN_GeV": 0.0018843877090778986,
+      "relative_scale_statistical_floor": 2.0664955641752808e-05
+    }
+  },
+  "mass_floor_from_control_statistics_GeV": {
+    "4e": 0.0032195258877064288,
+    "4mu": 0.002588492343685957,
+    "2e2mu": 0.0020655289610008306
+  },
+  "reference_scaled_investigation_thresholds": {
+    "mH_scale_contribution_GeV": 0.15157836257197133,
+    "absolute_mu_scale_contribution": 0.3599986111084319,
+    "meaning": "Cross-check thresholds only, scaled from HIG-16-041 total uncertainty; they are not assigned nuisance sizes."
+  },
+  "sources": {
+    "MZ_reference": "PDG 2025 Z listing, STRATEGY.md [R4]",
+    "mH_and_HIG_16_041_uncertainties": "CMS HIG-16-041, STRATEGY.md [R1]"
+  }
+}
