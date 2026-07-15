@@ -24,3 +24,18 @@
 
 - Wrote `review/critical/PHASE1_REREVIEW_CRITICAL.md` after reviewing the original panel/arbiter artifacts, `STRATEGY_v2.md`, `COMMITMENTS.md`, raw-object feasibility record, preflight JSON, source code, and experiment/session logs.
 - A read-only direct check finds zero `Jet_*`, `Photon_*`, and `FsrPhoton_*` branches in both supplied fake-data candidate products, while the persisted raw-object pilot verifies an MC-only route. The revised strategy contracts resolve the original planning defects, but the missing matching raw-data NanoAOD/manifest remains Category A and blocks Phase 1 advancement without a proxy/downscope.
+
+## 2026-07-15 — Pseudo-data raw-object regeneration started
+
+- Under `REGRESSION_TICKET.md`, created two immutable response-repair configs
+  with the exact original NanoAOD inputs, seed, branch map, scale, and smear.
+  Their only configuration changes are a new versioned output root/suffix and
+  fresh validation-summary directories; both retain `overwrite: false`.
+- The documented CMS + LCG_108 `nanoaod_response --dry-run --threads 1`
+  accepted both configs and planned the two absent versioned outputs. The
+  ticketed corrupted files and all existing production outputs remain intact.
+- The generic response staging helper rejects the immutable per-file task
+  contract because it expects a directory input. Its exact error was captured;
+  widening to a parent directory would stage unrelated files and was not done.
+  A literal one-file JDL using the documented worker wrapper passed
+  `condor_submit -dry-run` and submitted the DY test as cluster `952603`.

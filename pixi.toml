@@ -44,6 +44,7 @@ rich = ">=13.0"
 [tasks]
 py = "python"
 raw-object-pilot = "python phase1_strategy/src/raw_object_feasibility.py"
+raw-pseudodata-regeneration-validate = "python phase1_strategy/src/validate_raw_pseudodata_regeneration_v1.py"
 mc-preselection-inventory = "python phase1_strategy/src/mc_preselection_inventory.py"
 z-scale-sanity-preflight = "python phase1_strategy/src/z_scale_sanity_preflight.py"
 # build-pdf is a convenience helper for quick compilation. The typesetter

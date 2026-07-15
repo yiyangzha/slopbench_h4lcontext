@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "task_id": "regenerated_v1__DYJetsToLL__280000__3183559F-C042-5944-84D4-63F2E7CF0D0F.root",
+  "sample": "DYJetsToLL",
+  "sample_key": "DY",
+  "source_kind": "modified",
+  "original_nanoaod": "/eos/opendata/cms/mc/RunIISummer20UL17NanoAODv9/DYJetsToLL_M-50_TuneCP5_13TeV-madgraphMLM-pythia8/NANOAODSIM/106X_mc2017_realistic_v9-v1/280000/3183559F-C042-5944-84D4-63F2E7CF0D0F.root",
+  "input": "/eos/cms/store/group/phys_bphys/trigger/yiyangz-contact/h4l/cms_opendata_2017_full_production_regenerated_raw_v1/nanoaod_modified/DYJetsToLL/280000/3183559F-C042-5944-84D4-63F2E7CF0D0F_scale_smear_regenerated_v1.root",
+  "output": "/eos/cms/store/group/phys_bphys/trigger/yiyangz-contact/h4l/cms_opendata_2017_full_production_regenerated_raw_v1/h4l_mc_modified/DYJetsToLL/280000/3183559F-C042-5944-84D4-63F2E7CF0D0F_scale_smear_regenerated_v1_h4l.root",
+  "effective_xsec_pb": 5396.0,
+  "response_config": "/eos/home-y/yiyangz/codex/jfc/analyses/h4l_hig/phase1_strategy/outputs/response_repair_dy_v1.json",
+  "metadata_config": "/eos/home-y/yiyangz/codex/slopbench_code/benchmark/configs/h4l_production.json",
+  "ntuplizer_binary": "/eos/home-y/yiyangz/codex/slopbench_code/benchmark/h4l_ntuplizer",
+  "ntuplizer_binary_sha256": "a6bc428b076e3a631098bb37d6f68bb7604a79d66332be1254544d2e66fe5e93"
+}

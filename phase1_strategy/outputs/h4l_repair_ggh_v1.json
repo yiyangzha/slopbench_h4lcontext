@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "task_id": "regenerated_v1__GluGluToHToZZ__2430000__78FC46EA-1FB7-3B4B-8BDC-A2F62B73F44A.root",
+  "sample": "GluGluToHToZZ",
+  "sample_key": "ggH",
+  "source_kind": "modified",
+  "original_nanoaod": "/eos/opendata/cms/mc/RunIISummer20UL17NanoAODv9/GluGluHToZZTo4L_M125_TuneCP5_13TeV_powheg2_minloHJJ_JHUGenV7011_pythia8/NANOAODSIM/106X_mc2017_realistic_v9-v2/2430000/78FC46EA-1FB7-3B4B-8BDC-A2F62B73F44A.root",
+  "input": "/eos/cms/store/group/phys_bphys/trigger/yiyangz-contact/h4l/cms_opendata_2017_full_production_regenerated_raw_v1/nanoaod_modified/GluGluToHToZZ/2430000/78FC46EA-1FB7-3B4B-8BDC-A2F62B73F44A_scale_smear_regenerated_v1.root",
+  "output": "/eos/cms/store/group/phys_bphys/trigger/yiyangz-contact/h4l/cms_opendata_2017_full_production_regenerated_raw_v1/h4l_mc_modified/GluGluToHToZZ/2430000/78FC46EA-1FB7-3B4B-8BDC-A2F62B73F44A_scale_smear_regenerated_v1_h4l.root",
+  "effective_xsec_pb": 0.00602392,
+  "response_config": "/eos/home-y/yiyangz/codex/jfc/analyses/h4l_hig/phase1_strategy/outputs/response_repair_ggh_v1.json",
+  "metadata_config": "/eos/home-y/yiyangz/codex/slopbench_code/benchmark/configs/h4l_production.json",
+  "ntuplizer_binary": "/eos/home-y/yiyangz/codex/slopbench_code/benchmark/h4l_ntuplizer",
+  "ntuplizer_binary_sha256": "a6bc428b076e3a631098bb37d6f68bb7604a79d66332be1254544d2e66fe5e93"
+}

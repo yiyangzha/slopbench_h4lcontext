@@ -1,0 +1,70 @@
+{
+  "_description": "Default CMS Open Data 2017 NanoAOD production. Run this configuration on lxplus, where /eos/opendata is mounted. Each sample is written below its own output directory; each input ROOT file remains one output ROOT file.",
+  "_cms_open_data_release": "RunIISummer20UL17NanoAODv9",
+  "global": {
+    "seed": 20260713,
+    "tree_name": "Events"
+  },
+  "samples": [
+    {
+      "name": "DYJetsToLL",
+      "input": {
+        "path": "/eos/opendata/cms/mc/RunIISummer20UL17NanoAODv9/DYJetsToLL_M-50_TuneCP5_13TeV-madgraphMLM-pythia8/NANOAODSIM/106X_mc2017_realistic_v9-v1/280000/3183559F-C042-5944-84D4-63F2E7CF0D0F.root",
+        "recursive": false
+      },
+      "output": {
+        "directory": "/eos/cms/store/group/phys_bphys/trigger/yiyangz-contact/h4l/cms_opendata_2017_full_production_regenerated_raw_v1/nanoaod_modified/DYJetsToLL/280000",
+        "suffix": "_scale_smear_regenerated_v1",
+        "overwrite": false
+      }
+    }
+  ],
+  "branches": {
+    "event_id": {
+      "run": "run",
+      "luminosityBlock": "luminosityBlock",
+      "event": "event"
+    },
+    "muon": {
+      "count": "nMuon",
+      "pt": "Muon_pt",
+      "eta": "Muon_eta",
+      "phi": "Muon_phi",
+      "mass": "Muon_mass",
+      "energy": null
+    },
+    "electron": {
+      "count": "nElectron",
+      "pt": "Electron_pt",
+      "eta": "Electron_eta",
+      "phi": "Electron_phi",
+      "mass": "Electron_mass",
+      "energy": null
+    }
+  },
+  "scale": {
+    "_description": "Bounded downward pT response: scale_factor = 1 - offset - pt_coefficient*x^2/(1+x^2) - eta_coefficient*y^2/(1+y^2), where x=pT/pt_reference_GeV and y=eta/eta_reference.",
+    "_guarantee": "For pT>0, the response is below the original pT and remains strictly increasing. The injector rejects saturating_downward parameters that violate its global positivity or monotonicity bounds.",
+    "function": "saturating_downward",
+    "offset": 0.045,
+    "pt_coefficient": 0.01,
+    "pt_reference_GeV": 100.0,
+    "eta_coefficient": 0.02,
+    "eta_reference": 2.5
+  },
+  "smear": {
+    "pt_relative_sigma": 0.025,
+    "eta_sigma": 0.025,
+    "phi_sigma": 0.025
+  },
+  "validation": {
+    "plots": true,
+    "directory": "/eos/cms/store/group/phys_bphys/trigger/yiyangz-contact/h4l/cms_opendata_2017_full_production_regenerated_raw_v1/task_summaries/nanoaod_response/DYJetsToLL/280000/3183559F-C042-5944-84D4-63F2E7CF0D0F",
+    "h4l_selection": true,
+    "h4l_chunk_size": 50000,
+    "histogram_bins": 60,
+    "pt_max_GeV": 250.0,
+    "energy_max_GeV": 400.0,
+    "h4l_mass_max_GeV": 300.0
+  }
+}
