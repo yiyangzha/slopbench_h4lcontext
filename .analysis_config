@@ -1,0 +1,6 @@
+# The isolation hook allows access to these directories.
+# Set data_dir to the path where your input ROOT files live.
+# Add extra allow= lines for additional paths (one per line).
+data_dir=/eos/cms/store/group/phys_bphys/trigger/yiyangz-contact/h4l/cms_opendata_2017_full_production/fake_data
+h4l_mc_dir=/eos/cms/store/group/phys_bphys/trigger/yiyangz-contact/h4l/cms_opendata_2017_full_production/h4l_mc_nominal
+dilep_mc_dir=/eos/cms/store/group/phys_bphys/trigger/yiyangz-contact/h4l/cms_opendata_2017_full_production/dilep_mc_nominal
