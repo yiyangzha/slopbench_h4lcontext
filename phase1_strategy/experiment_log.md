@@ -19,3 +19,8 @@
 
 - Wrote `review/arbiter/PHASE1_ARBITER.md` after independently checking the strategy, all reviews, the applicable conventions and review methodology, the missing commitment ledger, and the current ntuplizer object availability.
 - Verdict: **ITERATE**. The Phase 1 strategy must resolve raw-object VBF/FSR feasibility, predictive DY-fake modelling, the commitment/systematics ledger, the numerical lepton-scale sanity contract, and published-method parity; no Phase 1 regression trigger or escalation is applicable yet.
+
+## 2026-07-15 — Critical re-review completed
+
+- Wrote `review/critical/PHASE1_REREVIEW_CRITICAL.md` after reviewing the original panel/arbiter artifacts, `STRATEGY_v2.md`, `COMMITMENTS.md`, raw-object feasibility record, preflight JSON, source code, and experiment/session logs.
+- A read-only direct check finds zero `Jet_*`, `Photon_*`, and `FsrPhoton_*` branches in both supplied fake-data candidate products, while the persisted raw-object pilot verifies an MC-only route. The revised strategy contracts resolve the original planning defects, but the missing matching raw-data NanoAOD/manifest remains Category A and blocks Phase 1 advancement without a proxy/downscope.
