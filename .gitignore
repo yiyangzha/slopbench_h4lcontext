@@ -1,0 +1,10 @@
+# pixi
+.pixi/
+pixi.lock
+
+# Python
+__pycache__/
+*.pyc
+
+# SLURM logs
+.slurm_*.out
