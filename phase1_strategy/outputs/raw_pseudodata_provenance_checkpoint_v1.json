@@ -1,0 +1,49 @@
+{
+  "schema_version": 1,
+  "created_utc": "2026-07-15T20:54:00+02:00",
+  "status": "source_resolved_pending_raw_scan",
+  "scope": "Read-only provenance checkpoint for synthetic fake_data_10fb.root; this is not a collision-data provenance claim.",
+  "fake_data": {
+    "path": "/eos/cms/store/group/phys_bphys/trigger/yiyangz-contact/h4l/cms_opendata_2017_full_production/fake_data/fake_data_10fb.root",
+    "tree": "h4lTree",
+    "rows": 652,
+    "unique_run_lumi_event": 652,
+    "raw_object_branches_in_flat_tree": 0
+  },
+  "documented_mixer_provenance": {
+    "summary": "/eos/home-y/yiyangz/codex/slopbench_code/results/cms_opendata_2017_full_production/fake_data/mixer_10fb_summary.json",
+    "manifest": "/eos/home-y/yiyangz/codex/slopbench_code/results/cms_opendata_2017_full_production/modified_h4l_mixer_manifest.json",
+    "mixer": "benchmark/h4l_mixer",
+    "source_kind": "modified",
+    "input_product_root": "h4l_mc_modified",
+    "manifest_flat_files": 400
+  },
+  "flat_source_join": {
+    "rows_with_at_least_one_run_lumi_event_match": 652,
+    "run_lumi_event_match_multiplicity": {
+      "1": 634,
+      "2": 14,
+      "3": 4
+    },
+    "collision_identifiers": 18,
+    "collision_candidate_entries": 40,
+    "collision_resolution": "All 18 collision identifiers have exactly one exact match after comparison of all 111 copied H4l branches.",
+    "resolved_rows": 652
+  },
+  "raw_scan_plan": {
+    "candidate_nanoaod_product_root": "nanoaod_modified",
+    "resolved_raw_files": 202,
+    "expected_exact_matches": 652,
+    "required_branch_groups": [
+      "run/luminosityBlock/event",
+      "Jet_pt/eta/phi/mass/jetId/rawFactor/btagDeepFlavB",
+      "FsrPhoton_pt/eta/phi/relIso03/muonIdx",
+      "Photon_pt/eta/phi/pfRelIso03_all",
+      "Muon and Electron four-vector inputs"
+    ]
+  },
+  "limitations": [
+    "The documented source chain is modified MC pseudo-data, not collision data.",
+    "A bare (run,lumi,event) key is not globally unique across the synthetic source list; a source token must be persisted for future one-to-one joins."
+  ]
+}

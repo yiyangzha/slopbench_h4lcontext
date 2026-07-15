@@ -1,0 +1,140 @@
+{
+  "schema_version": "v2",
+  "status": "partial_raw_pseudodata_coverage",
+  "generated_on": "2026-07-15",
+  "scope": {
+    "fake_data_file": "/eos/cms/store/group/phys_bphys/trigger/yiyangz-contact/h4l/cms_opendata_2017_full_production/fake_data/fake_data_10fb.root",
+    "fake_tree": "h4lTree",
+    "fake_rows": 652,
+    "fake_identity_columns": [
+      "run",
+      "lumi",
+      "event"
+    ],
+    "fake_raw_object_branch_count": 0,
+    "interpretation": "Synthetic pseudo-data, not collision data."
+  },
+  "producer_provenance": {
+    "contract": "/eos/home-y/yiyangz/codex/slopbench_code/AGENTS.md",
+    "mixer_summary": "/eos/home-y/yiyangz/codex/slopbench_code/results/cms_opendata_2017_full_production/fake_data/mixer_10fb_summary.json",
+    "manifest": "/eos/home-y/yiyangz/codex/slopbench_code/results/cms_opendata_2017_full_production/modified_h4l_mixer_manifest.json",
+    "source_kind": "modified",
+    "flat_source_directory": "h4l_mc_modified",
+    "flat_source_files": 400,
+    "mixer_output_contract": "The mixer copies the data-like flat H4l payload and does not persist a source-file token."
+  },
+  "flat_source_join": {
+    "join_key_initially_tested": [
+      "run",
+      "lumi",
+      "event"
+    ],
+    "identities_found_in_manifest_sources": 652,
+    "candidate_multiplicity": {
+      "one_candidate": 634,
+      "two_candidates": 14,
+      "three_candidates": 4
+    },
+    "ambiguous_identity_count": 18,
+    "ambiguous_candidate_entry_count": 40,
+    "disambiguation": "For each ambiguous identity, compare all 111 copied fake-data h4lTree branches to the candidate modified-H4l entry. Every fake row had exactly one full-payload match.",
+    "unresolved_rows": 0,
+    "resolved_raw_counterparts": 202,
+    "caveat": "(run,lumi,event) alone is not a one-to-one source key; reproducible production must persist a source-file/source-entry token or equivalent mapping."
+  },
+  "raw_identity_and_schema_scan": {
+    "method": "Single serial, read-only Uproot scan of only the 202 raw paths derived from full-payload-resolved h4l_mc_modified sources. Events were read in 50 MB identity chunks.",
+    "raw_tree": "Events",
+    "raw_entries_scanned": 207806094,
+    "expected_identity_matches": 652,
+    "exact_identity_matches": 647,
+    "missing_identity_matches": 5,
+    "duplicate_identity_matches": 0,
+    "missing_fake_rows": [
+      {
+        "run": 1,
+        "lumi": 559,
+        "event": 215650
+      },
+      {
+        "run": 1,
+        "lumi": 390917,
+        "event": 97729202
+      },
+      {
+        "run": 1,
+        "lumi": 927325,
+        "event": 231831246
+      },
+      {
+        "run": 1,
+        "lumi": 672725,
+        "event": 168181225
+      },
+      {
+        "run": 1,
+        "lumi": 1739,
+        "event": 670997
+      }
+    ],
+    "unavailable_raw_files": [
+      {
+        "path": "/eos/cms/store/group/phys_bphys/trigger/yiyangz-contact/h4l/cms_opendata_2017_full_production/nanoaod_modified/DYJetsToLL/280000/3183559F-C042-5944-84D4-63F2E7CF0D0F_scale_smear.root",
+        "target_rows": 3,
+        "condition": "ROOT file opens but has no keys and no Events tree."
+      },
+      {
+        "path": "/eos/cms/store/group/phys_bphys/trigger/yiyangz-contact/h4l/cms_opendata_2017_full_production/nanoaod_modified/GluGluToHToZZ/2430000/78FC46EA-1FB7-3B4B-8BDC-A2F62B73F44A_scale_smear.root",
+        "target_rows": 2,
+        "condition": "ROOT file opens but has no keys and no Events tree."
+      }
+    ],
+    "required_schema": {
+      "identity": [
+        "run",
+        "luminosityBlock",
+        "event"
+      ],
+      "jets": [
+        "Jet_pt",
+        "Jet_eta",
+        "Jet_phi",
+        "Jet_mass",
+        "Jet_jetId",
+        "Jet_rawFactor",
+        "Jet_btagDeepFlavB"
+      ],
+      "fsr_photons": [
+        "FsrPhoton_pt",
+        "FsrPhoton_eta",
+        "FsrPhoton_phi",
+        "FsrPhoton_relIso03",
+        "FsrPhoton_muonIdx"
+      ],
+      "photons": [
+        "Photon_pt",
+        "Photon_eta",
+        "Photon_phi",
+        "Photon_pfRelIso03_all"
+      ],
+      "leptons": [
+        "Muon_pt",
+        "Muon_eta",
+        "Muon_phi",
+        "Muon_mass",
+        "Electron_pt",
+        "Electron_eta",
+        "Electron_phi",
+        "Electron_mass"
+      ]
+    },
+    "readable_raw_files": 200,
+    "schema_failures_among_readable_files": 0,
+    "schema_scope": "Presence-only check; it does not validate object semantics, calibration provenance, or downstream reconstruction quality."
+  },
+  "decision": {
+    "pseudo_data_raw_object_status": "Partial only: 647/652 rows have unique raw identity matches and the required branch presence, while five rows cannot be recovered from their selected raw counterparts.",
+    "collision_data_status": "Unresolved. This scan uses modified MC only and must not be represented as a collision-data substitution.",
+    "required_next_step": "Investigate documented replicas/alternate raw basenames for the two unavailable files. If none exists, keep a five-row object-unavailable record and obtain an explicit strategy/physics-owner decision before using a 647-row subset."
+  }
+}

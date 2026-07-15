@@ -1,0 +1,84 @@
+{
+  "schema_version": "v1",
+  "generated_on": "2026-07-15",
+  "purpose": "Targeted follow-up for the two unavailable modified-NanoAOD counterparts in raw_pseudodata_provenance_v2.json.",
+  "search_scope": {
+    "rule": "Only the full-payload-resolved modified-H4l source files and their documented production inputs were examined. No event was substituted.",
+    "modified_raw_replica_result": "No alternate basename or replica was found in the owner production tree. Each UUID has exactly one nanoaod_modified path, the unavailable path already recorded in the v2 scan."
+  },
+  "unavailable_modified_raw_files": [
+    {
+      "sample": "DYJetsToLL",
+      "modified_raw": "/eos/cms/store/group/phys_bphys/trigger/yiyangz-contact/h4l/cms_opendata_2017_full_production/nanoaod_modified/DYJetsToLL/280000/3183559F-C042-5944-84D4-63F2E7CF0D0F_scale_smear.root",
+      "documented_original_raw": "/eos/opendata/cms/mc/RunIISummer20UL17NanoAODv9/DYJetsToLL_M-50_TuneCP5_13TeV-madgraphMLM-pythia8/NANOAODSIM/106X_mc2017_realistic_v9-v1/280000/3183559F-C042-5944-84D4-63F2E7CF0D0F.root",
+      "affected_fake_rows": [
+        {
+          "run": 1,
+          "lumi": 390917,
+          "event": 97729202
+        },
+        {
+          "run": 1,
+          "lumi": 927325,
+          "event": 231831246
+        },
+        {
+          "run": 1,
+          "lumi": 672725,
+          "event": 168181225
+        }
+      ],
+      "original_raw_check": {
+        "events": 1283487,
+        "exact_identity_matches": 3,
+        "required_object_schema_missing": []
+      },
+      "failed_production_evidence": "/eos/home-y/yiyangz/codex/slopbench_code/results/cms_opendata_2017_full_production/condor/nanoaod_response/runs/20260713T120732Z_2133781/logs/DYJetsToLL__280000__3183559F-C042-5944-84D4-63F2E7CF0D0F.949114.240.err",
+      "failure_message": "SysError in <TFile::Flush>: error flushing file ..._scale_smear.root No such device"
+    },
+    {
+      "sample": "GluGluToHToZZ",
+      "modified_raw": "/eos/cms/store/group/phys_bphys/trigger/yiyangz-contact/h4l/cms_opendata_2017_full_production/nanoaod_modified/GluGluToHToZZ/2430000/78FC46EA-1FB7-3B4B-8BDC-A2F62B73F44A_scale_smear.root",
+      "documented_original_raw": "/eos/opendata/cms/mc/RunIISummer20UL17NanoAODv9/GluGluHToZZTo4L_M125_TuneCP5_13TeV_powheg2_minloHJJ_JHUGenV7011_pythia8/NANOAODSIM/106X_mc2017_realistic_v9-v2/2430000/78FC46EA-1FB7-3B4B-8BDC-A2F62B73F44A.root",
+      "affected_fake_rows": [
+        {
+          "run": 1,
+          "lumi": 559,
+          "event": 215650
+        },
+        {
+          "run": 1,
+          "lumi": 1739,
+          "event": 670997
+        }
+      ],
+      "original_raw_check": {
+        "events": 827970,
+        "exact_identity_matches": 2,
+        "required_object_schema_missing": []
+      },
+      "failed_production_evidence": "/eos/home-y/yiyangz/codex/slopbench_code/results/cms_opendata_2017_full_production/condor/nanoaod_response/runs/20260713T120732Z_2133781/logs/GluGluToHToZZ__2430000__78FC46EA-1FB7-3B4B-8BDC-A2F62B73F44A.949114.2.err",
+      "failure_message": "SysError in <TFile::Flush>: error flushing file ..._scale_smear.root No such device"
+    }
+  ],
+  "original_raw_is_not_a_substitute": {
+    "reason": "The fake-data rows came from the scale/smear-modified H4l chain, while the documented available originals are the pre-response NanoAOD inputs.",
+    "production_config": "/eos/home-y/yiyangz/codex/slopbench_code/results/cms_opendata_2017_full_production/condor/nanoaod_response/tasks",
+    "modified_vs_nominal_h4l_comparison": {
+      "all_five_rows": "At minimum, mZ1, mZ2, m4l, pt4l, eta4l, phi4l, y4l, and the pT/eta/phi values of all four selected leptons differ.",
+      "four_rows": {
+        "changed_branch_count": 19
+      },
+      "row_1_927325_231831246": {
+        "changed_branch_count": 37,
+        "additional_changed_content": "Selected-lepton charge, PDG ID, impact-parameter, and isolation quantities also differ."
+      }
+    },
+    "conclusion": "Even though the originals contain the event IDs and object schema, using them would mix pre-response raw objects with response-modified fake H4l values. It is not an event-faithful replacement."
+  },
+  "disposition": {
+    "full_pseudodata_vbf_fsr_validation": "Blocked pending repair/regeneration of the two modified-NanoAOD files and a repeat exact-coverage check.",
+    "subset_of_647": "May be used only as a clearly labelled engineering diagnostic after an explicit owner decision. It is not a complete pseudo-data validation or a physics result: the missing 0.77% is process-specific and cannot be silently dropped.",
+    "recommended_non_destructive_fix": "Re-run the documented nanoaod_response tasks from the two original NanoAOD inputs to new, validated output paths; then rebuild the modified H4l/fake-data provenance map or prove event-level compatibility before replacing any production artifact."
+  }
+}
