@@ -1,4 +1,4 @@
-# Analysis Title: H=>4L Mass measurment with CMS Open Data
+# Analysis Title: H->4L measurment with CMS Open Data
 
 Perform a complete H→4ℓ analysis with key observable distributions, a VBF category, an angular-variable neural-network discriminant in the four-lepton rest frame, and a simultaneous multi-category fit for mH and μ; use DY+jets MC as the fake-background model.
 
