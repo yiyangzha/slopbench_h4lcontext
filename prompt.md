@@ -1,4 +1,4 @@
-# Analysis Title: H=>4L Mass measurment with CMS Open Data
+# Analysis Title: H->4L measurment with CMS Open Data
 
 Perform a complete H→4ℓ analysis with key observable distributions, a VBF category, an angular-variable neural-network discriminant in the four-lepton rest frame, and a simultaneous multi-category fit for mH and μ; use DY+jets MC as the fake-background model.
 
@@ -10,7 +10,7 @@ Apply the resulting correction or an equivalent explicitly justified scale treat
 
 Quantify the residual scale uncertainty using statistically and methodologically defensible variations of the Z-peak calibration, including fit-model or binning/residual variations where relevant, then propagate it through m4l and the simultaneous mass fit as correlated nuisance parameters.
 
-Report the calibrated mH, its lepton-scale uncertainty contribution, and a numerical sanity check that this uncertainty is reasonable for 10 fb^-1 rather than merely quoting a nominal m4l mass.
+Report the calibrated mH and mu, their lepton-scale uncertainty contribution, and a numerical sanity check that this uncertainty is reasonable for 10 fb^-1 rather than merely quoting a nominal m4l mass.
 
 h4l data and MC are produced by ./ntuplizer/h4l_ntuplizer.cpp, while Z control data and MC are produced by ./ntuplizer/dilep_ntuplizer.cpp.
 
