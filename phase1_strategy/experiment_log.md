@@ -14,3 +14,8 @@
 ## 2026-07-15 — Constructive review completed
 
 - Wrote `review/constructive/PHASE1_CONSTRUCTIVE_REVIEW.md` with an ITERATE verdict. The review finds the planned angular NN viable at candidate level, but requires a demonstrable raw-object VBF/FSR route, predictive DY-fake transfer and closure, `COMMITMENTS.md`, and a numerical 10 fb$^{-1}$ lepton-scale sanity test before Phase 1 can pass.
+
+## 2026-07-15 — Arbiter adjudication completed
+
+- Wrote `review/arbiter/PHASE1_ARBITER.md` after independently checking the strategy, all reviews, the applicable conventions and review methodology, the missing commitment ledger, and the current ntuplizer object availability.
+- Verdict: **ITERATE**. The Phase 1 strategy must resolve raw-object VBF/FSR feasibility, predictive DY-fake modelling, the commitment/systematics ledger, the numerical lepton-scale sanity contract, and published-method parity; no Phase 1 regression trigger or escalation is applicable yet.
