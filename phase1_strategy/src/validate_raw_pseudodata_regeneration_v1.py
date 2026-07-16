@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import gc
 import hashlib
 import json
 import logging
@@ -207,13 +208,20 @@ def source_raw_from_h4l(source_h4l: Path) -> Path:
     return Path(source.replace("/h4l_mc_modified/", "/nanoaod_modified/").removesuffix("_h4l.root") + ".root")
 
 
-def h4l_sources_with_repairs() -> tuple[list[Path], dict[str, str]]:
-    """Load mixer inputs and substitute only the two verified repair outputs."""
+def h4l_sources_with_repairs(
+    repaired_samples: set[str] | None = None,
+) -> tuple[list[Path], dict[str, str]]:
+    """Load mixer inputs and substitute an explicitly selected repair subset."""
     require_existing(MIXER_MANIFEST, "Modified-H4l mixer manifest")
     manifest = json.loads(MIXER_MANIFEST.read_text())
+    selected_samples = set(REPAIRS) if repaired_samples is None else repaired_samples
+    unknown_samples = selected_samples.difference(REPAIRS)
+    if unknown_samples:
+        raise RuntimeError(f"Unknown repair samples: {sorted(unknown_samples)}")
     original_to_repaired = {
         str(spec["original_h4l"]): str(spec["repaired_h4l"])
-        for spec in REPAIRS.values()
+        for sample, spec in REPAIRS.items()
+        if sample in selected_samples
     }
     source_paths: list[Path] = []
     for sample in manifest["samples"]:
@@ -241,7 +249,10 @@ def compare_raw_pair(sample: str, spec: dict[str, Any]) -> dict[str, Any]:
     repaired = spec["repaired_raw"]
     require_existing(original, f"{sample} original NanoAOD")
     require_existing(repaired, f"{sample} regenerated NanoAOD")
-    with uproot.open(original) as source_file, uproot.open(repaired) as repaired_file:
+    with (
+        uproot.open(original, object_cache=None, array_cache=None) as source_file,
+        uproot.open(repaired, object_cache=None, array_cache=None) as repaired_file,
+    ):
         if "Events" not in source_file or "Events" not in repaired_file:
             raise RuntimeError(f"{sample} is missing an Events tree after regeneration")
         source_tree = source_file["Events"]
@@ -299,35 +310,64 @@ def compare_raw_pair(sample: str, spec: dict[str, Any]) -> dict[str, Any]:
         mismatch_fields: set[str] = set()
         changed_values = {field: 0 for field in sorted(EXPECTED_MUTATED_FIELDS)}
         total_values = {field: 0 for field in sorted(EXPECTED_MUTATED_FIELDS)}
-        chunk_size = 50_000
+        # A full NanoAOD record has 1,666 branches.  Compare bounded branch
+        # batches so both files can be checked exactly without materializing
+        # two complete event records in memory.
+        chunk_size = 2_000
+        branch_batch_size = 32
+        unchanged_groups = (
+            ("nonlepton", nonlepton_fields),
+            ("unchanged_lepton", unchanged_lepton_fields),
+        )
         for start in range(0, source_tree.num_entries, chunk_size):
             stop = min(start + chunk_size, source_tree.num_entries)
+            for group_name, group_fields in unchanged_groups:
+                for batch_start in range(0, len(group_fields), branch_batch_size):
+                    batch_fields = group_fields[batch_start : batch_start + branch_batch_size]
+                    source_arrays = source_tree.arrays(
+                        batch_fields, entry_start=start, entry_stop=stop, library="ak"
+                    )
+                    repaired_arrays = repaired_tree.arrays(
+                        batch_fields, entry_start=start, entry_stop=stop, library="ak"
+                    )
+                    mismatched = [
+                        field
+                        for field in batch_fields
+                        if not equal_awkward(source_arrays[field], repaired_arrays[field])
+                    ]
+                    if mismatched:
+                        mismatch_fields.update(mismatched)
+                        if group_name == "nonlepton":
+                            nonlepton_exact = False
+                        else:
+                            unchanged_lepton_exact = False
+                    del source_arrays, repaired_arrays
+                    gc.collect()
             source_arrays = source_tree.arrays(
-                source_branches, entry_start=start, entry_stop=stop, library="ak"
+                sorted(EXPECTED_MUTATED_FIELDS),
+                entry_start=start,
+                entry_stop=stop,
+                library="ak",
             )
             repaired_arrays = repaired_tree.arrays(
-                source_branches, entry_start=start, entry_stop=stop, library="ak"
+                sorted(EXPECTED_MUTATED_FIELDS),
+                entry_start=start,
+                entry_stop=stop,
+                library="ak",
             )
-            if not equal_awkward(source_arrays[nonlepton_fields], repaired_arrays[nonlepton_fields]):
-                nonlepton_exact = False
-                mismatch_fields.update(
-                    field
-                    for field in nonlepton_fields
-                    if not equal_awkward(source_arrays[field], repaired_arrays[field])
-                )
-            if not equal_awkward(
-                source_arrays[unchanged_lepton_fields], repaired_arrays[unchanged_lepton_fields]
-            ):
-                unchanged_lepton_exact = False
-                mismatch_fields.update(
-                    field
-                    for field in unchanged_lepton_fields
-                    if not equal_awkward(source_arrays[field], repaired_arrays[field])
-                )
             for field in EXPECTED_MUTATED_FIELDS:
                 changed, total = flat_changed_values(source_arrays[field], repaired_arrays[field])
                 changed_values[field] += changed
                 total_values[field] += total
+            del source_arrays, repaired_arrays
+            gc.collect()
+            if start % (10 * chunk_size) == 0:
+                log.info(
+                    "Compared %s raw content through entry %d/%d.",
+                    sample,
+                    stop,
+                    source_tree.num_entries,
+                )
         if not nonlepton_exact or not unchanged_lepton_exact or mismatch_fields:
             raise RuntimeError(
                 f"{sample} has unexpected unchanged-content differences in "
@@ -452,7 +492,7 @@ def compare_h4l_pair(sample: str, spec: dict[str, Any]) -> dict[str, Any]:
 
 def resolve_fake_sources(
     h4l_sources: list[Path], original_to_repaired: dict[str, str]
-) -> tuple[dict[str, np.ndarray], list[dict[str, Any]]]:
+) -> tuple[dict[str, np.ndarray], list[dict[str, Any]], dict[str, Any]]:
     """Resolve every fake row by identity plus exact payload, preserving source tokens."""
     require_existing(FAKE_DATA, "Synthetic pseudo-data H4l file")
     with uproot.open(FAKE_DATA) as fake_file:
@@ -467,21 +507,31 @@ def resolve_fake_sources(
     sorted_indices = np.argsort(fake_keys)
     sorted_fake_keys = fake_keys[sorted_indices]
     candidates: dict[int, list[tuple[Path, int]]] = defaultdict(list)
+    unavailable_sources: list[dict[str, str]] = []
+    readable_sources = 0
     for source_number, source_path in enumerate(h4l_sources, start=1):
-        require_existing(source_path, "Modified-H4l mixer source")
-        with uproot.open(source_path) as source_file:
-            tree = source_file["h4lTree"]
-            if list(tree.keys()) != fields:
-                raise RuntimeError(f"H4l source schema differs from fake schema: {source_path}")
-            entry_start = 0
-            for ids in tree.iterate(FAKE_IDENTITY_FIELDS, library="np", step_size="50 MB"):
-                source_keys = event_keys(ids["run"], ids["lumi"], ids["event"])
-                rows, positions = first_matching_positions(sorted_fake_keys, source_keys)
-                for row, position in zip(rows, positions, strict=True):
-                    candidates[int(sorted_indices[position])].append(
-                        (source_path, entry_start + int(row))
-                    )
-                entry_start += len(source_keys)
+        try:
+            require_existing(source_path, "Modified-H4l mixer source")
+            with uproot.open(source_path, object_cache=None, array_cache=None) as source_file:
+                if "h4lTree" not in source_file:
+                    unavailable_sources.append({"path": str(source_path), "reason": "missing h4lTree"})
+                    continue
+                tree = source_file["h4lTree"]
+                if list(tree.keys()) != fields:
+                    raise RuntimeError(f"H4l source schema differs from fake schema: {source_path}")
+                entry_start = 0
+                for ids in tree.iterate(FAKE_IDENTITY_FIELDS, library="np", step_size="10 MB"):
+                    source_keys = event_keys(ids["run"], ids["lumi"], ids["event"])
+                    rows, positions = first_matching_positions(sorted_fake_keys, source_keys)
+                    for row, position in zip(rows, positions, strict=True):
+                        candidates[int(sorted_indices[position])].append(
+                            (source_path, entry_start + int(row))
+                        )
+                    entry_start += len(source_keys)
+            readable_sources += 1
+        except (FileNotFoundError, OSError) as error:
+            unavailable_sources.append({"path": str(source_path), "reason": str(error)})
+        gc.collect()
         if source_number % 50 == 0:
             log.info("Resolved identity candidates from %d/%d H4l mixer files.", source_number, len(h4l_sources))
 
@@ -497,7 +547,8 @@ def resolve_fake_sources(
                 exact.append((source_path, source_entry))
         if len(exact) != 1:
             raise RuntimeError(
-                f"Fake row {key_tuple(fake_keys[fake_index])} has {len(exact)} exact full-payload source matches"
+                f"Fake row {key_tuple(fake_keys[fake_index])} has {len(exact)} exact full-payload "
+                f"source matches with {len(unavailable_sources)} unavailable mixer sources"
             )
         source_path, source_entry = exact[0]
         prior_source = next(
@@ -517,7 +568,11 @@ def resolve_fake_sources(
                 "raw_entry": None,
             }
         )
-    return fake_arrays, mapping
+    return fake_arrays, mapping, {
+        "manifest_sources": len(h4l_sources),
+        "readable_h4l_sources": readable_sources,
+        "unavailable_h4l_sources": unavailable_sources,
+    }
 
 
 def repeat_complete_raw_scan(mapping: list[dict[str, Any]]) -> dict[str, Any]:
@@ -599,7 +654,7 @@ def main() -> None:
         log.info("Passed response, raw-content, and H4l checks for %s.", sample)
 
     h4l_sources, original_to_repaired = h4l_sources_with_repairs()
-    fake_arrays, mapping = resolve_fake_sources(h4l_sources, original_to_repaired)
+    fake_arrays, mapping, h4l_source_scan = resolve_fake_sources(h4l_sources, original_to_repaired)
     affected = {
         identity
         for spec in REPAIRS.values()
@@ -620,6 +675,7 @@ def main() -> None:
         "fake_data": str(FAKE_DATA),
         "fake_rows": len(mapping),
         "h4l_payload_fields_compared": len(fake_arrays),
+        "mixer_h4l_source_scan": h4l_source_scan,
         "mapping": mapping,
     }
     result = {
@@ -637,6 +693,7 @@ def main() -> None:
             "payload_fields_compared": len(fake_arrays),
             "affected_rows_resolved_to_regenerated_h4l": len(resolved_affected),
             "source_token_manifest": str(MAPPING_OUTPUT),
+            "mixer_h4l_source_scan": h4l_source_scan,
         },
         "complete_raw_identity_schema_scan": raw_scan,
         "collision_data_status": "unresolved; repaired sources are modified-MC pseudo-data only",

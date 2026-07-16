@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "purpose": "DY-only gate before the ggH response repair; each listed row is an exact 111-field pseudo-data/H4l payload match.",
+  "fake_rows_examined_for_full_payload_resolution": 652,
+  "h4l_payload_fields_compared": 111,
+  "mixer_h4l_source_scan": {
+    "manifest_sources": 400,
+    "readable_h4l_sources": 400,
+    "unavailable_h4l_sources": []
+  },
+  "affected_dy_rows": [
+    {
+      "fake_row": 347,
+      "run": 1,
+      "lumi": 390917,
+      "event": 97729202,
+      "source_h4l_file": "/eos/cms/store/group/phys_bphys/trigger/yiyangz-contact/h4l/cms_opendata_2017_full_production_regenerated_raw_v1/h4l_mc_modified/DYJetsToLL/280000/3183559F-C042-5944-84D4-63F2E7CF0D0F_scale_smear_regenerated_v1_h4l.root",
+      "prior_source_h4l_file": "/eos/cms/store/group/phys_bphys/trigger/yiyangz-contact/h4l/cms_opendata_2017_full_production/h4l_mc_modified/DYJetsToLL/280000/3183559F-C042-5944-84D4-63F2E7CF0D0F_scale_smear_h4l.root",
+      "source_h4l_entry": 0,
+      "raw_file": "/eos/cms/store/group/phys_bphys/trigger/yiyangz-contact/h4l/cms_opendata_2017_full_production_regenerated_raw_v1/nanoaod_modified/DYJetsToLL/280000/3183559F-C042-5944-84D4-63F2E7CF0D0F_scale_smear_regenerated_v1.root",
+      "raw_entry": null
+    },
+    {
+      "fake_row": 430,
+      "run": 1,
+      "lumi": 927325,
+      "event": 231831246,
+      "source_h4l_file": "/eos/cms/store/group/phys_bphys/trigger/yiyangz-contact/h4l/cms_opendata_2017_full_production_regenerated_raw_v1/h4l_mc_modified/DYJetsToLL/280000/3183559F-C042-5944-84D4-63F2E7CF0D0F_scale_smear_regenerated_v1_h4l.root",
+      "prior_source_h4l_file": "/eos/cms/store/group/phys_bphys/trigger/yiyangz-contact/h4l/cms_opendata_2017_full_production/h4l_mc_modified/DYJetsToLL/280000/3183559F-C042-5944-84D4-63F2E7CF0D0F_scale_smear_h4l.root",
+      "source_h4l_entry": 1,
+      "raw_file": "/eos/cms/store/group/phys_bphys/trigger/yiyangz-contact/h4l/cms_opendata_2017_full_production_regenerated_raw_v1/nanoaod_modified/DYJetsToLL/280000/3183559F-C042-5944-84D4-63F2E7CF0D0F_scale_smear_regenerated_v1.root",
+      "raw_entry": null
+    },
+    {
+      "fake_row": 607,
+      "run": 1,
+      "lumi": 672725,
+      "event": 168181225,
+      "source_h4l_file": "/eos/cms/store/group/phys_bphys/trigger/yiyangz-contact/h4l/cms_opendata_2017_full_production_regenerated_raw_v1/h4l_mc_modified/DYJetsToLL/280000/3183559F-C042-5944-84D4-63F2E7CF0D0F_scale_smear_regenerated_v1_h4l.root",
+      "prior_source_h4l_file": "/eos/cms/store/group/phys_bphys/trigger/yiyangz-contact/h4l/cms_opendata_2017_full_production/h4l_mc_modified/DYJetsToLL/280000/3183559F-C042-5944-84D4-63F2E7CF0D0F_scale_smear_h4l.root",
+      "source_h4l_entry": 4,
+      "raw_file": "/eos/cms/store/group/phys_bphys/trigger/yiyangz-contact/h4l/cms_opendata_2017_full_production_regenerated_raw_v1/nanoaod_modified/DYJetsToLL/280000/3183559F-C042-5944-84D4-63F2E7CF0D0F_scale_smear_regenerated_v1.root",
+      "raw_entry": null
+    }
+  ]
+}

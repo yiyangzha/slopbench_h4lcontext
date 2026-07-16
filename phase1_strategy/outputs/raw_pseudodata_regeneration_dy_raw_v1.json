@@ -1,0 +1,112 @@
+{
+  "schema_version": 1,
+  "generated_utc": "2026-07-15T20:16:54.577607+00:00",
+  "status": "pass",
+  "scope": "DY-only regenerated modified-MC raw validation; not collision-data provenance.",
+  "response_validation": {
+    "config": "phase1_strategy/outputs/response_repair_dy_v1.json",
+    "validation_summary": "/eos/cms/store/group/phys_bphys/trigger/yiyangz-contact/h4l/cms_opendata_2017_full_production_regenerated_raw_v1/task_summaries/nanoaod_response/DYJetsToLL/280000/3183559F-C042-5944-84D4-63F2E7CF0D0F/lepton_response_summary.json",
+    "validation_histogram_sidecar": "/eos/cms/store/group/phys_bphys/trigger/yiyangz-contact/h4l/cms_opendata_2017_full_production_regenerated_raw_v1/task_summaries/nanoaod_response/DYJetsToLL/280000/3183559F-C042-5944-84D4-63F2E7CF0D0F/lepton_response_histograms.root",
+    "worker_execution_records": [
+      "/eos/cms/store/group/phys_bphys/trigger/yiyangz-contact/h4l/cms_opendata_2017_full_production_regenerated_raw_v1/task_summaries/nanoaod_response/DYJetsToLL/280000/3183559F-C042-5944-84D4-63F2E7CF0D0F/condor_dy_test_v1/task_execution_local.130.txt"
+    ],
+    "write_close_failure_strings_absent": true
+  },
+  "regenerated_raw_validation": {
+    "original_raw": "/eos/opendata/cms/mc/RunIISummer20UL17NanoAODv9/DYJetsToLL_M-50_TuneCP5_13TeV-madgraphMLM-pythia8/NANOAODSIM/106X_mc2017_realistic_v9-v1/280000/3183559F-C042-5944-84D4-63F2E7CF0D0F.root",
+    "repaired_raw": "/eos/cms/store/group/phys_bphys/trigger/yiyangz-contact/h4l/cms_opendata_2017_full_production_regenerated_raw_v1/nanoaod_modified/DYJetsToLL/280000/3183559F-C042-5944-84D4-63F2E7CF0D0F_scale_smear_regenerated_v1.root",
+    "events_entries": 1283487,
+    "events_tree_readable": true,
+    "original_to_repaired_identity_mapping": {
+      "complete": true,
+      "unique": true,
+      "source_unique": 1283487,
+      "repaired_unique": 1283487
+    },
+    "required_schema_missing": {
+      "identity": [],
+      "jets_raw_jec_jer_deepjet_inputs": [],
+      "fsr_photons": [],
+      "generic_photons": [],
+      "muons": [],
+      "electrons": []
+    },
+    "events_schema_and_types_exact": true,
+    "non_events_object_schema_exact": true,
+    "nonlepton_event_content_exact": true,
+    "unchanged_lepton_content_exact": true,
+    "configured_response_fields": {
+      "Electron_eta": {
+        "changed_values": 811360,
+        "total_values": 811361
+      },
+      "Electron_phi": {
+        "changed_values": 811358,
+        "total_values": 811361
+      },
+      "Electron_pt": {
+        "changed_values": 811360,
+        "total_values": 811361
+      },
+      "Muon_eta": {
+        "changed_values": 860379,
+        "total_values": 860383
+      },
+      "Muon_phi": {
+        "changed_values": 860380,
+        "total_values": 860383
+      },
+      "Muon_pt": {
+        "changed_values": 860383,
+        "total_values": 860383
+      }
+    },
+    "all_jet_branches_present": [
+      "Jet_area",
+      "Jet_bRegCorr",
+      "Jet_bRegRes",
+      "Jet_btagCSVV2",
+      "Jet_btagDeepB",
+      "Jet_btagDeepCvB",
+      "Jet_btagDeepCvL",
+      "Jet_btagDeepFlavB",
+      "Jet_btagDeepFlavCvB",
+      "Jet_btagDeepFlavCvL",
+      "Jet_btagDeepFlavQG",
+      "Jet_cRegCorr",
+      "Jet_cRegRes",
+      "Jet_chEmEF",
+      "Jet_chFPV0EF",
+      "Jet_chHEF",
+      "Jet_cleanmask",
+      "Jet_electronIdx1",
+      "Jet_electronIdx2",
+      "Jet_eta",
+      "Jet_genJetIdx",
+      "Jet_hadronFlavour",
+      "Jet_hfadjacentEtaStripsSize",
+      "Jet_hfcentralEtaStripSize",
+      "Jet_hfsigmaEtaEta",
+      "Jet_hfsigmaPhiPhi",
+      "Jet_jetId",
+      "Jet_mass",
+      "Jet_muEF",
+      "Jet_muonIdx1",
+      "Jet_muonIdx2",
+      "Jet_muonSubtrFactor",
+      "Jet_nConstituents",
+      "Jet_nElectrons",
+      "Jet_nMuons",
+      "Jet_neEmEF",
+      "Jet_neHEF",
+      "Jet_partonFlavour",
+      "Jet_phi",
+      "Jet_pt",
+      "Jet_puId",
+      "Jet_puIdDisc",
+      "Jet_qgl",
+      "Jet_rawFactor"
+    ]
+  },
+  "next_required_action": "Re-ntuplize the versioned DY raw file and prove the three affected pseudo-data rows agree before ggH submission."
+}

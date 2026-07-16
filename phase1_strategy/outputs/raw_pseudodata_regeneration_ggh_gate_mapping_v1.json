@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "purpose": "ggH-only gate before combined closure; each listed row is an exact 111-field pseudo-data/H4l payload match.",
+  "fake_rows_examined_for_full_payload_resolution": 652,
+  "h4l_payload_fields_compared": 111,
+  "mixer_h4l_source_scan": {
+    "manifest_sources": 400,
+    "readable_h4l_sources": 400,
+    "unavailable_h4l_sources": []
+  },
+  "affected_ggh_rows": [
+    {
+      "fake_row": 268,
+      "run": 1,
+      "lumi": 559,
+      "event": 215650,
+      "source_h4l_file": "/eos/cms/store/group/phys_bphys/trigger/yiyangz-contact/h4l/cms_opendata_2017_full_production_regenerated_raw_v1/h4l_mc_modified/GluGluToHToZZ/2430000/78FC46EA-1FB7-3B4B-8BDC-A2F62B73F44A_scale_smear_regenerated_v1_h4l.root",
+      "prior_source_h4l_file": "/eos/cms/store/group/phys_bphys/trigger/yiyangz-contact/h4l/cms_opendata_2017_full_production/h4l_mc_modified/GluGluToHToZZ/2430000/78FC46EA-1FB7-3B4B-8BDC-A2F62B73F44A_scale_smear_h4l.root",
+      "source_h4l_entry": 9088,
+      "raw_file": "/eos/cms/store/group/phys_bphys/trigger/yiyangz-contact/h4l/cms_opendata_2017_full_production_regenerated_raw_v1/nanoaod_modified/GluGluToHToZZ/2430000/78FC46EA-1FB7-3B4B-8BDC-A2F62B73F44A_scale_smear_regenerated_v1.root",
+      "raw_entry": null
+    },
+    {
+      "fake_row": 639,
+      "run": 1,
+      "lumi": 1739,
+      "event": 670997,
+      "source_h4l_file": "/eos/cms/store/group/phys_bphys/trigger/yiyangz-contact/h4l/cms_opendata_2017_full_production_regenerated_raw_v1/h4l_mc_modified/GluGluToHToZZ/2430000/78FC46EA-1FB7-3B4B-8BDC-A2F62B73F44A_scale_smear_regenerated_v1_h4l.root",
+      "prior_source_h4l_file": "/eos/cms/store/group/phys_bphys/trigger/yiyangz-contact/h4l/cms_opendata_2017_full_production/h4l_mc_modified/GluGluToHToZZ/2430000/78FC46EA-1FB7-3B4B-8BDC-A2F62B73F44A_scale_smear_h4l.root",
+      "source_h4l_entry": 11021,
+      "raw_file": "/eos/cms/store/group/phys_bphys/trigger/yiyangz-contact/h4l/cms_opendata_2017_full_production_regenerated_raw_v1/nanoaod_modified/GluGluToHToZZ/2430000/78FC46EA-1FB7-3B4B-8BDC-A2F62B73F44A_scale_smear_regenerated_v1.root",
+      "raw_entry": null
+    }
+  ]
+}

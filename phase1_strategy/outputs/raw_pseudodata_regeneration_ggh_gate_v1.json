@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "generated_utc": "2026-07-15T21:36:35.040003+00:00",
+  "status": "pass",
+  "scope": "ggH-only synthetic modified-MC pseudo-data repair gate; not collision-data provenance.",
+  "ggh_raw_validation_evidence": "phase1_strategy/outputs/raw_pseudodata_regeneration_ggh_raw_v1.json",
+  "regenerated_h4l_validation": {
+    "current_h4l": "/eos/cms/store/group/phys_bphys/trigger/yiyangz-contact/h4l/cms_opendata_2017_full_production/h4l_mc_modified/GluGluToHToZZ/2430000/78FC46EA-1FB7-3B4B-8BDC-A2F62B73F44A_scale_smear_h4l.root",
+    "regenerated_h4l": "/eos/cms/store/group/phys_bphys/trigger/yiyangz-contact/h4l/cms_opendata_2017_full_production_regenerated_raw_v1/h4l_mc_modified/GluGluToHToZZ/2430000/78FC46EA-1FB7-3B4B-8BDC-A2F62B73F44A_scale_smear_regenerated_v1_h4l.root",
+    "h4l_entries": 112300,
+    "h4l_fields": 111,
+    "all_source_entries_exact": true
+  },
+  "affected_ggh_pseudodata_agreement": {
+    "affected_rows": 2,
+    "exact_full_payload_matches": 2,
+    "payload_fields_compared": 111,
+    "source_token_manifest": "phase1_strategy/outputs/raw_pseudodata_regeneration_ggh_gate_mapping_v1.json",
+    "mixer_h4l_source_scan": {
+      "manifest_sources": 400,
+      "readable_h4l_sources": 400,
+      "unavailable_h4l_sources": []
+    }
+  },
+  "next_authorized_action": "Run the combined 652-row pseudo-data provenance validation."
+}

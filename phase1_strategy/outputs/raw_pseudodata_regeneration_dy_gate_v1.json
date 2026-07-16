@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "generated_utc": "2026-07-15T20:32:35.921199+00:00",
+  "status": "pass",
+  "scope": "DY-only synthetic modified-MC pseudo-data repair gate; not collision-data provenance.",
+  "dy_raw_validation_evidence": "phase1_strategy/outputs/raw_pseudodata_regeneration_dy_raw_v1.json",
+  "regenerated_h4l_validation": {
+    "current_h4l": "/eos/cms/store/group/phys_bphys/trigger/yiyangz-contact/h4l/cms_opendata_2017_full_production/h4l_mc_modified/DYJetsToLL/280000/3183559F-C042-5944-84D4-63F2E7CF0D0F_scale_smear_h4l.root",
+    "regenerated_h4l": "/eos/cms/store/group/phys_bphys/trigger/yiyangz-contact/h4l/cms_opendata_2017_full_production_regenerated_raw_v1/h4l_mc_modified/DYJetsToLL/280000/3183559F-C042-5944-84D4-63F2E7CF0D0F_scale_smear_regenerated_v1_h4l.root",
+    "h4l_entries": 6,
+    "h4l_fields": 111,
+    "all_source_entries_exact": true
+  },
+  "affected_dy_pseudodata_agreement": {
+    "affected_rows": 3,
+    "exact_full_payload_matches": 3,
+    "payload_fields_compared": 111,
+    "source_token_manifest": "phase1_strategy/outputs/raw_pseudodata_regeneration_dy_gate_mapping_v1.json",
+    "mixer_h4l_source_scan": {
+      "manifest_sources": 400,
+      "readable_h4l_sources": 400,
+      "unavailable_h4l_sources": []
+    }
+  },
+  "next_authorized_action": "Submit exactly one versioned ggH response task only after this pass record exists."
+}

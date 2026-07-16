@@ -1,0 +1,18 @@
+universe = vanilla
+executable = /eos/home-y/yiyangz/codex/slopbench_code/benchmark/production/run_h4l_ntuplizer_task.sh
+arguments = "h4l_repair_ggh_v1.json h4l_ntuplizer /eos/cms/store/group/phys_bphys/trigger/yiyangz-contact/h4l/cms_opendata_2017_full_production_regenerated_raw_v1/nanoaod_modified/GluGluToHToZZ/2430000/78FC46EA-1FB7-3B4B-8BDC-A2F62B73F44A_scale_smear_regenerated_v1.root /eos/cms/store/group/phys_bphys/trigger/yiyangz-contact/h4l/cms_opendata_2017_full_production_regenerated_raw_v1/h4l_mc_modified/GluGluToHToZZ/2430000/78FC46EA-1FB7-3B4B-8BDC-A2F62B73F44A_scale_smear_regenerated_v1_h4l.root GluGluToHToZZ modified 0.00602392 /eos/cms/store/group/phys_bphys/trigger/yiyangz-contact/h4l/cms_opendata_2017_full_production_regenerated_raw_v1/task_summaries/h4l_ntuplizer/modified/GluGluToHToZZ/2430000/78FC46EA-1FB7-3B4B-8BDC-A2F62B73F44A_scale_smear_regenerated_v1/condor_ggh_h4l_test_v1"
+should_transfer_files = YES
+when_to_transfer_output = ON_EXIT
+transfer_executable = True
+transfer_input_files = /eos/home-y/yiyangz/codex/slopbench_code/benchmark/h4l_ntuplizer,/eos/home-y/yiyangz/codex/jfc/analyses/h4l_hig/phase1_strategy/outputs/h4l_repair_ggh_v1.json
+transfer_output_files = ""
+output = /eos/home-y/yiyangz/codex/jfc/analyses/h4l_hig/phase1_strategy/outputs/raw_pseudodata_regeneration_v1/condor_h4l_ggh_test_v1/logs/ggh_h4l_test.$(ClusterId).$(ProcId).out
+error = /eos/home-y/yiyangz/codex/jfc/analyses/h4l_hig/phase1_strategy/outputs/raw_pseudodata_regeneration_v1/condor_h4l_ggh_test_v1/logs/ggh_h4l_test.$(ClusterId).$(ProcId).err
+log = /eos/home-y/yiyangz/codex/jfc/analyses/h4l_hig/phase1_strategy/outputs/raw_pseudodata_regeneration_v1/condor_h4l_ggh_test_v1/logs/cluster.$(ClusterId).log
+environment = "H4L_NTUPLIZER_TASK_ID=raw_pseudodata_regeneration_v1__GluGluToHToZZ__2430000__78FC46EA-1FB7-3B4B-8BDC-A2F62B73F44A__h4l"
++JobFlavour = "tomorrow"
+MY.WantOS = "el9"
+request_cpus = 1
+on_exit_hold = (ExitBySignal == True) || (ExitCode != 0)
+batch_name = raw_pseudodata_regeneration_v1_ggh_h4l_test
+queue 1
