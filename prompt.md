@@ -1,6 +1,6 @@
 # Analysis Title: H->4L measurment with CMS Open Data
 
-Perform a complete H→4ℓ analysis with key observable distributions, a VBF category, an angular-variable neural-network discriminant in the four-lepton rest frame, and a simultaneous multi-category fit for mH and μ; use DY+jets MC as the fake-background model.
+Perform a complete H→4ℓ analysis with key observable distributions, and a simultaneous fit for mH and μ. Use DY+jets MC as the fake-background model.
 
 Compare every meaningfully comparable result with JHEP 11 (2017) 047 / CMS-HIG-16-041 and the PDG/world average where available, state why any result is not comparable, and use the same mass-fit window as that publication.
 
