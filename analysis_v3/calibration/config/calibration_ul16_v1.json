@@ -1,0 +1,156 @@
+{
+ "schema": "h4l_v3_calibration_config/1",
+ "version": "calib_v1_interim_superseded",
+ "description": "Lepton momentum-scale and resolution calibration on Z->ll (AN-16-442 3.1.4 and 5.3 adapted to UL16 PFNano): MC template fits of the data in the leg-bin-pair categories (user decision 2026-09-24), per-lepton least squares, iterated with the data corrected and the MC smeared per lepton until the residuals vanish; BW (x) DCB + exponential fits for the AN-style validation and the lambda calibration.",
+ "extract": {
+  "comment": "Loose preselection of the compact pair ntuple, looser than every tight selection the calibration may use; the trigger is the analysis OR of the skim analysis configuration",
+  "trigger_or": "analysis_or",
+  "mass_window": [
+   50.0,
+   130.0
+  ],
+  "max_iso03": 1.0,
+  "max_sip": 10.0
+ },
+ "selection": {
+  "comment": "Control-pair legs: the AN tight lepton with the stage-2 floors.  Muon id an_tight: PF muon and (global, or tracker with a matched station); electron id: mvaFall17V2noIso WP90 until the stage-4b choice.  Thresholds apply to the transformed (data corrected, MC smeared) pT",
+  "muon": {
+   "min_pt": 3.0,
+   "max_abs_eta": 2.4,
+   "max_iso03": 0.35,
+   "max_sip": 4.0,
+   "id": "an_tight"
+  },
+  "electron": {
+   "min_pt": 5.0,
+   "max_abs_eta": 2.5,
+   "max_iso03": 0.35,
+   "max_sip": 4.0,
+   "id": "mvaFall17V2noIso_WP90"
+  }
+ },
+ "bins": {
+  "comment": "Lower pT edges; the terminal pT bin and the terminal eta bin are unbounded, internal boundaries half-open [low, high).  Electrons are binned in abs(eta_SC).  Bin index k = ipt * n_eta + ieta.",
+  "muon": {
+   "eta_variable": "abs_eta",
+   "pt_edges": [
+    3.0,
+    20.0,
+    30.0,
+    40.0,
+    50.0,
+    60.0,
+    100.0
+   ],
+   "eta_edges": [
+    0.0,
+    0.9,
+    1.5,
+    2.1
+   ]
+  },
+  "electron": {
+   "eta_variable": "abs_eta_sc",
+   "pt_edges": [
+    5.0,
+    20.0,
+    30.0,
+    40.0,
+    50.0,
+    60.0,
+    100.0
+   ],
+   "eta_edges": [
+    0.0,
+    1.0,
+    1.4442,
+    1.566,
+    2.0
+   ]
+  }
+ },
+ "histogram": {
+  "mass_range": [
+   45.0,
+   135.0
+  ],
+  "mass_bins": 360,
+  "mc_template_bins": 1800,
+  "comment": "Data role at mass_bins (0.25 GeV), MC role at mc_template_bins (0.05 GeV point masses of the templates); 1800/360 is an integer, so the MC rebins exactly to the data binning."
+ },
+ "lambda": {
+  "comment": "AN 5.3 categories of the per-event mass-uncertainty calibration: a leg's region from its abs(eta) (electrons abs(eta_SC)) and, for electrons, its relative pT error class; pairs fill the 2D (mass, predicted sigma_m/m) histogram of their unordered region pair",
+  "relative_error_bins": 200,
+  "relative_error_max": 0.05,
+  "muon": {
+   "eta_edges": [
+    0.0,
+    0.9,
+    1.8
+   ],
+   "rel_err_split": []
+  },
+  "electron": {
+   "eta_edges": [
+    0.0,
+    1.0
+   ],
+   "rel_err_split": [
+    0.03,
+    0.07
+   ]
+  }
+ },
+ "iteration": {
+  "max_iterations": 8,
+  "converged_sigma": 0.2
+ },
+ "report_point": {
+  "pt": 45.0,
+  "abs_eta": 1.2
+ },
+ "template_fit": {
+  "comment": "Window from the data mode ([mode - below, mode + above], clipped to window_clip inside the extraction window 50-130 GeV); kernel reference variance E_ref = kernel_reference_rel_sigma^2 of the MC point masses, exact template above it and second-order continuation below; E bounded to [-e_min_over_e_ref * E_ref, e_max], ln k to +-lnk_limit",
+  "mode_search": [
+   70.0,
+   110.0
+  ],
+  "smooth_bins": 9,
+  "below": 20.0,
+  "above": 15.0,
+  "window_clip": [
+   53.0,
+   125.0
+  ],
+  "kernel_reference_rel_sigma": 0.004,
+  "e_min_over_e_ref": 2.0,
+  "e_max": 0.0025,
+  "lnk_limit": 0.08,
+  "min_data_events": 300,
+  "min_mc_effective": 300
+ },
+ "validation_fit": {
+  "comment": "AN-style BW (x) DCB + exponential validation fits (functions and limits after efficiency_tnp_an): window seeded from the data mode, the MC of a category fitted in the window of its data, own numerical convolution (no FFTW plugin in the lxplus ROOT)",
+  "mode_search": [
+   70.0,
+   110.0
+  ],
+  "smooth_bins": 9,
+  "below": 30.0,
+  "above": 30.0,
+  "min_data_events": 300,
+  "min_mc_effective": 300,
+  "z_mass": 91.1876,
+  "z_width": 2.4952,
+  "grid_step": 0.05,
+  "kernel_half_width": 30.0,
+  "signal": "bw_dcb",
+  "background": "exponential",
+  "data_tails": "fixed_from_mc",
+  "window_clip": [
+   53.0,
+   125.0
+  ]
+ },
+ "superseded": "Superseded by calibration_ul16_v2.json (calib_v2).  This file is the calib_v1 configuration embedded in production_v3/calibration/v1/extract/plan.json (sha256 2a36888b..., fnv1a64 46bd5763...) with two interim in-place edits of its fit sections on 2026-09-24 (recorded in experiment_log.md); it is used by no product."
+}

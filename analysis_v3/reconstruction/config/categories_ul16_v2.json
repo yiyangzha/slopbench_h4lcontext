@@ -1,0 +1,94 @@
+{
+ "schema": "h4l_v3_categories/1",
+ "version": "cat_v2",
+ "description": "The seven event categories of AN-16-442 v8 section 6.1 / JHEP 11 (2017) 047 section 6 in the AN order, with the paper convention for the production discriminants: D' = 1/(1 + c' P_bkg/P_sig) recomputed from the raw MELA probabilities stored by h4l_select (analysis_v3/common/python/h4l_categories.py, 'discriminants' block), working point D' > 0.5 (equivalently P_sig/P_bkg > c'); VH-hadronic: D'_WH > 0.5 or D'_ZH > 0.5.  Adopted by the user on 2026-09-25 (stage-4b MC optimization, production_v3/tmp/category_opt/): the constants minimize (sigma(mu_VBF)/sigma_v1)^2 + (sigma(mu_VH)/sigma_v1)^2 with mu_ggH profiled (Asimov Fisher information of category x final state x (m4l_refit, D_bkg^kin) yields, 118 < m4l_refit < 130 GeV, 20 fb^-1); the AN MELA-only working points of cat_v1 left VH-hadronic empty with the MELA-normalized discriminants.  Jets pT > 30 GeV, |eta| < 4.7, cleaned from the selected leptons, the candidate's leptons and the selected FSR photons; b tags DeepJet medium (|eta| < 2.4); additional leptons: selected leptons outside the candidate.",
+ "order": [
+  "VBF-2jet",
+  "VH-hadronic",
+  "VH-leptonic",
+  "ttH",
+  "VH-MET",
+  "VBF-1jet",
+  "Untagged"
+ ],
+ "discriminants": {
+  "convention": "D' = 1 / (1 + c0 * (m4l / m_ref)^p * P_bkg / P_sig); m4l = the unrefitted candidate mass (branch m4l); D' = -1 where undefined (wrong jet multiplicity or a non-positive probability); category requirement D' > working point (0.5)",
+  "D_2jet": {
+   "P_sig": "p_JJVBF",
+   "P_bkg": "p_JJQCD",
+   "defined_for": "njets >= 2",
+   "c0": 0.1,
+   "p": 0.0,
+   "m_ref": 125.0
+  },
+  "D_1jet": {
+   "P_sig": "p_JVBF * pAux_JVBF",
+   "P_bkg": "p_JQCD",
+   "defined_for": "njets == 1",
+   "c0": 0.0014,
+   "p": 0.0,
+   "m_ref": 125.0
+  },
+  "D_WH": {
+   "P_sig": "p_HadWH * p_HadWH_mavjj / p_HadWH_mavjj_true",
+   "P_bkg": "p_JJQCD",
+   "defined_for": "njets >= 2",
+   "c0": 0.16,
+   "p": 0.0,
+   "m_ref": 125.0
+  },
+  "D_ZH": {
+   "P_sig": "p_HadZH * p_HadZH_mavjj / p_HadZH_mavjj_true",
+   "P_bkg": "p_JJQCD",
+   "defined_for": "njets >= 2",
+   "c0": 0.4,
+   "p": 0.0,
+   "m_ref": 125.0
+  }
+ },
+ "working_points": {
+  "d_2jet": 0.5,
+  "d_wh": 0.5,
+  "d_zh": 0.5,
+  "d_1jet": 0.5,
+  "met_vh": 90.0
+ },
+ "provenance": {
+  "optimization": "production_v3/tmp/category_opt/ (optimize.py, bootstrap.py, final_summary.py)",
+  "inputs": "h4l_select v3 scan, SR rows of the MC samples; Z+X proxy from the DY/TTBar MC CR rows",
+  "v1_config_sha256": "f29839ccd4eb15d3a0f89ef67c3e38b28c62a3dca80c7c6e4ec6942c29dd4b3d",
+  "expected_precision_20fb": {
+   "model": "Asimov Fisher, category x final state x (1 GeV m4l_refit x 10 signal-quantile D_bkg^kin bins), 118-130 GeV, 20 fb^-1",
+   "parameters": [
+    "mu_ggH",
+    "mu_VBF",
+    "mu_VH"
+   ],
+   "sigma_v1": [
+    0.23694275013138585,
+    1.4575381861679935,
+    2.3180151576916765
+   ],
+   "sigma_proposal": [
+    0.2315597948741532,
+    1.436695069287019,
+    1.9766139323346181
+   ],
+   "relative_change": [
+    -0.0227183792466652,
+    -0.014300220110028738,
+    -0.14728170530905083
+   ],
+   "J_v1": 2.0,
+   "J_proposal": 1.698732546175778,
+   "J_mc_stat_std": 0.015294089625674934,
+   "sigma_v1_mc_stat_std": [
+    0.0017632643299299675,
+    0.018791042188120423,
+    0.03571377278386095
+   ]
+  },
+  "validation": "h4l_categories.category_index with proposed_discriminants.compute reproduces the optimization's categories for all 184453 MC rows in 105-140 GeV",
+  "decision": "user, 2026-09-25: adopt the MC-optimized proposal"
+ }
+}

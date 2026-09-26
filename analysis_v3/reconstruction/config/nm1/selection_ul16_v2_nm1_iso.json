@@ -1,0 +1,77 @@
+{
+ "schema": "h4l_v3_selection_config/1",
+ "version": "sel_v3_nm1_iso",
+ "description": "N-1 variant of sel_v3 (make_nm1_configs.py): no isolation requirement",
+ "event": {
+  "trigger": "analysis_or",
+  "min_good_pv": 1
+ },
+ "leptons": {
+  "muon": {
+   "pt": 5.0,
+   "abs_eta": 2.4,
+   "id": "AN tight: PF muon, or the tracker high-pT ID above high_pt_alternative_above (h4l::an_tight_muon); loose part from h4l_reco",
+   "high_pt_alternative_above": 200.0
+  },
+  "electron": {
+   "pt": 7.0,
+   "abs_eta": 2.5,
+   "id": "mvaFall17V2noIso_WPL"
+  },
+  "max_sip": 4.0,
+  "max_iso_fsr": 1000000000.0,
+  "cross_clean_dr": 0.05,
+  "ghost_tracker_muon_dr": 0.05,
+  "isolation": "AN 3.3 FSR-subtracted relative isolation in dR < 0.3 (h4l::fsr_in_isolation)"
+ },
+ "candidate": {
+  "z1_mass": [
+   40.0,
+   120.0
+  ],
+  "z2_high": 120.0,
+  "leading_pt": 20.0,
+  "subleading_pt": 10.0,
+  "min_dr": 0.02,
+  "min_os_mass": 4.0,
+  "min_m4l": 70.0,
+  "regions": [
+   {
+    "name": "SR",
+    "z2_low": 10.0,
+    "comment": "the H signal region (AN 4.3 with the Z2 minimum optimized on MC: 10 GeV); the smart cut uses the same Z2 threshold"
+   },
+   {
+    "name": "SRZ4l",
+    "z2_low": 4.0,
+    "comment": "the Z -> 4l selection of the paper (m_Z2 > 4 GeV; 80 < m4l < 100 GeV applied downstream); the smart cut uses the same Z2 threshold"
+   }
+  ],
+  "ss_min_m4l": 70.0
+ },
+ "zl": {
+  "leading_pt": 20.0,
+  "subleading_pt": 10.0,
+  "min_probe_os_mass": 4.0,
+  "comment": "Z + 1 loose lepton of AN 7.2.1.1 (Z1 closest to m_Z within z1_mass); the fake-rate window |m_Z1 - m_Z| < 7 GeV, MET < 25 GeV and the SS-method windows are applied downstream",
+  "z1_mass": [
+   40.0,
+   120.0
+  ]
+ },
+ "jets": {
+  "pt": 30.0,
+  "abs_eta": 4.7,
+  "clean_dr": 0.4,
+  "btag_threshold": 0.2489,
+  "btag_abs_eta": 2.4,
+  "comment": "DeepJet medium (UL16 post-VFP) by the user decision of 2026-09-24; jets cleaned from the selected leptons and their FSR photons"
+ },
+ "categories": {
+  "d_2jet": 0.5,
+  "d_1jet": 0.5,
+  "d_vh": 0.5,
+  "met_vh": 100.0,
+  "comment": "paper working points (JHEP 11 (2017) 047 section 6) with the MELA normalization; D_WH and D_ZH with the constants derived on MC; applied downstream"
+ }
+}

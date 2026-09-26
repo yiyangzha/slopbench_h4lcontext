@@ -1,0 +1,185 @@
+{
+ "schema": "h4l_v3_calibration_closure/1",
+ "version": "closure_v2",
+ "comment": "MC closure tests of the full iterative calibration.  mode halves: the data role is the MC files with even original file key (weighted, normalized to their own genEventSumw), the MC role the odd ones, so data and templates are independent (coverage and the template-noise effects); mode same: both roles use all MC events (the method bias at the 1e-5 level).  Injected per lepton in the data role: pT *= (1 + s(pT, |eta|)) (1 + r(pT, |eta|) N_1), s and r = a + b_eta (|eta| - 1.2) + c_pt (pT - 45) / 45 + d_eta2 (|eta| - 1.2)^2 (|eta_SC| for electrons), N_1 the per-lepton deviate of stream 1.  The truth at (45 GeV, 1.2) is a.  The response pass uses the injections of 'response'.  v2 adds sloped_halves: the sloped injection of sloped_same on independent halves (the realistic test of a response that varies with pT and |eta|).",
+ "response": {
+  "scale": {
+   "muon": {
+    "scale": {
+     "a": -0.005
+    },
+    "smear": {
+     "a": 0.0
+    }
+   },
+   "electron": {
+    "scale": {
+     "a": -0.005
+    },
+    "smear": {
+     "a": 0.0
+    }
+   }
+  },
+  "smear": {
+   "muon": {
+    "scale": {
+     "a": 0.0
+    },
+    "smear": {
+     "a": 0.008
+    }
+   },
+   "electron": {
+    "scale": {
+     "a": 0.0
+    },
+    "smear": {
+     "a": 0.008
+    }
+   }
+  },
+  "baseline": {
+   "muon": {
+    "scale": {
+     "a": 0.0
+    },
+    "smear": {
+     "a": 0.0
+    }
+   },
+   "electron": {
+    "scale": {
+     "a": 0.0
+    },
+    "smear": {
+     "a": 0.0
+    }
+   }
+  },
+  "min_response": 0.5
+ },
+ "scenarios": {
+  "null_halves": {
+   "mode": "halves",
+   "inject": {
+    "muon": {
+     "scale": {
+      "a": 0.0
+     },
+     "smear": {
+      "a": 0.0
+     }
+    },
+    "electron": {
+     "scale": {
+      "a": 0.0
+     },
+     "smear": {
+      "a": 0.0
+     }
+    }
+   }
+  },
+  "uniform_halves": {
+   "mode": "halves",
+   "inject": {
+    "muon": {
+     "scale": {
+      "a": -0.015
+     },
+     "smear": {
+      "a": 0.01
+     }
+    },
+    "electron": {
+     "scale": {
+      "a": -0.012
+     },
+     "smear": {
+      "a": 0.012
+     }
+    }
+   }
+  },
+  "sloped_same": {
+   "mode": "same",
+   "inject": {
+    "muon": {
+     "scale": {
+      "a": -0.01,
+      "b_eta": 0.005,
+      "c_pt": 0.003
+     },
+     "smear": {
+      "a": 0.008,
+      "b_eta": 0.004,
+      "c_pt": 0.002
+     }
+    },
+    "electron": {
+     "scale": {
+      "a": -0.014,
+      "b_eta": -0.004,
+      "c_pt": 0.004
+     },
+     "smear": {
+      "a": 0.01,
+      "b_eta": 0.003,
+      "c_pt": -0.002
+     }
+    }
+   }
+  },
+  "large_halves": {
+   "mode": "halves",
+   "inject": {
+    "muon": {
+     "scale": {
+      "a": 0.03
+     },
+     "smear": {
+      "a": 0.02
+     }
+    },
+    "electron": {
+     "scale": {
+      "a": -0.045
+     },
+     "smear": {
+      "a": 0.025
+     }
+    }
+   }
+  },
+  "sloped_halves": {
+   "mode": "halves",
+   "inject": {
+    "muon": {
+     "scale": {
+      "a": -0.01,
+      "b_eta": 0.005,
+      "c_pt": 0.003
+     },
+     "smear": {
+      "a": 0.008,
+      "b_eta": 0.004,
+      "c_pt": 0.002
+     }
+    },
+    "electron": {
+     "scale": {
+      "a": -0.014,
+      "b_eta": -0.004,
+      "c_pt": 0.004
+     },
+     "smear": {
+      "a": 0.01,
+      "b_eta": 0.003,
+      "c_pt": -0.002
+     }
+    }
+   }
+  }
+ }
+}

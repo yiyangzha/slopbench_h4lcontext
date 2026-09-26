@@ -1,0 +1,7 @@
+-xc++
+-pthread
+-std=c++17
+-m64
+-fsized-deallocation
+-I/usr/include/root
+-I/eos/home-y/yiyangz/codex/jfc/analyses/ref_h4l/analysis_v3/common/include

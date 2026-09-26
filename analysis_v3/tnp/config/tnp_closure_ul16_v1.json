@@ -1,0 +1,15 @@
+{
+ "schema": "h4l_v3_tnp_closure_config/1",
+ "version": "tnp_closure_v1",
+ "comment": "Efficiency closure of the tag-and-probe (run_tnp.py --closure): data role = every MC sample of the extraction with even original file keys, MC role = the odd ones (each half normalized to its own genEventSumw), both calibrated as MC; in the data role a passed identification of a probe is dropped with probability 1 - keep_id (per flavour and lepton, stream 4 of the object seed), so the true SF_id = SF_full = keep_id and SF_sip = SF_iso = 1.  The fit model is the one of the base configuration (without its bin-specific overrides and exclusions); the bins are coarser than the nominal ones so that the three points run in about an hour; the report point (45 GeV, |eta| 1.2) is interpolated as in the nominal.",
+ "bins": {
+  "comment": "Closure bins: probe pT (calibrated) and |eta| (muons) / |eta_SC| (electrons) lower edges, the last bin unbounded.",
+  "muon": {"pt_edges": [5.0, 20.0, 35.0, 45.0, 60.0], "eta_edges": [0.0, 0.9, 1.5]},
+  "electron": {"pt_edges": [7.0, 20.0, 35.0, 45.0, 60.0], "eta_edges": [0.0, 0.8, 1.479, 2.0]}
+ },
+ "points": {
+  "k1": {"muon": 1.0, "electron": 1.0},
+  "k2": {"muon": 0.97, "electron": 0.95},
+  "k3": {"muon": 0.93, "electron": 0.90}
+ }
+}

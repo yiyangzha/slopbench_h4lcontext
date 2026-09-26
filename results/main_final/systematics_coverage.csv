@@ -1,0 +1,13 @@
+group,covered,evidence
+lepton_scale,yes,"scale_mu and scale_e nuisances (per flavour, from the in-situ Z calibration and its closures) move the signal peak"
+lepton_resolution,yes,res_mu and res_e nuisances (per flavour) scale the signal width
+lepton_efficiency,yes,"eff_mu and eff_e nuisances from the tag-and-probe SF uncertainties (statistical and fit model) on the signal, qqZZ and ggZZ yields"
+luminosity,yes,set (a): 2.5 % on every MC yield (the benchmark set (b) has none: the pseudo-data luminosity is exact)
+branching_ratio,yes,set (a): 2 % on the signal (none in set (b))
+reducible_bkg_Zjets,yes,"zx_<final state> log-normal nuisances from the data-driven OS/SS combination (statistics, MC-closure systematic, method envelope)"
+qqZZ_theory,yes,set (a): 0.045 on qqZZ (QCD scale and PDF)
+ggZZ_kfactor,yes,set (a): 10 % on ggZZ
+signal_QCDscale,yes,"set (a): per production mode {'ggH': 0.054, 'VBF': 0.004, 'VH': 0.017}"
+signal_PDF_acceptance,yes,"set (a): PDF + alpha_s per mode {'ggH': 0.032, 'VBF': 0.021, 'VH': 0.018}; the acceptance x efficiency m_H dependence through the morph nuisance"
+signal_shape,yes,the DCB peak position and width per flavour (scale and resolution nuisances) and the m_H morphing (scale vs shift); the DCB tails fixed from the MC fit
+background_shape,partial,"Z+X shape from the combined OS/SS fit (no shape nuisance), qqZZ/ggZZ m4l and D_bkg^kin shapes from the MC; no jet-energy variations (not available in the inputs)"

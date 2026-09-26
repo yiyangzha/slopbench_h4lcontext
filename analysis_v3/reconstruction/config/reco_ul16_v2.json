@@ -1,0 +1,57 @@
+{
+ "schema": "h4l_v3_reco_config/1",
+ "version": "reco_v2",
+ "description": "Loosest object and candidate thresholds of the 4-lepton event records (h4l_reco).  Every threshold the final selection (AN values or the stage-4b optimization) may use lies above these floors; lepton pT floors apply to the calibrated pT and stay at least 20 % below any analysis threshold (the calibration moves pT by about 2 %, the MC smearing by a few %).  Values of AN-16-442 sections 3-4 where the AN has them.  v2 (physics review): jets from 20 GeV, Z masses up to 130 GeV, m_Z2 from 3 GeV and m4l from 65 GeV, so that scale and jet-energy variations cannot cross a floor.",
+ "leptons": {
+  "muon_floor_pt": 3.0,
+  "electron_floor_pt": 5.0,
+  "muon_abs_eta": 2.4,
+  "electron_abs_eta": 2.5,
+  "abs_dxy": 0.5,
+  "abs_dz": 1.0,
+  "ghost_dr": 0.02,
+  "overlap_dr": 0.05,
+  "comment": "AN loose leptons; muons global or tracker with a matched station; ghost_dr: of two muons closer than this the PF (else the higher-pT) one is kept, a substitute for the AN segment-sharing ghost cleaning; overlap_dr: the AN electron-muon cross-cleaning cone (applied downstream against selected muons)"
+ },
+ "fsr": {
+  "pt": 2.0,
+  "abs_eta": 2.4,
+  "rel_iso": 1.8,
+  "dr_over_et2": 0.012,
+  "max_dr": 0.5,
+  "iso_veto_dr": 0.01,
+  "iso_dr": 0.3,
+  "comment": "AN FSR photons (muons only, the NanoAOD FsrPhoton collection); removed from the neutral isolation of every loose lepton within iso_veto_dr < dR < iso_dr"
+ },
+ "event": {
+  "min_leptons": 3,
+  "z_mass": [
+   30.0,
+   120.0
+  ],
+  "comment": "an event is kept with at least min_leptons loose leptons and an opposite-sign same-flavour pair with m(ll gamma) in z_mass (Z+l fake-rate region and every 4-lepton region)"
+ },
+ "candidates": {
+  "max_sip": 8.0,
+  "z1_mass": [
+   30.0,
+   130.0
+  ],
+  "z2_mass": [
+   3.0,
+   130.0
+  ],
+  "leading_pt": 15.0,
+  "subleading_pt": 7.0,
+  "min_dr": 0.02,
+  "min_os_mass": 2.0,
+  "min_m4l": 65.0,
+  "comment": "floors below the AN values (SIP 4, Z1 40-120, Z2 12-120 (4 for Z->4l), pT 20/10, dR 0.02, m(OS) 4 without FSR, m4l 70)"
+ },
+ "jets": {
+  "pt": 20.0,
+  "abs_eta": 4.7,
+  "jet_id_mask": 2,
+  "comment": "AN jets (pT > 30 applied downstream, |eta| < 4.7); stored from 20 GeV for jet-energy variations; UL NanoAOD Jet_jetId has no loose bit, the tight bit (2) substitutes the AN loose jet ID"
+ }
+}

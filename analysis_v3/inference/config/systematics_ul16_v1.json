@@ -1,0 +1,11 @@
+{
+ "schema": "h4l_v3_systematics/1",
+ "version": "syst_v1",
+ "comment": "Nuisance magnitudes of the likelihood (h4l_likelihood.py).  Set (b): lepton scale and resolution per flavour from the in-situ calibration (to be updated from the final calibration and its closure), efficiency from the tag-and-probe payload (per event), Z+X from the combined estimate, the A x eff(m_H) morphing (scale vs shift).  Set (a) adds the AN/paper theory and luminosity magnitudes: luminosity 2.5 %, BR 2 %, qqZZ theory (QCD scale 3.2 %, PDF 3.1 %, in quadrature 4.5 %), ggZZ 10 %, signal QCD scale and PDF per mode (YR4 13 TeV: ggH 5.4 % / 3.2 %, VBF 0.4 % / 2.1 %, VH 0.7 % / 1.8 %, symmetrized).",
+ "flavour_fraction": {"4mu": [1.0, 0.0], "4e": [0.0, 1.0], "2e2mu": [0.5, 0.5]},
+ "scale_uncertainty": {"mu": 0.0005, "e": 0.0015},
+ "resolution_uncertainty": {"mu": 0.10, "e": 0.10},
+ "qqzz_theory": 0.045,
+ "sig_qcd": {"ggH": 0.054, "VBF": 0.004, "VH": 0.007},
+ "sig_pdf": {"ggH": 0.032, "VBF": 0.021, "VH": 0.018}
+}

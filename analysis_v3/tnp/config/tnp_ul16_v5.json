@@ -1,0 +1,213 @@
+{
+ "schema": "h4l_v3_tnp_config/1",
+ "version": "tnp_v5",
+ "description": "Z tag-and-probe of the lepton efficiencies (AN-16-442; binning and fit conventions after efficiency_tnp_an): single-lepton-triggered tags, the AN loose lepton as the probe (dR > 0.2 from the tag, one probe per tag and step, the one closest to m_Z), the selection chain id | loose, sip | id, iso | id and sip (AN FSR-subtracted isolation, AN tight muon), the full step measured directly; pass and fail fitted simultaneously with the efficiency as a parameter; every fit inspected on the galleries, manual fixes as overrides.  v5 (user decision 2026-09-24): signal = the DY-MC template of prompt-prompt pairs per bin and category convolved with a Gaussian, CMSShape background, alternatives DSCB signal and Bernstein-3 background; efficiency errors from MINOS; electrons mvaFall17V2noIso WPL.",
+ "extract": {
+  "comment": "Loose preselection of the compact tag-and-probe pairs: a pair is kept if at least one leg is a tag candidate on its raw quantities (the event fired a tag path of the leg's flavour, the leg is matched to an HLT object carrying a tag filter bit with trigger pT above trig_pt_min, and its raw pT is above pt_min, below the final tag thresholds to allow for the calibration); raw mass window",
+  "mass_window": [
+   50.0,
+   130.0
+  ],
+  "muon": {
+   "paths": [
+    "HLT_IsoMu24",
+    "HLT_IsoTkMu24"
+   ],
+   "filter_bits": 10,
+   "trig_pt_min": 22.0,
+   "pt_min": 20.0
+  },
+  "electron": {
+   "paths": [
+    "HLT_Ele27_WPTight_Gsf",
+    "HLT_Ele25_eta2p1_WPTight_Gsf"
+   ],
+   "filter_bits": 2,
+   "trig_pt_min": 25.0,
+   "pt_min": 25.0
+  }
+ },
+ "tag": {
+  "comment": "Final tag on the calibrated momenta, path-consistent: muons: HLT_IsoMu24 fired and matched with the Iso bit (2), or HLT_IsoTkMu24 fired and matched with the IsoTkMu bit (8), trigger-object pT >= 24, offline pT > 26 (plateau), |eta| < 2.4, POG tightId, pfRelIso04 < 0.15; electrons: HLT_Ele27_WPTight_Gsf fired with trigger-object pT >= 27, or HLT_Ele25_eta2p1_WPTight_Gsf with trigger-object pT >= 25 and |eta_SC| < 2.1, matched with the 1e WPTight bit (2), offline pT > 30, |eta_SC| < 2.1 outside 1.4442-1.566, cut-based tight (AN tag).",
+  "muon": {
+   "paths": [
+    [
+     "HLT_IsoMu24",
+     2,
+     24.0
+    ],
+    [
+     "HLT_IsoTkMu24",
+     8,
+     24.0
+    ]
+   ],
+   "min_pt": 26.0,
+   "max_abs_eta": 2.4,
+   "max_iso04": 0.15
+  },
+  "electron": {
+   "paths": [
+    [
+     "HLT_Ele27_WPTight_Gsf",
+     2,
+     27.0,
+     2.5
+    ],
+    [
+     "HLT_Ele25_eta2p1_WPTight_Gsf",
+     2,
+     25.0,
+     2.1
+    ]
+   ],
+   "min_pt": 30.0,
+   "max_abs_eta_sc": 2.1,
+   "gap": [
+    1.4442,
+    1.566
+   ],
+   "min_cut_based": 4
+  }
+ },
+ "probe": {
+  "comment": "The AN loose lepton on the calibrated momenta (the skim floors carry |dxy| < 0.5 and |dz| < 1 cm): muons pT > 5 GeV, |eta| < 2.4, global or tracker with a matched station; electrons pT > 7 GeV, |eta| < 2.5.  A probe lies at dR > 0.2 from its tag; per tag and step only the probe closest to m_Z is kept (efficiency_tnp_an).",
+  "muon": {
+   "min_pt": 5.0,
+   "max_abs_eta": 2.4,
+   "id": "an_loose"
+  },
+  "electron": {
+   "min_pt": 7.0,
+   "max_abs_eta": 2.5,
+   "id": "none"
+  },
+  "min_dr_tag_probe": 0.2
+ },
+ "steps": {
+  "comment": "The selection chain, each step on the probes passing the previous ones: id (AN tight muon: PF, or tracker high-pT above 200 GeV; electrons mvaFall17V2noIso WPL, the stage-4b starting point), sip (SIP3D < 4), iso (AN FSR-subtracted relative isolation < 0.35, h4l::fsr_in_isolation); full = id, sip, iso on the loose probes (direct cross-check of the product).",
+  "muon": {
+   "id": "an_tight_hzz",
+   "high_pt_alternative_above": 200.0,
+   "max_iso_fsr": 0.35,
+   "max_sip": 4.0
+  },
+  "electron": {
+   "id": "mvaFall17V2noIso_WPL",
+   "max_iso_fsr": 0.35,
+   "max_sip": 4.0
+  }
+ },
+ "bins": {
+  "comment": "The fine binning of efficiency_tnp_an (for millions of distinct probes): probe pT (calibrated) and |eta| (muons |eta|, electrons |eta_SC|) lower edges, the last pT bin unbounded; the value at (45 GeV, 1.2), which lies on bin edges, is the bilinear interpolation between the neighbouring bin centres.",
+  "muon": {
+   "pt_edges": [
+    5.0,
+    10.0,
+    15.0,
+    20.0,
+    22.5,
+    25.0,
+    27.5,
+    30.0,
+    32.5,
+    35.0,
+    37.5,
+    40.0,
+    42.5,
+    45.0,
+    50.0,
+    60.0,
+    80.0
+   ],
+   "eta_edges": [
+    0.0,
+    0.2,
+    0.4,
+    0.6,
+    0.8,
+    1.0,
+    1.2,
+    1.4,
+    1.6,
+    1.85,
+    2.1
+   ]
+  },
+  "electron": {
+   "pt_edges": [
+    7.0,
+    12.0,
+    17.0,
+    20.0,
+    22.5,
+    25.0,
+    27.5,
+    30.0,
+    32.5,
+    35.0,
+    37.5,
+    40.0,
+    42.5,
+    45.0,
+    50.0,
+    60.0,
+    80.0
+   ],
+   "eta_edges": [
+    0.0,
+    0.3,
+    0.6,
+    0.9,
+    1.2,
+    1.479,
+    1.7,
+    1.9,
+    2.1,
+    2.3
+   ]
+  }
+ },
+ "histogram": {
+  "mass_range": [
+   60.0,
+   120.0
+  ],
+  "mass_bins": 120,
+  "comment": "0.5 GeV storage bins of the calibrated pair mass in 60-120 GeV (the fits use the narrowest of 0.5, 1, ..., 3 GeV with at least 40 entries per bin); the signal templates (DY MC, prompt-prompt pairs) in 50-130 GeV at 0.25 GeV so that the Gaussian smearing of the fit has no edge effect",
+  "template_range": [
+   50.0,
+   130.0
+  ],
+  "template_bins": 320
+ },
+ "fit": {
+  "comment": "Binning and inspection after efficiency_tnp_an; model by the user decision of 2026-09-24: signal = template of the prompt-prompt DY-MC pairs of the bin and category (fallback: the pT row, then inclusive, below min_effective_entries), smoothed by a Gaussian of template.smoothing GeV, convolved with a Gaussian (shift, width per category; shared below shared_resolution_below entries); background CMSShape erfc((alpha - m) beta) exp(-gamma (m - m_Z)) with alpha 30-85, beta 0.005-0.2, gamma 0-1 (EGM-like); a category below small_category_below entries keeps the inclusive background shape; alternatives: analytic stand-alone DSCB signal (width model starting values, bounds x3 with relaxation; the fail DSCB mixed with a Gaussian low-mass component) and Bernstein-3 background; two starting points; EDM convergence; efficiency error from MINOS (sandwich-scaled for weighted MC), floored at the binomial error; rejection of narrow background maxima near m_Z; categories below min_category_entries are counting only; overrides = the manual fixes from the gallery inspection; exclude_alternatives = alternatives that the inspection found not to describe a bin (kept out of its fit-model systematic, with a note).",
+  "window": [
+   60.0,
+   120.0
+  ],
+  "min_category_entries": 20,
+  "z_mass": 91.1876,
+  "z_width": 2.4952,
+  "max_edm": 0.01,
+  "shared_resolution_below": 300,
+  "start_width": {
+   "mm": {
+    "a": 0.76,
+    "b": 1.0
+   },
+   "ee": {
+    "a": 0.76,
+    "b": 1.0
+   }
+  },
+  "overrides": [],
+  "small_category_below": 100,
+  "template": {
+   "min_effective_entries": 500,
+   "smoothing": 0.5
+  },
+  "exclude_alternatives": []
+ }
+}

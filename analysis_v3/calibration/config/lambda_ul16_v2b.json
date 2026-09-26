@@ -1,0 +1,240 @@
+{
+ "schema": "h4l_v3_lambda_config/2",
+ "version": "lambda_v2b",
+ "description": "Per-event mass-uncertainty calibration of AN-16-442 5.3.1.  A leg's region is the first region whose |eta| (|eta_SC| for electrons, half-open ranges, null = unbounded) and relative momentum error dpT/pT contain it.  Pairs are binned in the predicted relative mass uncertainty e = 0.5 sqrt(d1^2 + d2^2) (internal edges below; first bin from 0, last bin unbounded).  Each fit is the binned form of the AN conditional fit: all e bins of one pair class fitted simultaneously in the core window (82-100 GeV; the 60-120 window of lambda_v2 misfits the e-sculpted tails) with BW (x) DCB + exponential, DCB tails shared, a free shift, yields and slope per bin, and the DCB sigma of bin k equal to (m_Z / 2) sqrt(lambda_a^2 <d_a^2>_k + lambda_b^2 <d_b^2>_k).  'same': both legs in the target region (AN muons, and ECAL-driven electrons of regions 1 and 3 with their eta subdivisions); 'reference': one leg in the reference region with its lambda fixed from its own fit and the other in the target (the AN method for the electron regions 2 and 4).  Substitution: UL NanoAOD has no ecalDriven flag, so the tracker-driven electron corrections of the AN are not derived separately.",
+ "mass_range": [
+  60.0,
+  120.0
+ ],
+ "mass_bins": 240,
+ "fit": {
+  "window": [
+   82.0,
+   100.0
+  ],
+  "grid_step": 0.125,
+  "kernel_half_width": 25.0,
+  "z_mass": 91.1876,
+  "z_width": 2.4952,
+  "background": "exponential",
+  "min_category_entries": 150,
+  "data_tails": "fixed_from_mc"
+ },
+ "muon": {
+  "regions": [
+   {
+    "name": "|eta| 0-0.9",
+    "abs_eta": [
+     0.0,
+     0.9
+    ]
+   },
+   {
+    "name": "|eta| 0.9-1.8",
+    "abs_eta": [
+     0.9,
+     1.8
+    ]
+   },
+   {
+    "name": "|eta| 1.8-2.4",
+    "abs_eta": [
+     1.8,
+     null
+    ]
+   }
+  ],
+  "pair_error_edges": [
+   0.004,
+   0.005,
+   0.006,
+   0.007,
+   0.008,
+   0.009,
+   0.01,
+   0.012,
+   0.014,
+   0.017,
+   0.02,
+   0.025,
+   0.03
+  ],
+  "fits": [
+   {
+    "target": 0,
+    "mode": "same"
+   },
+   {
+    "target": 1,
+    "mode": "same"
+   },
+   {
+    "target": 2,
+    "mode": "same"
+   }
+  ]
+ },
+ "electron": {
+  "regions": [
+   {
+    "name": "|eta| 0-0.8, d < 0.03",
+    "abs_eta": [
+     0.0,
+     0.8
+    ],
+    "rel_err": [
+     0.0,
+     0.03
+    ]
+   },
+   {
+    "name": "|eta| 0.8-1.0, d < 0.03",
+    "abs_eta": [
+     0.8,
+     1.0
+    ],
+    "rel_err": [
+     0.0,
+     0.03
+    ]
+   },
+   {
+    "name": "|eta| 1.0-1.2, d < 0.07",
+    "abs_eta": [
+     1.0,
+     1.2
+    ],
+    "rel_err": [
+     0.0,
+     0.07
+    ]
+   },
+   {
+    "name": "|eta| 1.2-1.44, d < 0.07",
+    "abs_eta": [
+     1.2,
+     1.44
+    ],
+    "rel_err": [
+     0.0,
+     0.07
+    ]
+   },
+   {
+    "name": "|eta| 1.44-1.57, d < 0.07",
+    "abs_eta": [
+     1.44,
+     1.57
+    ],
+    "rel_err": [
+     0.0,
+     0.07
+    ]
+   },
+   {
+    "name": "|eta| 1.57-2.0, d < 0.07",
+    "abs_eta": [
+     1.57,
+     2.0
+    ],
+    "rel_err": [
+     0.0,
+     0.07
+    ]
+   },
+   {
+    "name": "|eta| 2.0-2.5, d < 0.07",
+    "abs_eta": [
+     2.0,
+     null
+    ],
+    "rel_err": [
+     0.0,
+     0.07
+    ]
+   },
+   {
+    "name": "|eta| 0-1.0, d > 0.03",
+    "abs_eta": [
+     0.0,
+     1.0
+    ],
+    "rel_err": [
+     0.03,
+     null
+    ]
+   },
+   {
+    "name": "|eta| > 1.0, d > 0.07",
+    "abs_eta": [
+     1.0,
+     null
+    ],
+    "rel_err": [
+     0.07,
+     null
+    ]
+   }
+  ],
+  "pair_error_edges": [
+   0.005,
+   0.006,
+   0.007,
+   0.008,
+   0.009,
+   0.01,
+   0.012,
+   0.014,
+   0.016,
+   0.018,
+   0.02,
+   0.023,
+   0.026,
+   0.03,
+   0.035,
+   0.045,
+   0.06
+  ],
+  "fits": [
+   {
+    "target": 0,
+    "mode": "same"
+   },
+   {
+    "target": 1,
+    "mode": "same"
+   },
+   {
+    "target": 2,
+    "mode": "same"
+   },
+   {
+    "target": 3,
+    "mode": "same"
+   },
+   {
+    "target": 4,
+    "mode": "reference",
+    "reference": 0
+   },
+   {
+    "target": 5,
+    "mode": "same"
+   },
+   {
+    "target": 6,
+    "mode": "same"
+   },
+   {
+    "target": 7,
+    "mode": "reference",
+    "reference": 0
+   },
+   {
+    "target": 8,
+    "mode": "reference",
+    "reference": 0
+   }
+  ]
+ }
+}

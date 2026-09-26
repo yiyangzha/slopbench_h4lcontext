@@ -1,0 +1,60 @@
+{
+ "schema": "h4l_v3_lambda_config/1",
+ "version": "lambda_v1",
+ "description": "Per-event mass-uncertainty calibration of AN-16-442 5.3: pairs with both legs in the same lambda region, binned in the predicted relative mass uncertainty e = 0.5 sqrt((dpT1/pT1)^2 + (dpT2/pT2)^2); each bin's resolution from a BW (x) DCB fit (data and MC separately, MC tails fixed in the data fit), lambda = the slope of the fitted sigma against m_Z <e>.  Muon regions: |eta| 0-0.9-1.8-2.4 (AN); electron regions: |eta_SC| below or above 1.0, each split by the relative energy error at 0.03 (below 1.0) or 0.07 (above), the AN ECAL-/tracker-driven proxy (UL NanoAOD has no ecalDriven flag).",
+ "mass_range": [
+  60.0,
+  120.0
+ ],
+ "mass_bins": 240,
+ "muon": {
+  "eta_edges": [
+   0.0,
+   0.9,
+   1.8
+  ],
+  "rel_err_split": [],
+  "pair_error_edges": [
+   0.003,
+   0.004,
+   0.005,
+   0.006,
+   0.007,
+   0.008,
+   0.009,
+   0.01,
+   0.012,
+   0.014,
+   0.017,
+   0.02,
+   0.025,
+   0.03
+  ]
+ },
+ "electron": {
+  "eta_edges": [
+   0.0,
+   1.0
+  ],
+  "rel_err_split": [
+   0.03,
+   0.07
+  ],
+  "pair_error_edges": [
+   0.005,
+   0.008,
+   0.01,
+   0.012,
+   0.014,
+   0.016,
+   0.018,
+   0.02,
+   0.023,
+   0.026,
+   0.03,
+   0.035,
+   0.045,
+   0.06
+  ]
+ }
+}

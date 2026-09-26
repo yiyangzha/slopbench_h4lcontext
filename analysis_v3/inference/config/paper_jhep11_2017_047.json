@@ -1,0 +1,21 @@
+{
+ "schema": "h4l_v3_paper_reference/1",
+ "reference": "CMS, JHEP 11 (2017) 047, 35.9 fb^-1 at 13 TeV (the values as printed; [value, down, up] with down negative)",
+ "mu_inclusive_125p09": {"value": 1.05, "total": [-0.17, 0.19], "stat": [-0.14, 0.15], "syst": [-0.09, 0.11]},
+ "mu_inclusive_expected": {"value": 1.00, "stat": [-0.14, 0.15], "syst": [-0.08, 0.10]},
+ "mu_category": {"Untagged": [1.17, -0.21, 0.23], "VBF-1jet": [0.97, -0.32, 0.41], "VBF-2jet": [0.63, -0.34, 0.51],
+                 "VH-hadronic": [0.76, -0.48, 0.78], "VH-leptonic": [0.00, -0.00, 1.92], "VH-MET": [1.25, -1.25, 8.75],
+                 "ttH": [0.00, -0.00, 0.86]},
+ "mu_mode": {"mu_ggH": [1.20, -0.21, 0.22], "mu_VBF": [0.05, -0.05, 1.03], "mu_VHhad": [0.00, -0.00, 2.83],
+             "mu_VHlep": [0.00, -0.00, 2.66], "mu_ttH": [0.00, -0.00, 1.19]},
+ "mu_fv": {"mu_F": [1.19, -0.20, 0.21], "mu_V": [0.00, -0.00, 0.81]},
+ "mH": {"value": 125.26, "total": 0.21, "stat": 0.20, "syst": 0.08},
+ "mH_expected": {"prefit_stat": 0.24, "prefit_syst": 0.09, "postfit_stat": 0.23, "postfit_syst": 0.08},
+ "mH_final_state": {"4mu": [124.94, 0.25, 0.08], "4e": [124.37, 0.62, 0.38], "2e2mu": [125.95, 0.32, 0.14],
+                    "comment": "[value, stat, syst]; mutual compatibility p = 0.025"},
+ "mH_table6": {"3D_refit": [125.26, 0.21], "2D_refit": [125.30, 0.21], "1D_refit": [125.34, 0.23],
+               "3D_norefit": [125.28, 0.22], "2D_norefit": [125.36, 0.24], "1D_norefit": [125.39, 0.25]},
+ "mZ_4l": {"4mu": [90.85, 0.27, 0.04], "4e": [90.85, 0.74, 0.28], "2e2mu": [90.61, 0.48, 0.10], "combined": [90.84, 0.23, 0.07]},
+ "width": {"observed_95": 1.10, "expected_95": 1.60, "observed_68_up": 0.41, "expected_68_up": 0.75},
+ "sigma_fid_fb": {"value": 2.92, "stat": [-0.44, 0.48], "syst": [-0.24, 0.28], "sm": 2.76, "sm_error": 0.14}
+}

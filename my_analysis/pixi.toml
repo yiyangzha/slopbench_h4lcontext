@@ -1,0 +1,18 @@
+# Runtime environment of the evaluation submission (EVAL_CONTRACT.md: pixi.toml + pixi.lock at the submission root).
+# ROOT (C++) reads the large ROOT files; Python (numpy, scipy, iminuit, uproot for the compact intermediate files) does
+# the fits and the outputs.
+[workspace]
+name = "h4l-eval"
+version = "1.0.0"
+channels = ["conda-forge"]
+platforms = ["linux-64"]
+
+[dependencies]
+python = ">=3.11,<3.14"
+numpy = ">=1.26"
+scipy = ">=1.11"
+iminuit = ">=2.25"
+uproot = ">=5.3"
+awkward = ">=2.6"
+root = ">=6.30"
+cxx-compiler = "*"

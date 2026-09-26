@@ -1,0 +1,105 @@
+{
+ "schema": "h4l_v3_systematics/1",
+ "version": "syst_v2",
+ "comment": "Nuisance magnitudes of the likelihood (h4l_likelihood.py).  Set (b): lepton scale and resolution per flavour from the in-situ calibration (to be updated from the final calibration and its closure), efficiency from the tag-and-probe payload (per event), Z+X from the combined estimate, the A x eff(m_H) morphing (scale vs shift).  Set (a) adds the AN/paper theory and luminosity magnitudes: luminosity 2.5 %, BR 2 %, qqZZ theory (QCD scale 3.2 %, PDF 3.1 %, in quadrature 4.5 %), ggZZ 10 %, signal QCD scale and PDF per mode (YR4 13 TeV: ggH 5.4 % / 3.2 %, VBF 0.4 % / 2.1 %, VH 0.7 % / 1.8 %, symmetrized).  v2: the lepton scale and resolution magnitudes and the flavour fractions derived by make_systematics.py from the calibration, its closures and the signal MC (details block).",
+ "flavour_fraction": {
+  "4mu": [
+   0.9968041374063198,
+   0.0
+  ],
+  "4e": [
+   0.0,
+   0.9999999995551336
+  ],
+  "2e2mu": [
+   0.4709369158374055,
+   0.5275311985262937
+  ]
+ },
+ "scale_uncertainty": {
+  "mu": 0.0003730797756727271,
+  "e": 0.0005032898902824737
+ },
+ "resolution_uncertainty": {
+  "mu": 0.02595187006443793,
+  "e": 0.03376788033027436
+ },
+ "qqzz_theory": 0.045,
+ "sig_qcd": {
+  "ggH": 0.054,
+  "VBF": 0.004,
+  "VH": 0.007
+ },
+ "sig_pdf": {
+  "ggH": 0.032,
+  "VBF": 0.021,
+  "VH": 0.018
+ },
+ "resolution_flavour_fraction": {
+  "4mu": [
+   1.0,
+   0.0
+  ],
+  "4e": [
+   0.0,
+   1.0
+  ],
+  "2e2mu": [
+   0.35023325139385053,
+   0.6497667486061495
+  ]
+ },
+ "details": {
+  "calibration": "/eos/user/y/yiyangz/codex/jfc/analyses/ref_h4l/production_v3/calibration/v4/nominal",
+  "closures": [
+   "v4/closure_uniform_halves",
+   "v4/closure_sloped_halves"
+  ],
+  "signal_model": "v5/sm_v1",
+  "select": "v5",
+  "per_flavour": {
+   "mu": {
+    "scale": {
+     "stat": 6.77852101505463e-05,
+     "iteration": 9.855211205434645e-07,
+     "closure_bias_rms": {
+      "v4/closure_uniform_halves": 0.0003567771010012184,
+      "v4/closure_sloped_halves": 0.00036686879541462724
+     },
+     "total": 0.0003730797756727271
+    },
+    "resolution": {
+     "sigma_lepton_rel": 0.02037814946391418,
+     "smear_variance_stat": 7.666094462953008e-06,
+     "smear_variance_closure_max_dev": 1.075207074609039e-05,
+     "from_smear": 0.01589951622861624,
+     "dilepton_iqr_rms_dev": 0.006886003560952883,
+     "iqr_amplification": 2.9786643298758375,
+     "from_width": 0.02051109318240835,
+     "total": 0.02595187006443793
+    }
+   },
+   "e": {
+    "scale": {
+     "stat": 0.00010648112704950858,
+     "iteration": 8.935246898834055e-06,
+     "closure_bias_rms": {
+      "v4/closure_uniform_halves": 0.00029451121779021985,
+      "v4/closure_sloped_halves": 0.0004918156612041423
+     },
+     "total": 0.0005032898902824737
+    },
+    "resolution": {
+     "sigma_lepton_rel": 0.027756506041466143,
+     "smear_variance_stat": 1.797994438458172e-05,
+     "smear_variance_closure_max_dev": 4.837886582892131e-05,
+     "from_smear": 0.03349582295492679,
+     "dilepton_iqr_rms_dev": 0.0020700434956153705,
+     "iqr_amplification": 2.0665274010343384,
+     "from_width": 0.004277801605022068,
+     "total": 0.03376788033027436
+    }
+   }
+  }
+ }
+}

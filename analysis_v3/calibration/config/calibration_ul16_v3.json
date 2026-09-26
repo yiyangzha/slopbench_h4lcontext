@@ -1,0 +1,199 @@
+{
+ "schema": "h4l_v3_calibration_config/3",
+ "version": "calib_v3.2",
+ "description": "Lepton momentum-scale and resolution calibration on Z->ll (AN-16-442 3.1.4 and 5.3 adapted to UL16 PFNano): factorized per-lepton model ln(1 + s) = a(|eta|) + b_R(pT), r^2 = c(|eta|) + d_R(pT) (user decision 2026-09-24, after the diagnostics found |eta| structure inside coarse bins and no charge or phi dependence), from event-level MC template fits of the data in two category families, a joint per-lepton least squares and iteration with the data corrected and the MC smeared per lepton; BW (x) DCB + exponential fits for the AN-style validation.",
+ "extract": {
+  "comment": "Loose preselection of the compact pair ntuple, looser than every tight selection the calibration may use: the analysis trigger OR of the skim configuration, raw mass window, both legs FSR-subtracted isolation and SIP",
+  "trigger_or": "analysis_or",
+  "mass_window": [
+   50.0,
+   130.0
+  ],
+  "max_iso_fsr": 1.0,
+  "max_sip": 10.0
+ },
+ "selection": {
+  "comment": "Control-pair legs: the AN tight lepton with the stage-2 floors.  Muon id an_tight: PF muon and (global, or tracker with a matched station); electron id: mvaFall17V2noIso WP90 until the stage-4b choice; isolation = the FSR-subtracted relative isolation (AN).  Thresholds apply to the transformed (data corrected, MC smeared) pT",
+  "muon": {
+   "min_pt": 3.0,
+   "max_abs_eta": 2.4,
+   "max_iso_fsr": 0.35,
+   "max_sip": 4.0,
+   "id": "an_tight"
+  },
+  "electron": {
+   "min_pt": 5.0,
+   "max_abs_eta": 2.5,
+   "max_iso_fsr": 0.35,
+   "max_sip": 4.0,
+   "id": "mvaFall17V2noIso_WP90"
+  }
+ },
+ "model": {
+  "comment": "a, c: piecewise constant on the fine |eta| bins (lower edges, the last unbounded; electrons abs(eta_SC)); b, d: per coarse |eta| region R (lower edges), linear interpolation in pT between the node positions (the mean pT of the Z legs of each pT bin in the region), constant beyond the outermost nodes, zero at the reference pT bin.  pT bins: lower edges, the last unbounded, half-open.",
+  "muon": {
+   "eta_variable": "abs_eta",
+   "eta_edges": [
+    0.0,
+    0.3,
+    0.5,
+    0.7,
+    0.9,
+    1.1,
+    1.3,
+    1.5,
+    1.7,
+    1.9,
+    2.1
+   ],
+   "region_edges": [
+    0.0,
+    0.9,
+    1.5
+   ],
+   "pt_edges": [
+    3.0,
+    10.0,
+    15.0,
+    20.0,
+    30.0,
+    40.0,
+    50.0,
+    60.0,
+    100.0
+   ],
+   "reference_pt_bin": 5
+  },
+  "electron": {
+   "eta_variable": "abs_eta_sc",
+   "eta_edges": [
+    0.0,
+    0.3,
+    0.5,
+    0.7,
+    0.9,
+    1.1,
+    1.3,
+    1.4442,
+    1.566,
+    1.7,
+    1.9,
+    2.1,
+    2.3
+   ],
+   "region_edges": [
+    0.0,
+    1.4442
+   ],
+   "pt_edges": [
+    5.0,
+    10.0,
+    15.0,
+    20.0,
+    30.0,
+    40.0,
+    50.0,
+    60.0,
+    100.0
+   ],
+   "reference_pt_bin": 5
+  }
+ },
+ "categories": {
+  "comment": "Family A: unordered pair of fine |eta| bins, both legs pT >= family_a_min_pt (transformed pT), no pT-bin edge inside the category; family B: unordered pair of (pT bin, region) bins of the legs, every selected pair.  The leg compositions (pT bins of the legs of each fine eta bin in A, fine eta bins of the legs of each (pT, region) bin in B) of the pairs with 80 < m < 100 GeV give the averaging weights of the joint least squares.  A category enters the least squares only if its data mode lies in z_mode_range: otherwise its mass distribution is dominated by the kinematic structure of its pT bins (e.g. a 10-15 GeV leg with a 40-50 GeV leg peaks near 67 GeV), not by the Z peak.",
+  "family_a_min_pt": 20.0,
+  "z_mode_range": [
+   80.0,
+   100.0
+  ]
+ },
+ "histogram": {
+  "comment": "Per-category mass histograms at 0.05 GeV; the template fit rebins the data to fit_bin_width, the validation fits to 0.25 or 1 GeV",
+  "mass_range": [
+   45.0,
+   135.0
+  ],
+  "mass_bins": 1800,
+  "leg_pt_bins": [
+   60,
+   0.0,
+   150.0
+  ],
+  "pair_pt_bins": [
+   50,
+   0.0,
+   100.0
+  ]
+ },
+ "template_fit": {
+  "comment": "Event-level templates: every selected MC pair of a category is moved to k m (1 + sqrt(delta^2 + D) eps) with its frozen pair deviate eps (stream 3) and spread by a Gaussian kernel of fixed relative width kernel_rel_sigma (the likelihood is smooth; the smoothing does not vary with D); the data are smeared once by the common known relative delta (frozen pair deviates, stream 2), so the residual extra pair variance D can be negative down to -delta^2.  Reported E = D + kernel_rel_sigma^2.  Free normalization, Barlow-Beeston-lite MC statistical uncertainty per likelihood group (consecutive fit bins merged until the MC template at the starting values holds min_group_mc_entries effective entries).  Window [mode - below, mode + above] from the smeared data mode, clipped to window_clip inside the DY generator cut and the extraction window.",
+  "mode_search": [
+   70.0,
+   110.0
+  ],
+  "smooth_bins": 45,
+  "below": 20.0,
+  "above": 15.0,
+  "window_clip": [
+   60.0,
+   120.0
+  ],
+  "fit_bin_width": 0.1,
+  "common_delta": 0.005,
+  "d_max": 0.0025,
+  "lnk_limit": 0.08,
+  "min_data_events": 500,
+  "min_mc_effective": 500,
+  "min_group_mc_entries": 20,
+  "kernel_rel_sigma": 0.003
+ },
+ "validation_fit": {
+  "comment": "AN-style BW (x) DCB + exponential validation fits (functions and limits after efficiency_tnp_an): window seeded from the data mode, the MC of a category fitted in the window of its data, own numerical convolution (no FFTW plugin in the lxplus ROOT)",
+  "mode_search": [
+   70.0,
+   110.0
+  ],
+  "smooth_bins": 9,
+  "rebin": 5,
+  "below": 30.0,
+  "above": 30.0,
+  "window_clip": [
+   60.0,
+   120.0
+  ],
+  "min_data_events": 300,
+  "min_mc_effective": 300,
+  "z_mass": 91.1876,
+  "z_width": 2.4952,
+  "grid_step": 0.05,
+  "kernel_half_width": 30.0,
+  "signal": "bw_dcb",
+  "background": "exponential",
+  "data_tails": "fixed_from_mc"
+ },
+ "response": {
+  "comment": "Iteration 1: the MC role events play the data with no injection, a uniform scale and a uniform smear; the per-category response is (fit(injected) - fit(none)) / injected.  Categories with a response outside [min, max] are left out of the joint least squares, the others enter with their response.",
+  "scale": -0.01,
+  "smear": 0.012,
+  "min_response": 0.5,
+  "max_response": 1.5
+ },
+ "iteration": {
+  "max_iterations": 10,
+  "converged_sigma": 0.2
+ },
+ "report_point": {
+  "pt": 45.0,
+  "abs_eta": 1.2
+ },
+ "least_squares": {
+  "comment": "Iterative outlier rejection per quantity: while the largest |pull| exceeds outlier_pull and fewer than max_outlier_fraction of the categories are removed, the category with the largest |pull| is removed and the system refitted; the removed categories are recorded.  A random-walk smoothness prior between neighbouring pT bins of each region, (theta_{p+1} - theta_p) = 0 +- tau (tau = pt_smoothness: 1e-3 for ln(1+s), 3e-5 for r^2) on the total b and d terms, regularizes the pT bins the Z peak barely constrains (soft legs); it is negligible where the data constrain.  From iteration freeze_selection_after on, the categories are those used then (no new category, no further outlier rejection), so the fixed-point iteration is deterministic.",
+  "outlier_pull": 5.0,
+  "max_outlier_fraction": 0.1,
+  "pt_smoothness": {
+   "scale": 0.001,
+   "smear": 3e-05
+  },
+  "freeze_selection_after": 2
+ }
+}

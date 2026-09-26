@@ -1,0 +1,11 @@
+{
+ "schema": "h4l_v3_tnp_config/1",
+ "version": "tnp_v1",
+ "description": "Z tag-and-probe of the lepton efficiencies (AN-16-442; fit conventions after efficiency_tnp_an): single-lepton-triggered tags, the AN loose lepton as the probe, sequential numerators ID, isolation (FSR-subtracted), SIP; pass and fail fitted simultaneously with the efficiency as a parameter.",
+ "extract": {
+  "comment": "Loose preselection of the compact tag-and-probe pairs: a pair is kept if at least one leg is a tag candidate on its raw quantities (the event fired a tag path of the leg's flavour, the leg is matched to an HLT object carrying a tag filter bit with trigger pT above trig_pt_min, and its raw pT is above pt_min, below the final tag thresholds to allow for the calibration); raw mass window",
+  "mass_window": [50.0, 130.0],
+  "muon": {"paths": ["HLT_IsoMu24", "HLT_IsoTkMu24"], "filter_bits": 10, "trig_pt_min": 22.0, "pt_min": 20.0},
+  "electron": {"paths": ["HLT_Ele27_WPTight_Gsf", "HLT_Ele25_eta2p1_WPTight_Gsf"], "filter_bits": 2, "trig_pt_min": 25.0, "pt_min": 25.0}
+ }
+}

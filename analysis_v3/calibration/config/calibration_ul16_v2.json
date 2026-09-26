@@ -1,0 +1,148 @@
+{
+ "schema": "h4l_v3_calibration_config/2",
+ "version": "calib_v2",
+ "description": "Lepton momentum-scale and resolution calibration on Z->ll (AN-16-442 3.1.4 and 5.3 adapted to UL16 PFNano): event-level MC template fits of the data in the leg-bin-pair categories (user decision 2026-09-24), per-lepton least squares, iterated with the data corrected and the MC smeared per lepton (bilinear interpolation between the bin mean positions) until the residuals vanish; BW (x) DCB + exponential fits for the AN-style validation.",
+ "extract": {
+  "comment": "Loose preselection of the compact pair ntuple, looser than every tight selection the calibration may use: the analysis trigger OR of the skim configuration, raw mass window, both legs FSR-subtracted isolation and SIP",
+  "trigger_or": "analysis_or",
+  "mass_window": [
+   50.0,
+   130.0
+  ],
+  "max_iso_fsr": 1.0,
+  "max_sip": 10.0
+ },
+ "selection": {
+  "comment": "Control-pair legs: the AN tight lepton with the stage-2 floors.  Muon id an_tight: PF muon and (global, or tracker with a matched station); electron id: mvaFall17V2noIso WP90 until the stage-4b choice; isolation = the FSR-subtracted relative isolation (AN).  Thresholds apply to the transformed (data corrected, MC smeared) pT",
+  "muon": {
+   "min_pt": 3.0,
+   "max_abs_eta": 2.4,
+   "max_iso_fsr": 0.35,
+   "max_sip": 4.0,
+   "id": "an_tight"
+  },
+  "electron": {
+   "min_pt": 5.0,
+   "max_abs_eta": 2.5,
+   "max_iso_fsr": 0.35,
+   "max_sip": 4.0,
+   "id": "mvaFall17V2noIso_WP90"
+  }
+ },
+ "bins": {
+  "comment": "Lower pT edges; the terminal pT bin and the terminal eta bin are unbounded, internal boundaries half-open [low, high).  Electrons are binned in abs(eta_SC).  Bin index k = ipt * n_eta + ieta.  The lowest bins are split at 10 and 15 GeV (the pT range of the H->4l Z2 leptons).",
+  "muon": {
+   "eta_variable": "abs_eta",
+   "pt_edges": [
+    3.0,
+    10.0,
+    15.0,
+    20.0,
+    30.0,
+    40.0,
+    50.0,
+    60.0,
+    100.0
+   ],
+   "eta_edges": [
+    0.0,
+    0.9,
+    1.5,
+    2.1
+   ]
+  },
+  "electron": {
+   "eta_variable": "abs_eta_sc",
+   "pt_edges": [
+    5.0,
+    10.0,
+    15.0,
+    20.0,
+    30.0,
+    40.0,
+    50.0,
+    60.0,
+    100.0
+   ],
+   "eta_edges": [
+    0.0,
+    1.0,
+    1.4442,
+    1.566,
+    2.0
+   ]
+  }
+ },
+ "histogram": {
+  "comment": "Per-category mass histograms at 0.05 GeV for both roles; the template fit rebins the data to fit_bin_width, the validation fits to 0.25 or 1 GeV",
+  "mass_range": [
+   45.0,
+   135.0
+  ],
+  "mass_bins": 1800,
+  "leg_pt_bins": [
+   60,
+   0.0,
+   150.0
+  ],
+  "pair_pt_bins": [
+   50,
+   0.0,
+   100.0
+  ]
+ },
+ "template_fit": {
+  "comment": "Event-level templates: every selected MC pair of a category is moved to k m (1 + sqrt(delta^2 + D) eps) with its frozen pair deviate eps (stream 3) and spread by a Gaussian kernel of fixed relative width kernel_rel_sigma (the likelihood is smooth; the smoothing does not vary with D); the data are smeared once by the common known relative delta (frozen pair deviates, stream 2), so the residual extra pair variance D can be negative down to -delta^2.  Reported E = D + kernel_rel_sigma^2.  Free normalization, Barlow-Beeston-lite MC statistical uncertainty per likelihood group (consecutive fit bins merged until the MC template at the starting values holds min_group_mc_entries effective entries).  Window [mode - below, mode + above] from the smeared data mode, clipped to window_clip inside the DY generator cut and the extraction window.",
+  "mode_search": [
+   70.0,
+   110.0
+  ],
+  "smooth_bins": 45,
+  "below": 20.0,
+  "above": 15.0,
+  "window_clip": [
+   60.0,
+   120.0
+  ],
+  "fit_bin_width": 0.1,
+  "common_delta": 0.005,
+  "d_max": 0.0025,
+  "lnk_limit": 0.08,
+  "min_data_events": 500,
+  "min_mc_effective": 500,
+  "min_group_mc_entries": 20,
+  "kernel_rel_sigma": 0.003
+ },
+ "validation_fit": {
+  "comment": "AN-style BW (x) DCB + exponential validation fits (functions and limits after efficiency_tnp_an): window seeded from the data mode, the MC of a category fitted in the window of its data, own numerical convolution (no FFTW plugin in the lxplus ROOT)",
+  "mode_search": [
+   70.0,
+   110.0
+  ],
+  "smooth_bins": 9,
+  "rebin": 5,
+  "below": 30.0,
+  "above": 30.0,
+  "window_clip": [
+   60.0,
+   120.0
+  ],
+  "min_data_events": 300,
+  "min_mc_effective": 300,
+  "z_mass": 91.1876,
+  "z_width": 2.4952,
+  "grid_step": 0.05,
+  "kernel_half_width": 30.0,
+  "signal": "bw_dcb",
+  "background": "exponential",
+  "data_tails": "fixed_from_mc"
+ },
+ "iteration": {
+  "max_iterations": 8,
+  "converged_sigma": 0.2
+ },
+ "report_point": {
+  "pt": 45.0,
+  "abs_eta": 1.2
+ }
+}

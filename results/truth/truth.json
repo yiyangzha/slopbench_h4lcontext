@@ -1,0 +1,44 @@
+{
+ "schema": "h4l_v3_truth/1",
+ "record": "/eos/home-y/yiyangz/codex/slopbench_code_fork/injection/records/20260923T183922Z_917f9326efa44ea9.json",
+ "configuration": {
+  "efficiency_profile": "effA",
+  "higgs_mass_gev": 125,
+  "lumi_fb": 20,
+  "mu": 1,
+  "mu_per_mode": {
+   "GluGluToHToZZ": 1,
+   "VBF_HToZZ": 1,
+   "VHToZZ": 1
+  },
+  "profile_key": "medium_effA",
+  "response_profile": "medium"
+ },
+ "signal_injected": 118,
+ "compare": {
+  "mu": 1.0,
+  "mH": 125.0,
+  "scale_shift muon": -0.019939882326524973,
+  "smear muon": 0.01,
+  "sel_eff muon": 1.0,
+  "scale_shift electron": -0.019911572045604082,
+  "smear electron": 0.01,
+  "sel_eff electron": 1.0
+ },
+ "detail": {
+  "muon": {
+   "n_legs": 30767698,
+   "scale_shift_at_45GeV_eta1p2": -0.02017164608842112
+  },
+  "electron": {
+   "n_legs": 19573766,
+   "scale_shift_at_45GeV_eta1p2": -0.02017164608842112
+  }
+ },
+ "source": "Truth from the injection record 20260923T183922Z_917f9326efa44ea9 (m_H = 125 GeV, mu = 1 for every mode, 20 fb^-1, response profile medium, efficiency profile effA) with the profile definitions of the generator (h4l_pfnano_seed_plan_v3.json, pfnano_response.cpp).",
+ "notes": [
+  "Lepton scale: k(pT, eta) = 1 - 0.018 - 0.004 S(pT/100 GeV) - 0.008 S(|eta|/2.5), S(x) = x^2/(1+x^2); the truth scale_shift per flavour is its average over the data legs of the Z -> ll calibration sample (as RESULT.json); at pT = 45 GeV, |eta| = 1.2 it is -0.0202.",
+  "Lepton smear: relative pT sigma 0.01 plus Gaussian eta and phi smears of 0.01; the pT-only smear model of the analysis absorbs the angular smears, so the measured smear is expected somewhat above 0.01.",
+  "Efficiency effA thins the muon loose/medium/tight/soft IDs, the electron MVA WP90/WP80 and cut-based flags and the single-lepton trigger decisions, none of the flags of this selection (PF muon, mvaFall17V2noIso WPL electron, isolation, SIP): the truth data/MC efficiency ratio of the lepton selection is 1; the trigger thinning acts on the tag selection and the event trigger (taken from the MC)."
+ ]
+}

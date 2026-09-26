@@ -1,0 +1,106 @@
+{
+ "pois": [
+  {
+   "name": "mH",
+   "value": 124.96391490347845,
+   "stat": 0.3888964460448351,
+   "syst": 0.051007168054203196,
+   "total": 0.39202457921118167
+  },
+  {
+   "name": "mu",
+   "value": 0.9031648151952458,
+   "stat": 0.1714448329900104,
+   "syst": 0.05108048922463275,
+   "total": 0.1794058508716499
+  }
+ ],
+ "significance_obs": 8.46017777818346,
+ "discovery": true,
+ "significance_exp": 10.081003265559755,
+ "calibration": {
+  "scale_shift": {
+   "muon": {
+    "value": -0.01993228948063292,
+    "unc": 0.0003670491157513663
+   },
+   "electron": {
+    "value": -0.019874134265424673,
+    "unc": 0.0004923007231676001
+   }
+  },
+  "smear": {
+   "muon": {
+    "value": 0.011564530826241152,
+    "unc": 0.00046788405076772987
+   },
+   "electron": {
+    "value": 0.011278459312216445,
+    "unc": 0.002147845343148994
+   }
+  },
+  "sel_eff": {
+   "muon": {
+    "value": 0.9940694699100676,
+    "unc": 0.0017788518220975022
+   },
+   "electron": {
+    "value": 1.000426688657938,
+    "unc": 0.003071817243891777
+   }
+  }
+ },
+ "quality": {
+  "gof_pvalue": {
+   "value": 0.4215885947046843,
+   "note": "toys: saturated, binned per channel in m4l (5 GeV) x D_bkg^kin template bins, toys from the best fit refitted with the full unbinned likelihood; q_saturated 190.3 on 735 bins"
+  },
+  "coverage": {
+   "value": 0.6470588235294118,
+   "note": "toys: fraction of 493 frequentist pseudo-experiments of the final 3D model (mu = 1, m_H = 125 GeV, global observables drawn) whose MINOS 68 % interval of mu covers the true mu (m_H: 0.700); r2_toys_mu"
+  }
+ },
+ "eff_correction": {
+  "4mu": 0.9870717216782662,
+  "4e": 1.007859113139613,
+  "2e2mu": 0.9975074339992352,
+  "inclusive": 0.9959059729649274
+ },
+ "expected_uncertainties": {
+  "mu": {
+   "stat": 0.17506883583138227,
+   "syst": 0.05159194053828694,
+   "total": 0.18303259094318125
+  },
+  "mH": {
+   "stat": 0.30028322784593586,
+   "syst": 0.03756936718302518,
+   "total": 0.3026730803052237
+  }
+ },
+ "conventions": {
+  "result_set": "b (only the uncertainties real for this pseudo-data: statistics, lepton scale and resolution, efficiency SFs, the Z+X method, the A x eff(m_H) morphing)",
+  "mu": "sigma/sigma_SM at the measured m_H: sigma_eff(mode, m_H) from the YR4 table, A x eff(m_H) by rest-frame morphing of the 125 GeV MC",
+  "uncertainties": "value from the profile likelihood; total and stat the symmetrized MINOS intervals (stat with the nuisances fixed at their best fit); syst the quadrature sum of the fixed-nuisance impacts",
+  "calibration": "per flavour (user decision 2026-09-25): scale_shift (data/MC - 1 of the lepton momentum), smear (extra relative per-lepton pT width in quadrature) and sel_eff (tag-and-probe data/MC efficiency ratio of the full single-lepton selection), each the average over the data leptons of the Z -> ll calibration sample of the per-bin measurements of that flavour; working points: muon: AN loose muon (global or tracker, |dxy| < 0.5 cm, |dz| < 1 cm) + PF ID (tracker high-pT ID above 200 GeV) + SIP3D < 4 + FSR-subtracted relative isolation (dR 0.3) < 0.35; electron: AN loose electron (|dxy| < 0.5 cm, |dz| < 1 cm) + mvaFall17V2noIso WPL + SIP3D < 4 + FSR-subtracted relative isolation (dR 0.3) < 0.35",
+  "discovery": "local significance (m_H floating) >= 5.0",
+  "eff_correction": "expected signal yield with the tag-and-probe SFs / without, per final state and inclusive",
+  "reconstruction_efficiency": "taken from the MC (user decision 2026-09-25: not measurable with tag-and-probe with these inputs, the production preselection biases reconstruction probes); the SFs are the tag-and-probe chain id | loose, sip | id, iso | id and sip",
+  "trigger_efficiency": "taken from the MC (user decision 2026-09-25; about 1 for four-lepton events in data and MC), the Z -> ll yield ratio covering it as a cross-check",
+  "paper_style_fits": "per final state, category, mode, (mu_F, mu_V), STXS and mu at 125.09 GeV: the paper's Eq. 10.1, L(m4l, D_bkg^kin) with m4l without the Z1 refit, result set (a), POIs in [0, 20]",
+  "cross_check_z_yield_ratio": {
+   "muon": {
+    "z_yield_ratio_data_over_mc": 0.9822004137766712,
+    "tnp_sf_full_inclusive": 0.9937397050412439,
+    "tnp_sf_full_squared": 0.9875186013754583,
+    "remaining_per_lepton": 0.9973036623891635
+   },
+   "electron": {
+    "z_yield_ratio_data_over_mc": 0.9685934539542584,
+    "tnp_sf_full_inclusive": 1.0000351320962386,
+    "tnp_sf_full_squared": 1.0000702654267415,
+    "remaining_per_lepton": 0.9841368807760992
+   }
+  }
+ }
+}

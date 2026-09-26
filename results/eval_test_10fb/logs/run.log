@@ -1,0 +1,64 @@
+[    3.7s] dataset production_v3/eval_datasets/test_10fb: lumi 9.994294963918644 fb^-1, 41 data files, processes DYJetsToLL (DY, 3637 files, xsec 5396.0), GGZZ2E2Mu (ggZZ, 1 files, xsec 0.003185), GGZZ4E (ggZZ, 3 files, xsec 0.001619), GGZZ4Mu (ggZZ, 48 files, xsec 0.001575), GluGluToHToZZ_M125 (signal, 99 files, xsec 0.006024), TTBar (TT, 488 files, xsec 87.58), VBF_HToZZ_M125 (signal, 98 files, xsec 0.00048794), VHToZZ_M125 (signal, 99 files, xsec 0.0002726892), ZZTo4L (qqZZ, 1854 files, xsec 1.325)
+[   14.0s] compiled production_v3/tmp/eval_runs/test_10fb_4/build/h4l_reader (c++)
+[   14.0s] reading 3379 files in 131 chunks with 16 parallel ROOT processes
+[  193.8s]   50/131 chunks
+[  393.8s]   100/131 chunks
+[  540.9s] read done in 541 s
+[  540.9s]   DYJetsToLL: weight 1.311 per entry (1819/3637 files, n_preselection 41127205; meta.json count 82448537)
+[  540.9s]   GGZZ2E2Mu: weight 0.005305 per entry (1/1 files, n_preselection 6000; meta.json count 6000)
+[  540.9s]   GGZZ4E: weight 0.0002399 per entry (3/3 files, n_preselection 67452; meta.json count 67452)
+[  540.9s]   GGZZ4Mu: weight 1.578e-05 per entry (48/48 files, n_preselection 997445; meta.json count 997445)
+[  540.9s]   GluGluToHToZZ_M125: weight 0.0006081 per entry (99/99 files, n_preselection 99000; meta.json count 99000)
+[  540.9s]   TTBar: weight 0.163 per entry (244/488 files, n_preselection 5371000; meta.json count 10714000)
+[  540.9s]   VBF_HToZZ_M125: weight 4.976e-05 per entry (98/98 files, n_preselection 98000; meta.json count 98000)
+[  540.9s]   VHToZZ_M125: weight 2.753e-05 per entry (99/99 files, n_preselection 99000; meta.json count 99000)
+[  540.9s]   ZZTo4L: weight 0.0006388 per entry (927/1854 files, n_preselection 20731000; meta.json count 41931000)
+[  865.6s] [calib] muon iteration 0: worst residual 75.11 sigma; scale 144 categories chi2/ndf 1075/112, smear 147 categories chi2/ndf 249/115
+[  865.6s] [calib] muon: responses of 327 categories, 223 within [0.5, 1.5] for both quantities
+[  865.6s] [calib] muon iteration 1: worst residual 20.95 sigma; scale 163 categories chi2/ndf 96/130, smear 157 categories chi2/ndf 137/124
+[  865.6s] [calib] muon iteration 2: worst residual 4.66 sigma; scale 160 categories chi2/ndf 77/127, smear 155 categories chi2/ndf 121/122
+[  865.6s] [calib] muon iteration 3: worst residual 1.25 sigma; scale 160 categories chi2/ndf 82/127, smear 155 categories chi2/ndf 127/122
+[  865.6s] [calib] muon iteration 4: worst residual 0.45 sigma; scale 160 categories chi2/ndf 84/127, smear 155 categories chi2/ndf 131/122
+[  865.7s] [calib] muon iteration 5: worst residual 0.20 sigma; scale 160 categories chi2/ndf 85/127, smear 155 categories chi2/ndf 133/122
+[  865.7s] [calib] muon iteration 6: worst residual 0.14 sigma; scale 160 categories chi2/ndf 85/127, smear 155 categories chi2/ndf 133/122
+[  865.7s] [calib] electron iteration 0: worst residual 121.84 sigma; scale 129 categories chi2/ndf 220/102, smear 135 categories chi2/ndf 217/108
+[  865.7s] [calib] electron: responses of 220 categories, 159 within [0.5, 1.5] for both quantities
+[  865.7s] [calib] electron iteration 1: worst residual 33.20 sigma; scale 140 categories chi2/ndf 89/114, smear 132 categories chi2/ndf 105/106
+[  865.7s] [calib] electron iteration 2: worst residual 4.71 sigma; scale 141 categories chi2/ndf 83/115, smear 132 categories chi2/ndf 98/106
+[  865.7s] [calib] electron iteration 3: worst residual 1.91 sigma; scale 141 categories chi2/ndf 87/115, smear 132 categories chi2/ndf 110/106
+[  865.7s] [calib] electron iteration 4: worst residual 1.35 sigma; scale 141 categories chi2/ndf 91/115, smear 132 categories chi2/ndf 120/106
+[  865.7s] [calib] electron iteration 5: worst residual 1.22 sigma; scale 141 categories chi2/ndf 92/115, smear 132 categories chi2/ndf 123/106
+[  865.7s] [calib] electron iteration 6: worst residual 1.03 sigma; scale 141 categories chi2/ndf 94/115, smear 132 categories chi2/ndf 124/106
+[  865.7s] [calib] electron iteration 7: worst residual 0.87 sigma; scale 141 categories chi2/ndf 97/115, smear 132 categories chi2/ndf 126/106
+[  865.7s] [calib] electron iteration 8: worst residual 0.79 sigma; scale 141 categories chi2/ndf 98/115, smear 132 categories chi2/ndf 126/106
+[  865.7s] [calib] electron iteration 9: worst residual 0.60 sigma; scale 140 categories chi2/ndf 97/114, smear 132 categories chi2/ndf 127/106
+[  865.7s] [calib] electron iteration 10: worst residual 0.49 sigma; scale 140 categories chi2/ndf 98/114, smear 132 categories chi2/ndf 129/106
+[  865.7s] [calib] electron: not converged within 10 iterations; the payloads applied in the last 4 iterations averaged (as the main analysis)
+[  897.9s] [calib] muon: scale_shift -0.01996 +- 0.00037, smear 0.01211 +- 0.00045
+[  897.9s] [calib] electron: scale_shift -0.01995 +- 0.00049, smear 0.01312 +- 0.00185
+[  945.6s] [tnp] muon: 36 bins; SF range 0.987-1.051; invalid nominal fits 30
+[  945.6s] [tnp] electron: 45 bins; SF range 0.978-1.185; invalid nominal fits 24
+[  953.4s] [tnp] muon: sel_eff 0.99444 +- 0.00033
+[  953.4s] [tnp] electron: sel_eff 1.00227 +- 0.00135
+[ 1047.4s] [select] data: 438 SR candidates, 55 in 105.0-140.0 GeV (4mu 23, 4e 11, 2e2mu 21)
+[ 1047.6s] [zx] 4mu: 1.480 +- 0.968 (3P1F 19, 2P2F 54, ZZ in 3P1F 1.52)
+[ 1047.6s] [zx] 4e: 1.570 +- 0.281 (3P1F 78, 2P2F 802, ZZ in 3P1F 2.36)
+[ 1047.6s] [zx] 2e2mu: 4.392 +- 1.044 (3P1F 134, 2P2F 1042, ZZ in 3P1F 3.61)
+[ 1058.8s] [model] ch_4mu_dmass0: observed 4, signal 2.49, qqZZ 2.39, ggZZ 0.07, Z+X 0.16; DCB mean 124.97 sigma 1.11
+[ 1058.9s] [model] ch_4mu_dmass1: observed 7, signal 2.49, qqZZ 2.55, ggZZ 0.11, Z+X 0.51; DCB mean 124.90 sigma 1.37
+[ 1059.0s] [model] ch_4mu_dmass2: observed 12, signal 2.49, qqZZ 3.19, ggZZ 0.14, Z+X 0.81; DCB mean 124.71 sigma 1.63
+[ 1059.0s] [model] ch_4e_dmass0: observed 3, signal 1.42, qqZZ 0.98, ggZZ 0.03, Z+X 0.06; DCB mean 124.63 sigma 1.43
+[ 1059.1s] [model] ch_4e_dmass1: observed 3, signal 1.42, qqZZ 1.23, ggZZ 0.05, Z+X 0.25; DCB mean 124.42 sigma 2.19
+[ 1059.1s] [model] ch_4e_dmass2: observed 5, signal 1.42, qqZZ 1.39, ggZZ 0.09, Z+X 1.26; DCB mean 123.66 sigma 3.15
+[ 1059.3s] [model] ch_2e2mu_dmass0: observed 10, signal 3.77, qqZZ 3.07, ggZZ 0.12, Z+X 0.11; DCB mean 124.89 sigma 1.25
+[ 1059.4s] [model] ch_2e2mu_dmass1: observed 7, signal 3.77, qqZZ 3.35, ggZZ 0.08, Z+X 0.43; DCB mean 124.63 sigma 1.66
+[ 1059.5s] [model] ch_2e2mu_dmass2: observed 4, signal 3.77, qqZZ 3.55, ggZZ 0.14, Z+X 3.86; DCB mean 124.24 sigma 2.55
+[ 1068.2s] [fit] mu 0.8778 [-0.2244, +0.2569] (stat [-0.2227, +0.2555], syst 0.0314); mH 125.558 [-0.480, +0.489] (syst 0.045); Z 5.64 (expected 6.57); valid True
+[ 1078.9s] [gof] saturated q 265.9; toys 198/200 valid: p = 0.040; coverage of the mu interval 0.722
+[ 1082.0s] mu = 0.8778 +0.2569/-0.2244 (stat 0.2391, syst 0.0314)
+[ 1082.0s] mH = 125.558 +0.489/-0.480 GeV (stat 0.482, syst 0.045)
+[ 1082.0s] Z_obs = 5.64, Z_exp = 6.57; GoF p = 0.040; coverage 0.722
+[ 1082.0s] muon: scale_shift -0.01996 +- 0.00037, smear 0.01211 +- 0.00045, sel_eff 0.99444 +- 0.00033
+[ 1082.0s] electron: scale_shift -0.01995 +- 0.00049, smear 0.01312 +- 0.00185, sel_eff 1.00227 +- 0.00135
+[ 1082.0s] timings [s]: read 541, calibration 357, tnp 55, selection 94, zx 0, templates 12, inference 19, total 1079
+[ 1082.0s] done in 1079 s

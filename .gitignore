@@ -6,5 +6,18 @@ pixi.lock
 __pycache__/
 *.pyc
 
+# Local ROOT/C++ build products.  Generated production outputs live only
+# under the git-ignored /production_v3/ block below.
+fake_data_nanoaod/bin/
+h4l_reconstruction/h4l_reconstruct
+h4l_reconstruction/h4l_reco_output_validation
+calibration_skim/bin/
+reducible_background/bin/
+/analysis_v3/*/bin/
+
+# In-repository production root of the UL16 PFNano v3 reanalysis: the blinded
+# pseudo-data inputs, ntuples and every other large generated product.
+/production_v3/
+
 # SLURM logs
 .slurm_*.out

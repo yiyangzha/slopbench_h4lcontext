@@ -1,0 +1,84 @@
+{
+ "schema": "h4l_v3_data_weighted_average/1",
+ "calibration": "/eos/user/y/yiyangz/codex/jfc/analyses/ref_h4l/production_v3/calibration/v4/nominal",
+ "sf": "/eos/user/y/yiyangz/codex/jfc/analyses/ref_h4l/production_v3/tnp/v2/v7/fits_i1c/sf.json",
+ "systematics": "/eos/user/y/yiyangz/codex/jfc/analyses/ref_h4l/analysis_v3/inference/config/systematics_ul16_v3.json",
+ "data_files": [
+  "/eos/user/y/yiyangz/codex/jfc/analyses/ref_h4l/production_v3/calibration/v2/extract/pseudo_data/calx_pseudo_data_0000.root",
+  "/eos/user/y/yiyangz/codex/jfc/analyses/ref_h4l/production_v3/calibration/v2/extract/pseudo_data/calx_pseudo_data_0001.root",
+  "/eos/user/y/yiyangz/codex/jfc/analyses/ref_h4l/production_v3/calibration/v2/extract/pseudo_data/calx_pseudo_data_0002.root",
+  "/eos/user/y/yiyangz/codex/jfc/analyses/ref_h4l/production_v3/calibration/v2/extract/pseudo_data/calx_pseudo_data_0003.root",
+  "/eos/user/y/yiyangz/codex/jfc/analyses/ref_h4l/production_v3/calibration/v2/extract/pseudo_data/calx_pseudo_data_0004.root",
+  "/eos/user/y/yiyangz/codex/jfc/analyses/ref_h4l/production_v3/calibration/v2/extract/pseudo_data/calx_pseudo_data_0005.root",
+  "/eos/user/y/yiyangz/codex/jfc/analyses/ref_h4l/production_v3/calibration/v2/extract/pseudo_data/calx_pseudo_data_0006.root",
+  "/eos/user/y/yiyangz/codex/jfc/analyses/ref_h4l/production_v3/calibration/v2/extract/pseudo_data/calx_pseudo_data_0007.root",
+  "/eos/user/y/yiyangz/codex/jfc/analyses/ref_h4l/production_v3/calibration/v2/extract/pseudo_data/calx_pseudo_data_0008.root",
+  "/eos/user/y/yiyangz/codex/jfc/analyses/ref_h4l/production_v3/calibration/v2/extract/pseudo_data/calx_pseudo_data_0009.root",
+  "/eos/user/y/yiyangz/codex/jfc/analyses/ref_h4l/production_v3/calibration/v2/extract/pseudo_data/calx_pseudo_data_0010.root",
+  "/eos/user/y/yiyangz/codex/jfc/analyses/ref_h4l/production_v3/calibration/v2/extract/pseudo_data/calx_pseudo_data_0011.root",
+  "/eos/user/y/yiyangz/codex/jfc/analyses/ref_h4l/production_v3/calibration/v2/extract/pseudo_data/calx_pseudo_data_0012.root",
+  "/eos/user/y/yiyangz/codex/jfc/analyses/ref_h4l/production_v3/calibration/v2/extract/pseudo_data/calx_pseudo_data_0013.root",
+  "/eos/user/y/yiyangz/codex/jfc/analyses/ref_h4l/production_v3/calibration/v2/extract/pseudo_data/calx_pseudo_data_0014.root",
+  "/eos/user/y/yiyangz/codex/jfc/analyses/ref_h4l/production_v3/calibration/v2/extract/pseudo_data/calx_pseudo_data_0015.root",
+  "/eos/user/y/yiyangz/codex/jfc/analyses/ref_h4l/production_v3/calibration/v2/extract/pseudo_data/calx_pseudo_data_0016.root"
+ ],
+ "definition": "average over the data leptons of the Z -> ll calibration sample (both legs of the data control pairs of the calibration extract passing the calibration leg selection, 60 < m_ll < 120 GeV after the data correction)",
+ "flavours": {
+  "muon": {
+   "n_legs": 30767698,
+   "scale_shift": {
+    "value": -0.01993228948063292,
+    "unc": 0.0003670491157513663,
+    "components": {
+     "stat": 1.1461634831091249e-05,
+     "iteration": 9.855211205434645e-07,
+     "closure": 0.00036686879541462724
+    }
+   },
+   "smear": {
+    "value": 0.011564530826241152,
+    "unc": 0.00046788405076772987,
+    "components": {
+     "stat": 5.299812439425226e-05,
+     "closure": 0.0004648727608426966
+    }
+   },
+   "sel_eff": {
+    "value": 0.9940694699100676,
+    "unc": 0.0017788518220975022,
+    "components": {
+     "stat": 0.00013783283348504924,
+     "fit_model": 0.0017735038525453183
+    }
+   }
+  },
+  "electron": {
+   "n_legs": 19573766,
+   "scale_shift": {
+    "value": -0.019874134265424673,
+    "unc": 0.0004923007231676001,
+    "components": {
+     "stat": 1.993787321986241e-05,
+     "iteration": 8.935246898834055e-06,
+     "closure": 0.0004918156612041423
+    }
+   },
+   "smear": {
+    "value": 0.011278459312216445,
+    "unc": 0.002147845343148994,
+    "components": {
+     "stat": 0.00011533990541864395,
+     "closure": 0.0021447462144283734
+    }
+   },
+   "sel_eff": {
+    "value": 1.000426688657938,
+    "unc": 0.003071817243891777,
+    "components": {
+     "stat": 0.00021624346901760234,
+     "fit_model": 0.003064196459429145
+    }
+   }
+  }
+ }
+}

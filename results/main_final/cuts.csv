@@ -1,0 +1,17 @@
+name,variable,threshold,role,expected_Z_with,expected_Z_without,relaxed_to,note
+mz1_window,"m_Z1 (the OS SF pair closest to m_Z, with FSR)",40 < m_Z1 < 120 GeV,sensitivity,7.380323669921715,7.354375671246605,40 < m_Z1 < 120 GeV relaxed to 30 < m_Z1 < 130 GeV (event-record floor),
+mz2_window,"m_Z2 (the other OS SF pair, with FSR)",10 < m_Z2 < 120 GeV (signal region; smart cut with the same threshold),sensitivity,7.380323669921715,6.381754627728374,"m_Z2 > 10 GeV (and the smart cut's threshold), m_Z2 < 120 GeV relaxed to 3-130 GeV (event-record floor; effectively 4 GeV through the kept m_ll(OS) > 4 GeV)",
+iso_rel_fsr,"relative PF isolation dR 0.3, FSR photons subtracted",< 0.35 (muons and electrons),sensitivity,7.380323669921715,5.139094405980233,FSR-subtracted isolation < 0.35 removed,
+sip3d,|SIP_3D| of each lepton,< 4,quality,7.380323669921715,7.0712775591377826,SIP < 4 relaxed to SIP < 8 (event-record floor),
+min_pt_lep,lepton pT,"> 5 GeV (muons), > 7 GeV (electrons)",quality,7.380323669921715,6.436584951808476,lepton pT > 5 (mu) / 7 (e) GeV relaxed to 3 / 5 GeV (event-record floor),
+lead_sublead_20_10,the two highest lepton pT,> 20 GeV and > 10 GeV,quality,7.380323669921715,7.383471643895106,leading / subleading lepton pT > 20 / 10 GeV relaxed to 15 / 7 GeV (event-record floor),
+os_pair_mass,every opposite-sign lepton pair (without FSR),m_ll > 4 GeV,quality,7.380323669921715,7.390295198997601,m_ll(OS) > 4 GeV relaxed to 2 GeV (event-record floor),
+id_muon,muon identification,PF muon (tracker high-pT ID above 200 GeV),quality,7.380323669921715,7.1695637883895795,"muon identification (PF, or tracker high-pT) removed",
+id_electron,electron identification,mvaFall17V2noIso WPL,quality,7.380323669921715,4.312657234149081,electron identification (mvaFall17V2noIso WPL) removed,
+dxy_lep,|dxy| of each lepton,< 0.5 cm,quality,7.380323669921715,,,the event records carry this requirement as their loose-object floor: not relaxable without re-running the reconstruction
+dz_lep,|dz| of each lepton,< 1 cm,quality,7.380323669921715,,,the event records carry this requirement as their loose-object floor: not relaxable without re-running the reconstruction
+eta_lep,lepton |eta|,"< 2.4 (muons), < 2.5 (electrons)",quality,7.380323669921715,,,the event records carry this requirement as their loose-object floor: not relaxable without re-running the reconstruction
+dr_lep,dR between any two leptons,> 0.02,quality,7.380323669921715,,,the event records carry this requirement as their loose-object floor: not relaxable without re-running the reconstruction
+m4l_min,m4l,> 70 GeV,quality,7.380323669921715,7.380323669921715,,no effect inside the 118-130 GeV counting window
+trigger_or,"the analysis trigger OR (single, double, triple lepton)",fired,quality,7.380323669921715,,,online requirement of every event; not relaxable
+ghost_cross_cleaning,"muon ghosts (dR < 0.02, tracker duplicates within 0.05) and electrons within dR 0.05 of a muon",removed,quality,7.380323669921715,,,removing it would count one lepton twice

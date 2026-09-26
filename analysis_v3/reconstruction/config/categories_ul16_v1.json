@@ -1,0 +1,13 @@
+{
+ "schema": "h4l_v3_categories/1",
+ "version": "cat_v1",
+ "description": "The seven event categories of AN-16-442 v8 section 6.1 (JHEP 11 (2017) 047 section 6), in the order of the AN; the discriminants are the MELA-normalized ones (as the AN's MELA-only categorization), so the starting working points are the AN ones: D_2jet > 1.043 - 460/(m4l + 634), D_WH > 0.951 or D_ZH > 0.9937, D_1jet > 0.697, MET > 100 GeV; the working points are optimized on MC in stage 4b.  Jets: pT > 30 GeV, |eta| < 4.7, cleaned from the selected leptons, the candidate's leptons and the selected FSR photons; b tags DeepJet medium (|eta| < 2.4); additional leptons: selected leptons outside the candidate.",
+ "order": ["VBF-2jet", "VH-hadronic", "VH-leptonic", "ttH", "VH-MET", "VBF-1jet", "Untagged"],
+ "working_points": {
+  "d_2jet": {"form": "a - b / (m4l + c)", "a": 1.043, "b": 460.0, "c": 634.0},
+  "d_wh": 0.951,
+  "d_zh": 0.9937,
+  "d_1jet": 0.697,
+  "met_vh": 100.0
+ }
+}

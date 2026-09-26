@@ -1,0 +1,104 @@
+{
+  "schema": "h4l_v3_catalog/1",
+  "description": "Inputs of the UL16 PFNano v3 reference analysis: the 20 fb^-1 pseudo-data and the nine read-only MC samples.",
+  "sources": {
+    "cross_sections": "prompt_renew.md section 4.2; identical to samples[].effective_xsec_pb of slopbench_code_fork/benchmark/configs/h4l_pfnano_seed_plan_v3.json (checked 2026-09-23)",
+    "normalization": "genWeight-based (user decision 2026-09-23): sigma_eff * L * sum(genWeight of selected events) / sum(genEventSumw of the files present); count-based value kept as a cross-check",
+    "record_totals": "seed_v2.md, table 'Process | Kind | sigma_eff | Open Data record | record events' (background samples); the private M125 signal samples have no documented record total"
+  },
+  "data": {
+    "name": "pseudo_data",
+    "directory": "/eos/user/y/yiyangz/codex/jfc/analyses/ref_h4l/production_v3/pseudo_data/917f9326efa44ea9",
+    "xrootd_prefix": "root://eosuser.cern.ch/",
+    "pattern": "part_*.root",
+    "lumi_fb": 20.0,
+    "provenance_object": "PFnanoFakeDataProvenance",
+    "expected_schema": "pfnano_fake_data/v3"
+  },
+  "mc": {
+    "root": "/eos/cms/store/group/phys_bphys/trigger/yiyangz-contact/h4l_seeds_v2/mc",
+    "xrootd_prefix": "root://eoscms.cern.ch/",
+    "provenance_object": "PFnanoFinalMCProvenance",
+    "expected_schema": "pfnano_final_mc/v2"
+  },
+  "samples": [
+    {
+      "name": "ZZTo4L",
+      "role": "qqZZ",
+      "sigma_eff_pb": 1.325,
+      "layout": "blocks",
+      "note": "qq->ZZ->4l; non-unit genWeight; partial record (about 80 %)",
+      "record_total_events": 52137000
+    },
+    {
+      "name": "GGZZ4Mu",
+      "role": "ggZZ",
+      "sigma_eff_pb": 0.001575,
+      "layout": "blocks",
+      "note": "gg->ZZ->4mu",
+      "record_total_events": 997445
+    },
+    {
+      "name": "GGZZ4E",
+      "role": "ggZZ",
+      "sigma_eff_pb": 0.001619,
+      "layout": "blocks",
+      "note": "gg->ZZ->4e; partial record (6.8 %)",
+      "record_total_events": 992608
+    },
+    {
+      "name": "GGZZ2E2Mu",
+      "role": "ggZZ",
+      "sigma_eff_pb": 0.003185,
+      "layout": "blocks",
+      "note": "gg->ZZ->2e2mu; partial record (1.2 %, a single file)",
+      "record_total_events": 499000
+    },
+    {
+      "name": "DYJetsToLL",
+      "role": "DY",
+      "sigma_eff_pb": 5396.0,
+      "layout": "blocks",
+      "note": "Z/gamma*+jets",
+      "record_total_events": 82448537
+    },
+    {
+      "name": "TTBar",
+      "role": "ttbar",
+      "sigma_eff_pb": 87.58,
+      "layout": "blocks",
+      "note": "TTTo2L2Nu (not the obsolete 52.70 pb TTJets_DiLept); deterministic file subset of about 25 %; non-unit genWeight",
+      "record_total_events": 43630000
+    },
+    {
+      "name": "GluGluToHToZZ_M125",
+      "role": "signal",
+      "mode": "ggH",
+      "mass_GeV": 125.0,
+      "sigma_eff_pb": 0.006024,
+      "layout": "flat",
+      "note": "private Pythia8",
+      "record_total_events": null
+    },
+    {
+      "name": "VBF_HToZZ_M125",
+      "role": "signal",
+      "mode": "VBF",
+      "mass_GeV": 125.0,
+      "sigma_eff_pb": 0.00048794,
+      "layout": "flat",
+      "note": "private Pythia8",
+      "record_total_events": null
+    },
+    {
+      "name": "VHToZZ_M125",
+      "role": "signal",
+      "mode": "VH",
+      "mass_GeV": 125.0,
+      "sigma_eff_pb": 0.0002726892,
+      "layout": "flat",
+      "note": "ZH + W+H + W-H at Pythia's LO ratio",
+      "record_total_events": null
+    }
+  ]
+}

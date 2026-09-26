@@ -1,0 +1,185 @@
+{
+  "schema": "h4l_v3_analysis_config/1",
+  "version": "skim_v2",
+  "description": "Analysis configuration of the UL16 PFNano v3 reference analysis.  This version holds what the stage-2 skims need; later stages add versioned sections.",
+  "triggers": {
+    "comment": "AN-16-442 Table 2 in NanoAOD names plus the single-muon IsoMu24/IsoTkMu24 tag paths; the bit order of the skim trigger mask is the order of 'paths'",
+    "paths": [
+      "HLT_Ele17_Ele12_CaloIdL_TrackIdL_IsoVL_DZ",
+      "HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL_DZ",
+      "HLT_DoubleEle33_CaloIdL_GsfTrkIdVL",
+      "HLT_Ele16_Ele12_Ele8_CaloIdL_TrackIdL",
+      "HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL",
+      "HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL",
+      "HLT_TripleMu_12_10_5",
+      "HLT_Mu8_TrkIsoVVL_Ele17_CaloIdL_TrackIdL_IsoVL",
+      "HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL",
+      "HLT_Mu17_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL",
+      "HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL",
+      "HLT_Mu23_TrkIsoVVL_Ele8_CaloIdL_TrackIdL_IsoVL",
+      "HLT_Mu8_DiEle12_CaloIdL_TrackIdL",
+      "HLT_DiMu9_Ele9_CaloIdL_TrackIdL",
+      "HLT_Ele25_eta2p1_WPTight_Gsf",
+      "HLT_Ele27_WPTight_Gsf",
+      "HLT_Ele27_eta2p1_WPLoose_Gsf",
+      "HLT_IsoMu20",
+      "HLT_IsoTkMu20",
+      "HLT_IsoMu22",
+      "HLT_IsoTkMu22",
+      "HLT_IsoMu24",
+      "HLT_IsoTkMu24"
+    ],
+    "analysis_or": [
+      "HLT_Ele17_Ele12_CaloIdL_TrackIdL_IsoVL_DZ",
+      "HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL_DZ",
+      "HLT_DoubleEle33_CaloIdL_GsfTrkIdVL",
+      "HLT_Ele16_Ele12_Ele8_CaloIdL_TrackIdL",
+      "HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL",
+      "HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL",
+      "HLT_TripleMu_12_10_5",
+      "HLT_Mu8_TrkIsoVVL_Ele17_CaloIdL_TrackIdL_IsoVL",
+      "HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL",
+      "HLT_Mu17_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL",
+      "HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL",
+      "HLT_Mu23_TrkIsoVVL_Ele8_CaloIdL_TrackIdL_IsoVL",
+      "HLT_Mu8_DiEle12_CaloIdL_TrackIdL",
+      "HLT_DiMu9_Ele9_CaloIdL_TrackIdL",
+      "HLT_Ele25_eta2p1_WPTight_Gsf",
+      "HLT_Ele27_WPTight_Gsf",
+      "HLT_Ele27_eta2p1_WPLoose_Gsf",
+      "HLT_IsoMu20",
+      "HLT_IsoTkMu20",
+      "HLT_IsoMu22",
+      "HLT_IsoTkMu22"
+    ],
+    "trigobj_match_dr": 0.1,
+    "muon_object_merge_dr": 0.05,
+    "electron_object_position": {
+      "comment": "HLT electron objects sit at the supercluster position: eta = eta_SC, phi = phi - q * 0.3 * B * r / (2 pT) with r = min(barrel radius, endcap z / |sinh eta_SC|); measured in DY MC: q*dphi = -0.750/pT (barrel), -0.537/pT (endcap average)",
+      "field_tesla": 3.8,
+      "barrel_radius_m": 1.29,
+      "endcap_z_m": 3.14
+    }
+  },
+  "skim": {
+    "comment": "Floors below every threshold the analysis may use; the optimization of stage 4 moves thresholds only above them",
+    "muon_floor": {
+      "pt": 3.0,
+      "abs_eta": 2.4,
+      "abs_dxy": 0.5,
+      "abs_dz": 1.0
+    },
+    "electron_floor": {
+      "pt": 5.0,
+      "abs_eta_sc": 2.5,
+      "abs_dxy": 0.5,
+      "abs_dz": 1.0,
+      "comment": "accepted if abs(eta) or abs(eta_SC) is below abs_eta_sc (the AN loose electron uses abs(eta) < 2.5)"
+    },
+    "pair_mass_window": [
+      40.0,
+      140.0
+    ],
+    "probe_photon": {
+      "pt": 10.0,
+      "abs_eta": 2.5,
+      "min_dr_to_tag": 0.3
+    },
+    "probe_trigobj": {
+      "min_dr_to_tag": 0.3
+    },
+    "tag_min_pt": {
+      "muon": 20.0,
+      "electron": 25.0
+    },
+    "fsr_an": {
+      "pt": 2.0,
+      "abs_eta": 2.4,
+      "rel_iso": 1.8,
+      "dr_over_et2": 0.012,
+      "max_dr": 0.5
+    },
+    "multilepton_min_leptons": 3,
+    "slim_keep": [
+      "run",
+      "luminosityBlock",
+      "event",
+      "nMuon",
+      "Muon_*",
+      "nElectron",
+      "Electron_*",
+      "nFsrPhoton",
+      "FsrPhoton_*",
+      "nPhoton",
+      "Photon_*",
+      "nJet",
+      "Jet_*",
+      "MET_*",
+      "RawMET_*",
+      "ChsMET_*",
+      "PV_*",
+      "fixedGridRho*",
+      "nTrigObj",
+      "TrigObj_*",
+      "Flag_*",
+      "genWeight",
+      "Generator_*",
+      "nGenPart",
+      "GenPart_*",
+      "nGenJet",
+      "GenJet_*",
+      "nGenDressedLepton",
+      "GenDressedLepton_*",
+      "GenMET_*",
+      "Pileup_*",
+      "nLHEScaleWeight",
+      "LHEScaleWeight",
+      "nLHEPdfWeight",
+      "LHEPdfWeight",
+      "nPSWeight",
+      "PSWeight",
+      "LHEWeight_originalXWGTUP",
+      "HTXS_*"
+    ]
+  },
+  "fiducial": {
+    "comment": "Generator-level fiducial volume of JHEP 11 (2017) 047 Table 4 with dressed leptons; the dressing photons are excluded from the isolation sum (user decision 2026-09-23)",
+    "dressing_dr": 0.3,
+    "isolation_dr": 0.3,
+    "isolation_max_rel": 0.35,
+    "electron": {
+      "pt": 7.0,
+      "abs_eta": 2.5
+    },
+    "muon": {
+      "pt": 5.0,
+      "abs_eta": 2.4
+    },
+    "leading_pt": 20.0,
+    "subleading_pt": 10.0,
+    "z1_mass": [
+      40.0,
+      120.0
+    ],
+    "z2_mass": [
+      12.0,
+      120.0
+    ],
+    "min_dr_leptons": 0.02,
+    "min_os_mass": 4.0,
+    "m4l": [
+      105.0,
+      140.0
+    ],
+    "jets": {
+      "pt": 30.0,
+      "abs_eta": 2.5,
+      "min_dr_leptons": 0.4
+    },
+    "z_mass": 91.1876
+  },
+  "stxs": {
+    "comment": "STXS stage 0 from GenPart (the private Pythia8 samples have empty HTXS branches): GG2H 11 / 10 (FWDH), VBF 21 / 20, VH2HQQ 23 / 22, QQ2HLNU 31 / 30, QQ2HLL 41 / 40; FWDH for abs(y_H) > 2.5",
+    "abs_y_max": 2.5
+  }
+}
