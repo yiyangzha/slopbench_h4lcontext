@@ -589,3 +589,15 @@ the categories and discriminant working points still to do).
 9. Benchmark files (RESULT.json, MODEL.json, eval_selfreport.json, full
    results JSON, summary) and validation toys.
 10. The detailed AN (pdflatex), final review, handoff.
+
+## Status 2026-09-26 (new benchmark version, unblinding, delivery)
+
+| item | state |
+|---|---|
+| Main analysis final results (EVAL_CONTRACT v0.4 format, per-flavour calibration, data-weighted averages) | done: production_v3/results/v5/final_v2 (freeze_v2 d42d3bb3...) |
+| Boundary treatment of the fits (POIs at a limit) | done; category/mode/stxs0/fid fits rerun, all valid |
+| Unblinding (user-authorized truth record) and AN with the truth comparison | done: deliverables/AN_h4l_ul16_pfnano_v2 |
+| Evaluation submission my_analysis/ (ROOT reader, main-analysis methods, T&P simplified) | done; 10 fb^-1 test 18 min, pyhf-valid MODEL.json |
+| Rewritten EVAL_CONTRACT.md (per-flavour Nuisance parameters section) | done: my_analysis/EVAL_CONTRACT.md |
+| GitHub branch reference | pushed (00ce415), no ref/ files |
+| Submission pixi environment (conda ROOT) build and smoke test | in progress (download retried) |

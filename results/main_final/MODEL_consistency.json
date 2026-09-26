@@ -1,0 +1,10 @@
+{
+ "h4l_consistency": {
+  "mu_pyhf": 0.9275811011130312,
+  "mu_reported": 0.9031648151952458,
+  "tolerance": 0.09485146271791248,
+  "consistent": true,
+  "mH_fixed": 124.96391490347845,
+  "binning": "m4l 2.5 GeV x 5 D bins per final state"
+ }
+}

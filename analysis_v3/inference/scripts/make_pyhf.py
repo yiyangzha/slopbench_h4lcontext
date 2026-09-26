@@ -167,9 +167,11 @@ def main() -> int:
     check = {"mu_pyhf": mu_hat, "mu_reported": reported["value"], "tolerance": 0.25 * sigma + 0.05,
              "consistent": abs(mu_hat - reported["value"]) <= 0.25 * sigma + 0.05, "mH_fixed": mh,
              "binning": f"m4l {M_STEP} GeV x {len(model['d_edges']) - 1} D bins per final state"}
-    workspace["h4l_consistency"] = check
     out = args.out if args.out.is_absolute() else REPO / args.out
+    # The pyhf schema admits no extra top-level key (EVAL_CONTRACT GATE: pyhf.Workspace(spec).model()): the consistency
+    # record goes to a side file.
     out.write_text(json.dumps(workspace, indent=1) + "\n", encoding="utf-8")
+    out.with_name(out.stem + "_consistency.json").write_text(json.dumps(check, indent=1) + "\n", encoding="utf-8")
     print(f"[pyhf] mu_hat {mu_hat:.4f} vs reported {reported['value']:.4f} (tolerance {check['tolerance']:.4f}): "
           f"{'consistent' if check['consistent'] else 'INCONSISTENT'}\n[pyhf] {out}")
     return 0

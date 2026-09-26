@@ -2,7 +2,13 @@
 
 ## Evaluation submission (EVAL_CONTRACT v0.4, task h4l_ntuple)
 
-    cd my_analysis && ./run.sh <dataset_dir> <output_dir>
+    ./run.sh <dataset_dir> <output_dir>                  # from the repository root (forwards to my_analysis/run.sh)
+    my_analysis/run.sh <dataset_dir> <output_dir>        # the submission directory itself
+    tests/run_test.sh <dataset_dir> <output_dir>         # run + check_outputs.py (contract checks, pyhf build of MODEL.json)
+
+`RESULT.json` and `MODEL.json` at the repository root are the scoring outputs of the main analysis on the 20 fb^-1
+pseudo-data (identical to results/main_final/); results/eval_test_10fb/ holds the outputs of ./run.sh on the ~10 fb^-1
+test dataset.
 
 `my_analysis/` is the self-contained submission directory (run.sh, pixi.toml + pixi.lock, EVAL_CONTRACT.md with the
 per-flavour calibration block, the code in h4l_eval/ and src/).  `<dataset_dir>` has the DATASET.md layout

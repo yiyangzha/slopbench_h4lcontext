@@ -3008,3 +3008,24 @@ question Q1 of `PLAN.md`.
   and speed changes, never a tuning to the truth.  Note: an accidental `pixi run --frozen` of the submission manifest
   created my_analysis/.pixi (environment directory, not deleted per the rules; excluded from git and from the
   submission copy).
+- 2026-09-26T01:10Z, UNBLINDING (user-authorized record and generator configuration): truth m_H = 125 GeV, mu = 1 (every
+  mode), 20 fb^-1, response profile medium (lepton scale k = 1 - 0.018 - 0.004 S(pT/100) - 0.008 S(|eta|/2.5), relative
+  pT smear 0.01 plus 0.01 eta/phi smears), efficiency profile effA (thins muon loose/medium/tight/soft IDs, electron MVA
+  WP90/WP80 and cut-based flags, single-lepton triggers; none of this selection's flags).  Truth summary in
+  production_v3/results/v5/truth_v1/truth.json (make_truth.py): data-weighted truth scale_shift muon -0.01994, electron
+  -0.01991; smear 0.01; sel_eff 1.  Comparison (main analysis, final_v2): mu 0.903 +- 0.179 (pull -0.54), m_H 124.964 +-
+  0.392 (-0.09); scale_shift muon -0.01993 +- 0.00037 (+0.03), electron -0.01987 +- 0.00049 (+0.08); smear muon 0.0116 +-
+  0.0005, electron 0.0113 +- 0.0021 (above the pT-only truth 0.01 as expected from the angular smears); sel_eff muon
+  0.9941 +- 0.0018 (-3.3 sigma from 1), electron 1.0004 +- 0.0031.  AN with the truth section:
+  deliverables/AN_h4l_ul16_pfnano_v2/main.pdf (make_an.py adapted to the final_v2 format).
+- 2026-09-26T01:05Z, EVAL TEST (production_v3/tmp/eval_runs/test_10fb_4; ~10 fb^-1: 41 shards + all MC, DATASET.md
+  layout by symlinks, analysis environment + lxplus ROOT): 1079 s (read 541, calibration 357, T&P 55, selection 94,
+  inference 19); mu 0.878 +0.257/-0.224, m_H 125.558 +0.489/-0.480 GeV, Z 5.64 (expected 6.57), GoF p 0.040, coverage
+  0.722; calibration muon -0.01996 +- 0.00037 / 0.0121 / sel_eff 0.9944, electron -0.01995 +- 0.00049 / 0.0131 / 1.0023.
+  pyhf builds MODEL.json (after dropping the top-level _meta, which the pyhf schema rejects: now in MODEL_meta.json) and
+  refits mu 0.8776 (reported 0.8778).
+- 2026-09-26T01:15Z, GITHUB (user-authorized): branch `reference` of github.com/yiyangzha/slopbench_h4lcontext (commit
+  00ce415, from a separate clone in production_v3/tmp/github_stage; this repository's git untouched): my_analysis/,
+  analysis_v3/ (sources, no binaries), results/ (main_final, eval_test_10fb, truth), the AN (main.pdf, main.tex),
+  AGENTS.md, PLAN.md, README.md, experiment_log.md, REFERENCE.md.  Verified: no file from ref/ (no ref/ path, no HTML,
+  no reference PDFs).  my_analysis/pixi.lock force-added (the base .gitignore ignores pixi.lock).
