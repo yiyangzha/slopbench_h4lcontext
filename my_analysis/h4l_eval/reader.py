@@ -18,11 +18,18 @@ SRC = Path(__file__).resolve().parent.parent / "src" / "h4l_reader.cpp"
 
 
 def compile_reader(build_dir: Path, log) -> Path:
+    """Compile the ROOT reader with the environment's compiler against its ROOT (the C++ standard of root-config wins; the
+    ROOT library directory as rpath so that the program runs without LD_LIBRARY_PATH)."""
+    import shutil
     build_dir.mkdir(parents=True, exist_ok=True)
     exe = build_dir / "h4l_reader"
-    cxx = os.environ.get("CXX") or "c++"
+    candidates = [os.environ.get("CXX", ""), "x86_64-conda-linux-gnu-c++", "c++", "g++", "clang++"]
+    cxx = next((c for c in candidates if c and shutil.which(c)), None)
+    if cxx is None:
+        raise RuntimeError("no C++ compiler found (CXX, c++, g++, clang++)")
     flags = subprocess.run(["root-config", "--cflags", "--libs"], check=True, capture_output=True, text=True).stdout.split()
-    cmd = [cxx, "-O2", "-std=c++17", str(SRC), "-o", str(exe)] + flags
+    libdir = subprocess.run(["root-config", "--libdir"], check=True, capture_output=True, text=True).stdout.strip()
+    cmd = [cxx, "-O2", "-std=c++17", str(SRC), "-o", str(exe)] + flags + [f"-Wl,-rpath,{libdir}"]
     res = subprocess.run(cmd, capture_output=True, text=True)
     if res.returncode != 0:
         raise RuntimeError(f"compilation failed: {shlex.join(cmd)}\n{res.stderr}")
