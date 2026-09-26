@@ -1,11 +1,13 @@
 """The dataset of DATASET.md: data/part_*.root, mc/<process>/*.root + meta.json, mc/cross_sections.json, lumi.json,
 meta.json.  The ROOT files have the format of the UL16 PFNano inputs (Events tree; MC files carry the TNamed
-PFnanoFinalMCProvenance with entries_before_selection and the Runs tree with genEventCount, read by the C++ pass).
+PFnanoFinalMCProvenance with entries_before_selection and the Runs tree with genEventCount and genEventSumw, read by
+the C++ pass).
 
-MC normalization (DATASET.md / the task prompt): expected yield = effective_xsec_pb x lumi_fb x 1000 x
-n_selected / n_preselection, with n_preselection the number of generated entries entering the production
-preselection, summed over the files present (entries_before_selection of every file; genEventCount as the
-fallback); the per-process meta.json is cross-checked when it carries a recognizable count.
+MC normalization (the main analysis, user decision 2026-09-23): an MC event weighs 1000 lumi_fb sigma_eff genWeight /
+sum of genEventSumw over the files read; the count-based effective_xsec_pb x lumi_fb x 1000 / n_preselection of the
+task prompt (n_preselection = the generated entries entering the production preselection, entries_before_selection of
+every file, genEventCount as the fallback) is recorded as a cross-check and used when the files carry no genEventSumw;
+the per-process meta.json count is recorded when it carries a recognizable key.
 """
 
 from __future__ import annotations

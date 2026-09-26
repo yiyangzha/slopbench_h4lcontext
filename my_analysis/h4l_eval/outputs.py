@@ -21,7 +21,8 @@ def sym(iv):
 
 def workspace(lik, mh: float) -> dict:
     """The fitted model as a pyhf workspace: at m_H = mh the signal templates are fixed; the lepton scale and resolution
-    act as histosys, the efficiencies and Z+X as normsys, mu is the POI (normfactor)."""
+    and the A x eff(m_H) morphing act as histosys, the efficiencies and Z+X (asymmetric) as normsys, mu is the POI
+    (normfactor)."""
     sig = lik.signal_templates(mh)
     channels, observations = [], []
     for ch, (nom, var), obs in zip(lik.channels, sig, lik.observed):
@@ -42,8 +43,9 @@ def workspace(lik, mh: float) -> dict:
                   for fl in ("mu", "e") if b["kappa_eff"][fl] > 0]
             samples.append({"name": role, "data": b["template"].tolist(), "modifiers": bm})
         z = ch["zx"]
+        k_lo, k_hi = z["kappa"]
         samples.append({"name": "ZX", "data": z["template"].tolist(),
-                        "modifiers": [{"name": z["nuisance"], "type": "normsys", "data": {"hi": 1.0 + z["kappa"], "lo": 1.0 - z["kappa"]}}]})
+                        "modifiers": [{"name": z["nuisance"], "type": "normsys", "data": {"hi": 1.0 + k_hi, "lo": 1.0 - k_lo}}]})
         channels.append({"name": ch["name"], "samples": samples})
         observations.append({"name": ch["name"], "data": [float(x) for x in obs]})
     return {"channels": channels, "observations": observations,
@@ -51,7 +53,7 @@ def workspace(lik, mh: float) -> dict:
             "version": "1.0.0"}
 
 
-def write_outputs(out_dir: Path, ds, lik, inf, cal, cal_summary, tnp, sel_eff, zx_est, rates, meta, norm, timings, log):
+def write_outputs(out_dir: Path, ds, lik, inf, cal, cal_summary, tnp, sel_eff, zx_est, lam, meta, norm, timings, log):
     best = inf["best"]
     pois = []
     for name in ("mH", "mu"):
@@ -65,8 +67,9 @@ def write_outputs(out_dir: Path, ds, lik, inf, cal, cal_summary, tnp, sel_eff, z
         "sel_eff": {fl: {"value": sel_eff[fl]["value"], "unc": sel_eff[fl]["unc"]} for fl in ("muon", "electron")},
     }
     quality = {"gof_pvalue": {"value": inf["gof"]["p_value"],
-                              "note": f"toys: saturated Poisson LR of the fitted binned model ({inf['gof']['n_bins']} bins, constraint "
-                                      f"terms included), {inf['gof']['n_valid']} toys from the best fit with the global observables "
+                              "note": f"toys: saturated Poisson statistic q = 2 sum [nu - n + n ln(n / nu)] over 5 GeV m4l bins x the "
+                                      f"D_mass bins of every final state ({inf['gof']['n_bins']} bins) at the best fit (the main "
+                                      f"analysis's GoF); {inf['gof']['n_valid']} toys from the best fit with the global observables "
                                       f"drawn, each refitted with m_H floating"},
                "coverage": {"value": inf["coverage"]["value"],
                             "note": f"toys: fraction of {inf['coverage']['n']} pseudo-experiments from the best fit whose MINOS 68 % "
@@ -93,7 +96,7 @@ def write_outputs(out_dir: Path, ds, lik, inf, cal, cal_summary, tnp, sel_eff, z
     full = {"schema": "h4l_eval_results/1", "dataset": ds["root"], "lumi_fb": ds["lumi_fb"], "RESULT": result,
             "fit": {k: v for k, v in inf.items()}, "calibration": {"summary": cal_summary, "report": cal["report"]},
             "tnp": {str(code): t for code, t in tnp.items()}, "sel_eff": sel_eff,
-            "zx": {"os": zx_est, "fake_rates": {str(k): {kk: np.asarray(vv).tolist() for kk, vv in v.items()} for k, v in rates.items()}},
+            "zx": {k: v for k, v in zx_est.items() if k not in ("ss_rows", "ss_rows_weight")}, "lambda": {k: lam[k] for k in ("values", "fits")},
             "model": meta, "normalization": norm, "timings_s": timings}
     (out_dir / "results_full.json").write_text(json.dumps(full, indent=1, default=_default) + "\n", encoding="utf-8")
     lines = [f"mu = {best['mu']:.4f} +{inf['total']['mu'][1]:.4f}/{inf['total']['mu'][0]:.4f} (stat {sym(inf['stat']['mu']):.4f}, "

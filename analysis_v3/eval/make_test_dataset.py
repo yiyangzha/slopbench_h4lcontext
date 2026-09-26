@@ -28,6 +28,7 @@ def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument("--name", required=True)
     parser.add_argument("--data-shards", type=int, required=True)
+    parser.add_argument("--data-offset", type=int, default=0, help="first shard (sorted) of the subset")
     parser.add_argument("--mc-fraction", type=float, default=1.0, help="fraction of the files of each MC process (every k-th)")
     parser.add_argument("--processes", nargs="*", default=list(XSEC))
     args = parser.parse_args()
@@ -37,7 +38,7 @@ def main() -> int:
     data = json.loads((PRODUCTION / "manifests/v2/data.json").read_text(encoding="utf-8"))
     files = sorted(data["files"], key=lambda f: f["relative"])
     total_entries = sum(f["events_entries"] for f in files)
-    chosen = files[: args.data_shards]
+    chosen = files[args.data_offset: args.data_offset + args.data_shards]
     lumi = data["lumi_fb"] * sum(f["events_entries"] for f in chosen) / total_entries
     (out / "data").mkdir(parents=True)
     for f in chosen:

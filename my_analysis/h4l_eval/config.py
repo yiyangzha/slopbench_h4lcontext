@@ -37,9 +37,12 @@ SELECT = {"muon_pt": 5.0, "electron_pt": 7.0, "max_sip": 4.0, "max_iso": 0.35, "
 WINDOW = (105.0, 140.0)
 MH_LIMITS = (110.0, 140.0)
 BIN_WIDTH = 0.5
-N_DMASS_BINS = 3
-# Loose candidate filter of the MC event records (raw kinematics, generous around the window).
-MC_RECORD_M4L = (90.0, 160.0)
+# D_mass bins per final state: the quintiles of the signal (the main analysis's E_BINS of the relative-error templates).
+N_DMASS_BINS = 5
+# The m_H grid of the acceptance ratios (the main analysis's signal model).
+MH_GRID = [110.0, 115.0, 118.0, 120.0, 122.0, 124.0, 125.0, 126.0, 128.0, 130.0, 132.0, 135.0, 140.0]
+# Binning of the goodness-of-fit statistic (the main analysis: 5 GeV m4l bins x the template bins of each channel).
+GOF_M_STEP = 5.0
 
 # Lepton calibration on Z -> ll (the main analysis's control-pair legs: AN tight muon, electrons mvaFall17V2noIso WP90,
 # FSR-subtracted isolation < 0.35, SIP < 4; raw pair mass without FSR).
@@ -53,7 +56,8 @@ CALIB = {
                   "region_edges": [0.0, 1.4442], "pt_edges": [5.0, 10.0, 15.0, 20.0, 30.0, 40.0, 50.0, 60.0, 100.0], "reference_pt_bin": 5},
     "family_a_min_pt": 20.0, "z_mode_range": (80.0, 100.0),
     "mode_search": (70.0, 110.0), "smooth_bins": 45, "below": 20.0, "above": 15.0,
-    "window_clip": (60.0, 120.0), "fit_bin": 0.1, "common_delta": 0.005, "d_max": 0.0025,
+    "window_clip": (60.0, 120.0), "fit_bin": 0.1, "common_delta": 0.005, "d_max": 0.0025, "kernel_rel_sigma": 0.003,
+    "min_group_width": 1.2, "min_group_mc": 20,
     "lnk_limit": 0.08, "min_data_events": 500, "min_mc_effective": 500,
     "response_scale": -0.01, "response_smear": 0.012, "response_range": (0.5, 1.5),
     "decorrelation_smear": 0.008,
@@ -77,8 +81,8 @@ TNP = {
     "min_template": 300,
 }
 
-# Z + X: fake rates from Z + 1 loose lepton, OS method (2P2F, 3P1F with the ZZ MC subtracted).
-ZL = {"z_window": 7.0, "max_met": 25.0, "min_probe_os_mass": 4.0}
+# Z + 1 loose lepton rows of the fake rates (the main analysis's h4l_select ZL; the windows downstream in zx.py).
+ZL = {"z1_range": (40.0, 120.0), "min_probe_os_mass": 4.0}
 
 SIGNAL_MODES = ("ggH", "VBF", "VH")
 PRECISION = {"minuit_tolerance": 0.05}

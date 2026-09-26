@@ -1,0 +1,5 @@
+{
+ "description": "H -> ZZ* -> 4l binned likelihood (m4l Z1-refitted, 0.5 GeV bins in 105-140 GeV; channels final state x D_mass bin) at the fitted m_H",
+ "mH_fixed_GeV": 125.41142762778048,
+ "interpolation": "pyhf defaults: histosys code 0, normsys code 1 (the fitted likelihood uses the same)"
+}

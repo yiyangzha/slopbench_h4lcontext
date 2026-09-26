@@ -1,6 +1,8 @@
 """Fits of the binned likelihood: best fit with m_H floating (grid profile then free fit), MINOS intervals, statistical
 intervals with the nuisances fixed at their best fit, fixed-nuisance impacts for the systematic part, local
-significances (observed and post-fit Asimov with mu = 1), saturated goodness of fit and interval coverage from toys."""
+significances (observed and post-fit Asimov with mu = 1), the saturated goodness of fit (the main analysis's gof.py:
+q = 2 sum [nu - n + n ln(n / nu)] over 5 GeV m4l bins x the template bins of every channel, at the best fit; toys from
+the best fit with the global observables drawn, each refitted with m_H floating) and the coverage of the mu interval."""
 
 from __future__ import annotations
 
@@ -9,7 +11,9 @@ import math
 import numpy as np
 
 from . import config as C
-from .model import NUISANCES, PARAMS
+from .model import NUISANCES, PARAMS, rebin_gof, saturated_q
+
+GOF_GROUP = int(round(C.GOF_M_STEP / C.BIN_WIDTH))
 
 
 def interval(m, name):
@@ -32,7 +36,7 @@ def _toy(i):
     m = fitter.fit(p_hat, observed=obs, aux=aux)
     if not m.valid:
         return None
-    q = lik.saturated_q(np.array(m.values), obs, aux)
+    q = saturated_q(rebin_gof(lik.expected(np.array(m.values)), GOF_GROUP), rebin_gof(obs, GOF_GROUP))
     try:
         m.minos("mu")
         lo, hi = interval(m, "mu")
@@ -84,8 +88,8 @@ def run_inference(lik, fitter, log, n_toys=200, seed=1) -> dict:
     # Toys from the best fit: Poisson counts and global observables drawn around the fitted nuisances; each toy fitted from
     # the generating point (m_H free).
     from .parallel import pmap
-    q_obs = lik.saturated_q(p_hat)
     nu_hat = lik.expected(p_hat)
+    q_obs = saturated_q(rebin_gof(nu_hat, GOF_GROUP), rebin_gof(lik.observed, GOF_GROUP))
     _TOY.update({"lik": lik, "fitter": fitter, "p_hat": p_hat, "nu_hat": nu_hat, "seed": seed})
     toys = [t for t in pmap(_toy, list(range(n_toys)), chunksize=4) if t is not None]
     valid = len(toys)
@@ -95,7 +99,7 @@ def run_inference(lik, fitter, log, n_toys=200, seed=1) -> dict:
     p_gof = float(np.mean(q_toys >= q_obs)) if len(q_toys) else float("nan")
     coverage = float(np.mean(covered)) if covered else float("nan")
     log(f"[gof] saturated q {q_obs:.1f}; toys {valid}/{n_toys} valid: p = {p_gof:.3f}; coverage of the mu interval {coverage:.3f}")
-    n_bins = int(sum(len(o) for o in lik.observed))
+    n_bins = int(len(rebin_gof(lik.observed, GOF_GROUP)))
     return {"best": {n: float(best.values[n]) for n in PARAMS}, "errors": {n: float(best.errors[n]) for n in PARAMS},
             "valid": bool(best.valid), "nll": float(best.fval), "total": total, "stat": stat, "syst": syst, "impacts": impacts,
             "q0": q0, "z_obs": z_obs, "z_exp": z_exp, "scan": scan,

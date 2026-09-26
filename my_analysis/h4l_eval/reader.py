@@ -1,6 +1,7 @@
 """The pass over the large input files runs in ROOT (C++, src/h4l_reader.cpp), compiled at run time against the ROOT of
 the environment; independent chunks of files run in parallel processes.  Its compact outputs (control pairs, tag-and-
-probe pairs, loose-lepton event records, Z + 1 lepton rows, file bookkeeping) are small ROOT files read here."""
+probe pairs, loose-lepton event records, file bookkeeping with the generator-weight sums) are small ROOT files read
+here."""
 
 from __future__ import annotations
 
@@ -54,6 +55,8 @@ def chunks(tasks: list, mc_chunk: int = 40) -> list:
 
 
 def run_chunks(exe: Path, work: Path, groups: list, workers: int, log) -> list:
+    """Run the reader on every chunk in parallel (a new output file per chunk: a file name rewritten while an earlier
+    version is still cached, e.g. on a FUSE file system, can be read back stale); each output is read at once."""
     work.mkdir(parents=True, exist_ok=True)
 
     def run(i):
@@ -83,16 +86,17 @@ def read_chunk(path: Path) -> dict:
     out = {}
     with uproot.open(path) as f:
         files = f["Files"].arrays(library="np")
-        out["files"] = {"path": [str(p) for p in files["path"]], "entries": files["entries"], "n_preselection": files["n_preselection"]}
-        for tree in ("Calib", "TnP", "ZL"):
+        out["files"] = {"path": [str(p) for p in files["path"]], "entries": files["entries"], "n_preselection": files["n_preselection"],
+                        "sumw": files["sumw"]}
+        for tree in ("Calib", "TnP"):
             t = f[tree]
             if t.num_entries:
                 out[tree] = t.arrays(library="np")
         t = f["Rec"]
         if t.num_entries:
             a = t.arrays()
-            rec = {"n_lep": ak.to_numpy(a["n_lep"]).astype(np.int64), "e_met": ak.to_numpy(a["e_met"]),
-                   "e_entry": ak.to_numpy(a["e_entry"]), "e_file": ak.to_numpy(a["e_file"])}
+            rec = {"n_lep": ak.to_numpy(a["n_lep"]).astype(np.int64), "e_met": ak.to_numpy(a["e_met"]), "e_w": ak.to_numpy(a["e_w"]),
+                   "e_entry": ak.to_numpy(a["e_entry"]), "e_file": ak.to_numpy(a["e_file"]).astype(np.int64)}
             for name in a.fields:
                 if name.startswith("l_"):
                     rec[name] = ak.to_numpy(ak.flatten(a[name]))
@@ -101,18 +105,33 @@ def read_chunk(path: Path) -> dict:
 
 
 def collect(tasks_by_chunk: list, outputs: list) -> dict:
-    """Merge the chunk outputs (already read) per sample in chunk order: {sample: {files, entries, n_preselection, outputs}}."""
-    names = {"Calib": "calib", "TnP": "tnp", "Rec": "records", "ZL": "zl"}
+    """Merge the chunk outputs (already read) per sample in chunk order: {sample: {files, entries, n_preselection, sumw,
+    sumw_ctl, n_preselection_ctl, outputs}}.  The records carry e_file, the index of their file in the sample's list, and
+    e_ctl, whether that file was read with the control-region records (rec_zz / rec_bkg / rec_data); sumw_ctl and
+    n_preselection_ctl sum those files only (the normalization of the control rows)."""
+    names = {"Calib": "calib", "TnP": "tnp", "Rec": "records"}
     samples = {}
     for group, c in zip(tasks_by_chunk, outputs):
         sample = group[0]["sample"]
-        s = samples.setdefault(sample, {"files": [], "entries": 0, "n_preselection": 0, "outputs": {}})
+        s = samples.setdefault(sample, {"files": [], "ctl": [], "entries": 0, "n_preselection": 0, "sumw": 0.0, "n_preselection_ctl": 0,
+                                        "sumw_ctl": 0.0, "outputs": {}})
+        ctl = np.array([any(w in t["want"] for w in ("rec_zz", "rec_bkg", "rec_data")) for t in group])
+        offset = len(s["files"])
         s["files"] += c["files"]["path"]
+        s["ctl"] += ctl.tolist()
         s["entries"] += int(np.sum(c["files"]["entries"]))
         s["n_preselection"] += int(np.sum(c["files"]["n_preselection"]))
+        s["sumw"] += float(np.sum(c["files"]["sumw"]))
+        s["n_preselection_ctl"] += int(np.sum(c["files"]["n_preselection"][ctl]))
+        s["sumw_ctl"] += float(np.sum(c["files"]["sumw"][ctl]))
         for tree, key in names.items():
             if tree in c:
-                s["outputs"].setdefault(key, []).append(c[tree])
+                part = c[tree]
+                if tree == "Rec":
+                    part = dict(part)
+                    part["e_ctl"] = ctl[part["e_file"]]
+                    part["e_file"] = part["e_file"] + offset
+                s["outputs"].setdefault(key, []).append(part)
     for s in samples.values():
         merged = {}
         for key, parts in s["outputs"].items():

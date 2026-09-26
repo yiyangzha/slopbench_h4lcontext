@@ -428,3 +428,17 @@ Outputs: `production_v3/inference/<v>/<model label>/<label>/` (fit.json, toys.js
         --calibration v4/nominal --zx zx_v2 --signal sm_v2 --dist dist_r1 --out deliverables/AN_h4l_ul16_pfnano_v1 \
         --toys v5/model_cat_r0/r1_toys_mu v5/model_cat_r0/r1_toys_mh --paired v5/model_cat_r0/r1_paired \
         --tnp-closure production_v3/tnp/v2/closure_v1_k1/fits_i1 ... [--truth <truth json after unblinding>]
+
+### Stage 11. Evaluation submission (EVAL_CONTRACT v0.4, task h4l_ntuple)
+
+    pixi run py -- analysis_v3/eval/make_eval_constants.py          # my_analysis/h4l_eval/data/constants.json
+    pixi run py -- analysis_v3/eval/make_test_dataset.py --name test_10fb --data-shards 41            # DATASET.md layout
+    pixi run py -- analysis_v3/eval/make_test_dataset.py --name test_10fb_b --data-shards 42 --data-offset 41
+    pixi run py -- analysis_v3/eval/make_test_dataset.py --name full_20fb --data-shards 83
+    my_analysis/run.sh production_v3/eval_datasets/<name> <output_dir>    # RESULT.json, MODEL.json, ...
+    python tests/check_outputs.py <output_dir>                           # contract checks, pyhf build and refit
+
+`my_analysis/` is self-contained (its own pixi.toml / pixi.lock with root_base and the C++ compiler; run.sh uses an
+active environment with ROOT and the Python packages, else `pixi run --frozen`).  It follows the main analysis in every
+step except the simplified tag-and-probe nominal fit (user rule 2026-09-26); see my_analysis/README.md.  Development
+only: H4L_DEBUG_DUMP=<file> saves the compact reader outputs, H4L_DEBUG_LOAD=<file> reuses them.

@@ -102,6 +102,8 @@ def main() -> int:
     parser.add_argument("--tnp-closure", nargs="*", default=[], help="production_v3/tnp/v2/<run>/<label> of the efficiency closures")
     parser.add_argument("--truth", type=Path, default=None)
     parser.add_argument("--pyhf-check", type=Path, default=None)
+    parser.add_argument("--eval-runs", nargs="*", default=[],
+                        help="label=<output_dir> of runs of the evaluation submission (my_analysis/run.sh) on test datasets")
     args = parser.parse_args()
     out = REPO / args.out
     if out.exists():
@@ -354,6 +356,11 @@ impacts (the statistical interval: the same likelihood with the nuisances fixed 
     if args.truth:
         add(truth_section(json.loads(args.truth.read_text(encoding="utf-8")), result, selfreport))
 
+    # ------------------------------------------------------------------ 14 evaluation submission
+    if args.eval_runs:
+        runs = [(item.split("=", 1)[0], REPO / item.split("=", 1)[1]) for item in args.eval_runs]
+        add(eval_section(runs, json.loads(args.truth.read_text(encoding="utf-8")) if args.truth else None))
+
     # ------------------------------------------------------------------ appendices: galleries
     add(r"\appendix" + "\n" + r"\section{Tag-and-probe fit galleries}\label{app:tnp}" + "\n"
         "Every nominal fit (pass left, fail right; data, total model, signal and background) and the alternative models.\n")
@@ -581,6 +588,64 @@ def truth_section(truth: dict, result: dict, selfreport: dict) -> str:
             r"\begin{table}[H]\centering\small\begin{tabular}{lcccc}\toprule quantity & truth & measured & uncertainty & pull\\\midrule" + "\n" +
             "\n".join(rows) + "\n" + r"\bottomrule\end{tabular}\end{table}" + "\n" +
             ("\\begin{itemize}\n" + notes + "\\end{itemize}\n" if notes else ""))
+
+
+def eval_section(runs: list, truth: dict | None) -> str:
+    """The evaluation submission (my_analysis/, EVAL_CONTRACT v0.4): its methods and its runs on test datasets in the
+    DATASET.md layout (RESULT.json, results_full.json and the pyhf check of MODEL.json of every run)."""
+    out = [r"\section{Evaluation submission}\label{sec:eval}" + "\n",
+           "The directory \\texttt{my\\_analysis/} is the self-contained submission of the benchmark (\\texttt{./run.sh "
+           "<dataset\\_dir> <output\\_dir>}, its own pixi environment, no network, RESULT.json and MODEL.json).  It carries "
+           "out this analysis with the same methods and parameters (user rule 2026-09-26): the analysis trigger, the objects "
+           "and the selection of Section~3 with the FSR-subtracted isolation on the calibrated leptons, the lepton "
+           "calibration of Section~4 (the factorized model, the two category families, the weighted response pass, the "
+           "joint least squares and the iteration), the per-event mass uncertainty with $\\lambda$ measured in situ for "
+           "data and MC, the Z+X estimate of Section~6 (OS and SS methods, conversion correction, MC-closure systematic, "
+           "bootstrap, combination and shape), the signal model of Section~7 (DCB per channel, non-resonant VH, rest-frame "
+           "scaling, $A\\times\\epsilon(m_H)$ with the morphing nuisance, YR4 $\\sigma_\\mathrm{eff}$) and the scale, "
+           "resolution, efficiency and Z+X nuisances of result set (b); MC normalized with genWeight.  Differences: the "
+           "tag-and-probe nominal model is simplified (the calibrated MC template without the extra convolution, CMSShape "
+           "background; the fit-model systematic from the stand-alone DSCB signal and the Bernstein background applied to "
+           "data and MC, as here); MELA is not available in the submission environment, so there is no "
+           "$\\mathcal{D}^\\mathrm{kin}_\\mathrm{bkg}$, no event categories and the candidate choice is $Z_1$ closest to $m_Z$, "
+           "then the largest $Z_2$ scalar $p_T$ sum; the fit is the binned $m_{4\\ell}$ (0.5~GeV, 105--140~GeV, $Z_1$ refit) "
+           "$\\times$ 5 $\\mathcal{D}_\\mathrm{mass}$ bins $\\times$ 3 final states, exported as the pyhf workspace "
+           "(user choice); for the run time the calibration templates are histogram convolutions, half of the DY, "
+           "$t\\bar t$ and ZZ files are read and the ZZ control rows of the prompt subtraction come from a fifth of those.\n\n"]
+    rows, cal_rows, pulls = [], [], []
+    for label, path in runs:
+        r = json.loads((path / "RESULT.json").read_text(encoding="utf-8"))
+        full = json.loads((path / "results_full.json").read_text(encoding="utf-8"))
+        p = {x["name"]: x for x in r["pois"]}
+        q = r.get("quality", {})
+        t = full.get("timings_s", {})
+        rows.append(f"{tex_escape(label)} & {full['lumi_fb']:.2f} & ${p['mu']['value']:.3f}\\pm{p['mu']['total']:.3f}$ "
+                    f"({p['mu']['stat']:.3f}, {p['mu']['syst']:.3f}) & ${p['mH']['value']:.2f}\\pm{p['mH']['total']:.2f}$ "
+                    f"({p['mH']['stat']:.2f}, {p['mH']['syst']:.2f}) & {r['significance_obs']:.2f} ({r.get('significance_exp', float('nan')):.2f}) & "
+                    f"{q.get('gof_pvalue', {}).get('value', float('nan')):.2f} & {q.get('coverage', {}).get('value', float('nan')):.2f} & "
+                    f"{t.get('total', float('nan')) / 60:.0f}\\\\")
+        for name in ("scale_shift", "smear", "sel_eff"):
+            for f in ("muon", "electron"):
+                v = r["calibration"][name][f]
+                cal_rows.append((label, f"{name} {f}", v["value"], v["unc"]))
+        if truth:
+            for key, (m, e) in {"mu": (p["mu"]["value"], p["mu"]["total"]), "mH": (p["mH"]["value"], p["mH"]["total"])}.items():
+                pulls.append((label, key, truth["compare"][key], m, e))
+            for label2, key, m, e in cal_rows[-6:]:
+                if key in truth["compare"]:
+                    pulls.append((label, key, truth["compare"][key], m, e))
+    out.append(r"\begin{table}[H]\centering\small\begin{tabular}{lccccccc}\toprule dataset & $L$ [fb$^{-1}$] & $\mu$ (stat, syst) & "
+               r"$m_H$ [GeV] (stat, syst) & $Z_\mathrm{obs}$ ($Z_\mathrm{exp}$) & GoF $p$ & coverage & min\\\midrule" + "\n" + "\n".join(rows) + "\n" +
+               r"\bottomrule\end{tabular}\caption{Runs of the evaluation submission (RESULT.json; the GoF $p$-value of the saturated "
+               r"statistic on 5~GeV bins from toys, the coverage of the $\mu$ interval from toys, the run time on 16 cores with the input on EOS).}"
+               r"\end{table}" + "\n")
+    if pulls:
+        out.append(r"\begin{table}[H]\centering\small\begin{tabular}{llcccc}\toprule dataset & quantity & truth & measured & uncertainty & pull\\\midrule" +
+                   "\n" + "\n".join(f"{tex_escape(lb)} & {tex_escape(k)} & {tv:.5g} & {m:.5g} & {e:.3g} & {(m - tv) / e:+.2f}\\\\" for lb, k, tv, m, e in pulls) +
+                   "\n" + r"\bottomrule\end{tabular}\caption{The submission's results against the truth of the pseudo-data (the calibration values "
+                   r"are the data-weighted averages; the smear truth is the pT part only, the angular smears of the injection are absorbed by the "
+                   r"measured smear).}\end{table}" + "\n")
+    return "".join(out)
 
 
 if __name__ == "__main__":

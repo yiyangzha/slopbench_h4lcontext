@@ -1,0 +1,68 @@
+{
+ "pois": [
+  {
+   "name": "mH",
+   "value": 125.09343150844393,
+   "stat": 0.38118004337388833,
+   "syst": 0.04609359624208762,
+   "total": 0.3839503824779885
+  },
+  {
+   "name": "mu",
+   "value": 0.8328165821657717,
+   "stat": 0.16761178211264458,
+   "syst": 0.0500313924739403,
+   "total": 0.1752570518844062
+  }
+ ],
+ "significance_obs": 7.473087388386372,
+ "discovery": true,
+ "significance_exp": 8.804204711927486,
+ "calibration": {
+  "scale_shift": {
+   "muon": {
+    "value": -0.01993674676587155,
+    "unc": 0.0003672323819154465
+   },
+   "electron": {
+    "value": -0.01989901967904584,
+    "unc": 0.0004927591098557073
+   }
+  },
+  "smear": {
+   "muon": {
+    "value": 0.011416773115753082,
+    "unc": 0.00047611324956056385
+   },
+   "electron": {
+    "value": 0.011266540045049907,
+    "unc": 0.002149902655369416
+   }
+  },
+  "sel_eff": {
+   "muon": {
+    "value": 0.9944968390690758,
+    "unc": 0.0010584366278832498
+   },
+   "electron": {
+    "value": 1.0022366547867336,
+    "unc": 0.002612319502953446
+   }
+  }
+ },
+ "quality": {
+  "gof_pvalue": {
+   "value": 0.4221105527638191,
+   "note": "toys: saturated Poisson statistic q = 2 sum [nu - n + n ln(n / nu)] over 5 GeV m4l bins x the D_mass bins of every final state (105 bins) at the best fit (the main analysis's GoF); 199 toys from the best fit with the global observables drawn, each refitted with m_H floating"
+  },
+  "coverage": {
+   "value": 0.6633165829145728,
+   "note": "toys: fraction of 199 pseudo-experiments from the best fit whose MINOS 68 % interval of mu covers the generating mu"
+  }
+ },
+ "conventions": {
+  "calibration": "per flavour (muon, electron) under the registered names; each value is the average of the per-bin measurements over the data leptons of the Z -> ll calibration sample; scale_shift = data/MC - 1 of the lepton momentum, smear = extra relative per-lepton pT resolution in quadrature, sel_eff = tag-and-probe data/MC efficiency ratio of the full single-lepton selection",
+  "uncertainties": "total and stat: symmetrized MINOS intervals (stat with the nuisances fixed at their best fit); syst: quadrature sum of the fixed-nuisance impacts",
+  "discovery": "observed local significance >= 5.0"
+ }
+}

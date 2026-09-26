@@ -534,25 +534,41 @@ scaffolder.
     meta.json, mc/cross_sections.json, lumi.json, meta.json) with ROOT files
     in exactly the format of our inputs (the pseudo-data shards and the
     h4l_seeds_v2 MC); the luminosity and the MC entries may differ, so the
-    MC is renormalized on every dataset (1000 L sigma_eff n_selected /
-    n_preselection).
+    MC is renormalized on every dataset, genWeight-based as the main
+    analysis (1000 L sigma_eff genWeight / sum of genEventSumw of the files
+    read); the count-based 1000 L sigma_eff n_selected / n_preselection of the
+    task prompt is the recorded cross-check and the fallback for files
+    without genEventSumw.
   - Local only: no Condor, no extensive searches (e.g. the tag-and-probe
     shapes barely change between datasets); at most about 20 minutes for a
     dataset of about 10 fb^-1.
-  - Higgs fit: a binned m4l x D_mass likelihood (3 final states x D_mass
-    bins, m4l with the Z1 refit), fitted as the exported pyhf workspace
+  - Higgs fit: a binned m4l x D_mass likelihood (3 final states x 5 D_mass
+    bins, the quintiles of the signal as the main analysis's relative-error
+    templates; m4l with the Z1 refit), fitted as the exported pyhf workspace
     (user choice 2026-09-25; no MELA in the submission environment, hence no
-    D_kin and the candidate choice by Z1 closest to m_Z, then the largest Z2
-    scalar pT sum).
+    D_kin, no categories and the candidate choice by Z1 closest to m_Z, then
+    the largest Z2 scalar pT sum).
   - The new EVAL_CONTRACT.md goes into `my_analysis/` as well.
-  - **Same methods as the main analysis (user, 2026-09-26):** the submission
-    reuses the validated methods and parameters of the main analysis; only
-    equivalent faster implementations are allowed (e.g. histogram
-    convolutions for the event-level calibration templates).  No new or
-    changed methods ("不要节外生枝"): anything that would need a new
-    validation is avoided.  The one approved simplification: the
-    tag-and-probe (coarser bins, the calibrated MC template without the
-    extra convolution, CMSShape / exponential background).
+  - **Same methods as the main analysis (user, 2026-09-26, twice: "不要节外生枝";
+    "要求除了TnP简化了之外，其他和主要分析一致 ... 修正根本问题"):** every part of the
+    submission follows the main analysis's method and parameters; the only
+    approved simplification is the tag-and-probe (coarser bins, the
+    calibrated MC template without the extra convolution, CMSShape /
+    exponential background).  Allowed otherwise: equivalent faster
+    implementations (the event-level calibration template in histogram form:
+    frozen pair deviates binned, the fixed kernel, the likelihood groups;
+    half of the DY, ttbar and ZZ files; the ZZ control and Z + 1L rows of the
+    prompt subtraction from a fifth of the ZZ files read) and what the
+    environment forbids (MELA).  Hence, as the main analysis: the
+    object and event selection (FSR-subtracted isolation on the calibrated
+    loose leptons, control regions without the Z1-closer requirement, the
+    Z + 1L rows of h4l_select), the calibration with the weighted response
+    pass, lambda measured in situ (data lambda for data, MC lambda for MC),
+    the full OS + SS Z+X with its MC-closure systematic, bootstrap,
+    combination, shape fit and window fraction, the signal model (ggH + VBF
+    DCB, non-resonant VH, rest-frame scaling, A x eff(m_H) with the morphing
+    nuisance, YR4 sigma_eff with the log-quadratic extrapolation), the
+    make_systematics scale and resolution magnitudes, the GoF on 5 GeV bins.
   - **Large ROOT files only with ROOT (C++) (user, 2026-09-26):** the pass
     over the input files is `my_analysis/src/h4l_reader.cpp`, compiled at run
     time against the ROOT of the submission's pixi environment; Python only

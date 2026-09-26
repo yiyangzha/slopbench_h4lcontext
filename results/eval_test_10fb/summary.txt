@@ -1,6 +1,0 @@
-mu = 0.8778 +0.2569/-0.2244 (stat 0.2391, syst 0.0314)
-mH = 125.558 +0.489/-0.480 GeV (stat 0.482, syst 0.045)
-Z_obs = 5.64, Z_exp = 6.57; GoF p = 0.040; coverage 0.722
-muon: scale_shift -0.01996 +- 0.00037, smear 0.01211 +- 0.00045, sel_eff 0.99444 +- 0.00033
-electron: scale_shift -0.01995 +- 0.00049, smear 0.01312 +- 0.00185, sel_eff 1.00227 +- 0.00135
-timings [s]: read 541, calibration 357, tnp 55, selection 94, zx 0, templates 12, inference 19, total 1079

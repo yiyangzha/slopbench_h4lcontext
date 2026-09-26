@@ -20,25 +20,27 @@
   "mH": 125.0,
   "scale_shift muon": -0.019939882326524973,
   "smear muon": 0.01,
-  "sel_eff muon": 1.0,
+  "sel_eff muon": 0.9935176878479645,
   "scale_shift electron": -0.019911572045604082,
   "smear electron": 0.01,
-  "sel_eff electron": 1.0
+  "sel_eff electron": 0.9999840991373152
  },
  "detail": {
   "muon": {
    "n_legs": 30767698,
-   "scale_shift_at_45GeV_eta1p2": -0.02017164608842112
+   "scale_shift_at_45GeV_eta1p2": -0.02017164608842112,
+   "sel_eff_at_45GeV_eta1p2": 0.9939115081719889
   },
   "electron": {
    "n_legs": 19573766,
-   "scale_shift_at_45GeV_eta1p2": -0.02017164608842112
+   "scale_shift_at_45GeV_eta1p2": -0.02017164608842112,
+   "sel_eff_at_45GeV_eta1p2": 1.0
   }
  },
  "source": "Truth from the injection record 20260923T183922Z_917f9326efa44ea9 (m_H = 125 GeV, mu = 1 for every mode, 20 fb^-1, response profile medium, efficiency profile effA) with the profile definitions of the generator (h4l_pfnano_seed_plan_v3.json, pfnano_response.cpp).",
  "notes": [
   "Lepton scale: k(pT, eta) = 1 - 0.018 - 0.004 S(pT/100 GeV) - 0.008 S(|eta|/2.5), S(x) = x^2/(1+x^2); the truth scale_shift per flavour is its average over the data legs of the Z -> ll calibration sample (as RESULT.json); at pT = 45 GeV, |eta| = 1.2 it is -0.0202.",
   "Lepton smear: relative pT sigma 0.01 plus Gaussian eta and phi smears of 0.01; the pT-only smear model of the analysis absorbs the angular smears, so the measured smear is expected somewhat above 0.01.",
-  "Efficiency effA thins the muon loose/medium/tight/soft IDs, the electron MVA WP90/WP80 and cut-based flags and the single-lepton trigger decisions, none of the flags of this selection (PF muon, mvaFall17V2noIso WPL electron, isolation, SIP): the truth data/MC efficiency ratio of the lepton selection is 1; the trigger thinning acts on the tag selection and the event trigger (taken from the MC)."
+  "Efficiency effA: a killed Muon_looseId (ratio (1-0.0025)(1-0.01/(1+(pT/20)^2))(1-0.005 S(|eta|/1.5))) also clears Muon_isPFcand and may remove the muon, so the PF-muon selection has the truth ratio r_loose (0.9939 at 45 GeV, |eta| 1.2); the electron mvaFall17V2noIso WPL flag is cleared only where its low-pT cut lies above a killed WP90/WP80 curve (endcap electrons below about 8.6 GeV), so the electron truth ratio is 1 for the Z legs; the trigger families remove trigger objects (event trigger efficiency, taken from the MC)."
  ]
 }

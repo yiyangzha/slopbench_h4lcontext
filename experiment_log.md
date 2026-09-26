@@ -3029,3 +3029,138 @@ question Q1 of `PLAN.md`.
   analysis_v3/ (sources, no binaries), results/ (main_final, eval_test_10fb, truth), the AN (main.pdf, main.tex),
   AGENTS.md, PLAN.md, README.md, experiment_log.md, REFERENCE.md.  Verified: no file from ref/ (no ref/ path, no HTML,
   no reference PDFs).  my_analysis/pixi.lock force-added (the base .gitignore ignores pixi.lock).
+- 2026-09-26T01:45Z, GITHUB follow-ups on branch reference: fa7e584 (root run.sh forwarding to my_analysis/run.sh,
+  root RESULT.json / MODEL.json of the main analysis, tests/run_test.sh and tests/check_outputs.py, the main MODEL.json
+  without the extra top-level key h4l_consistency that the pyhf schema rejects: the GATE pyhf.Workspace(spec).model()
+  now passes, MLE mu 0.928 vs 0.903; consistency record in MODEL_consistency.json; make_pyhf.py fixed accordingly),
+  ec7f46f (the reader build: compiler found among CXX / conda / c++ / g++ / clang++, ROOT libdir as rpath; pushed through
+  the GitHub API because git object files on EOS FUSE came out empty in the staging clones).  The submission lock
+  resolves ROOT 6.40.04 (C++23 build) with gcc 15; the reader compiles with -std=c++20 against the lxplus ROOT 6.40.04 and
+  the full 10 fb^-1 test ran with the analysis environment; the materialization of the submission environment itself
+  on EOS FUSE is slow (package extraction ~0.5 MB/s) and still running.
+- 2026-09-26T03:30Z, TRUTH CORRECTED (user question "为什么eff truth是1 ... 你重新确认一下"): the efficiency truth of truth_v1
+  (sel_eff 1) was wrong.  The generator (effA) thinning of Muon_looseId also clears isPFcand (and can remove the muon), and
+  the electron WPL is cleared where its low-pT cut lies above a killed WP90/WP80 curve; make_truth.py (efficiency_ratio,
+  electron_wpl_ratio) gives truth_v2 (production_v3/results/v5/truth_v2/truth.json): sel_eff muon 0.993518 (0.993912 at
+  45 GeV, |eta| 1.2), electron 0.999984; scale_shift muon -0.019940, electron -0.019912; smear 0.01.  Main analysis pulls:
+  sel_eff muon +0.31, electron +0.14.  AN regenerated: deliverables/AN_h4l_ul16_pfnano_v3 (v2 kept: wrong efficiency truth).
+- 2026-09-26T03:40Z, EVAL GoF DIAGNOSIS (user question "为什么GoF会偏低"): test_10fb_4 GoF p 0.040; the m4l totals agree,
+  the deficit/excess sits in the D_mass bins (4mu dmass2 12 observed vs 6.7; 2e2mu dmass2 4 vs 9.6 of which Z+X 3.9): the
+  eval's Z+X D_mass fractions came from the unweighted OS control rows, not the main analysis's f3 f4 weighted same-sign
+  rows.  Fixed (SS rows, fake-rate weighted, m4l_refit 85-180 GeV): test_10fb_5_ssdmass p 0.060, mu 0.872, m_H 125.55.
+- 2026-09-26T04:15Z, USER: "你仔细一点行不行！认真检查一下，彻底修改改正这些问题，要求除了TnP简化了之外，其他和主要分析一致！不要再出问题了。
+  修正根本问题。最后彻底更新一下github用来eval的程序、results等。以及注意要测试一下eval是不是完全没问题。"  AGENTS.md
+  (Evaluation submission, "Same methods as the main analysis") updated.  Systematic comparison of my_analysis/ with the main
+  code (h4l_reco.cpp, h4l_select.cpp, calib_extract/zpeak_histograms/template_fit.cpp, run_calibration.py, run_lambda.py
+  with fit_lambda.cpp, zx_estimate.py, signal_model.py, build_model.py, h4l_likelihood.py, make_systematics.py, gof.py).
+  Deviations found (besides the approved T&P simplification) and fixed by porting the main code:
+  (1) Z+X: only the OS method, estimated directly in the window, the control regions requiring Z1 closer to m_Z (the main's
+  CR does not), fixed shape and systematic -> the full OS + SS estimate (SS fake rates with the electron conversion
+  correction from the lost hits in four Z + e windows, (OS/SS)_MC from the DY/ttbar control rows, m4l > 70 GeV yields
+  times the window fraction of the predicted rows, 200 bootstrap replicas, the DY/ttbar MC closure systematic computed on
+  the dataset, inverse-variance combination with the asymmetric envelope, Landau + exponential shape fit);
+  (2) signal: one DCB fitted to all modes incl. the non-resonant VH, the mean shifted (not scaled) with m_H, a constant
+  acceptance -> the ggH + VBF DCB per channel, VH = f_res DCB + (1 - f_res) Landau, mean and width scaled by m_H/125, the
+  acceptance ratios A(m_H) of the scale morphing with the shift morphing as the morphing nuisance, the main's YR4
+  sigma_eff table with the log-quadratic extrapolation (the extended BSM-sheet table is dropped);
+  (3) resolution/scale nuisances: the eval's own smear-shift estimate -> make_systematics (scale: report-point stat +
+  closure bias + iteration; resolution: 1/2 dv / sigma_l^2 in quadrature with the residual dilepton width in charge x
+  eta/phi slices; flavour and variance fractions);
+  (4) lambda: the MC lambda constants for data and MC -> the in-situ lambda fit (BW (x) DCB + exponential, simultaneous
+  over the predicted-error bins, MC first then data with the MC tails, reference fits for the electron regions 4, 7, 8);
+  (5) normalization: count-based -> genWeight-based (count-based recorded; fallback without genEventSumw);
+  (6) the FSR-subtracted isolation now computed after the calibration (photon sources = loose muons on the calibrated pT);
+  the Z + 1L rows exactly as h4l_select (Z1 among all selected pairs, 40-120 GeV, closest to m_Z, then exactly one other
+  loose lepton and m(probe, OS lepton) > 4 GeV; no dR cut); the MC Z + 1L rows (ZZ prompt subtraction, DY/ttbar closure) on
+  the calibrated leptons (records instead of raw C++ rows); the calibration pair isolation with the photons of both legs;
+  (7) the calibration response pass with the MC weighted as the data role (scaled Poisson, as template_fit.cpp); a
+  Barlow-Beeston-lite bin without a real solution keeps beta = 1 (negative generator weights of ttbar/ZZ);
+  (8) D_mass bins 3 -> 5 (the main's quintiles), the GoF statistic on 5 GeV m4l bins without constraint terms (gof.py).
+  Reader (my_analysis/src/h4l_reader.cpp): genWeight, genEventSumw, lost hits, plain isolation components, the Calib legs'
+  relative errors and charge/eta/phi slice codes, records for DY/ttbar (control + Z + 1L candidates) and ZZ control files.
+  constants.json regenerated (make_eval_constants.py: sigma_eff table, calibration closure constants, fallbacks only);
+  the previous file kept as production_v3/tmp/constants_v1_superseded_20260926.json.  dev_small runs end to end (pyhf
+  builds MODEL.json, 15 channels, 11 parameters, MLE mu 0.9239 vs 0.9241); test_10fb_6_mainport running.
+- 2026-09-26T06:20Z, EVAL TESTS of the ported submission.  test_10fb_6_mainport (half A, 41 shards, 9.99 fb^-1, fresh
+  read): mu 0.890 +0.258/-0.225, m_H 125.42 +-0.44, Z 5.76 (exp 6.46), GoF p 0.081 (5 GeV binning), coverage 0.68;
+  calibration as before (muon -0.01996 / 0.0121, electron -0.01995 / 0.0133); lambda data 1.471/1.258/1.041 (main
+  1.473/1.267/1.058), MC 1.504/1.310/1.089 (main 1.511/1.295/1.083); Z+X in the window 1.45/1.22/3.71 (main scaled to 10
+  fb^-1 1.42/1.27/3.46); MC-closure systematic 0.377 (main 0.322 with the full MC); scale nuisance 0.00038/0.00052,
+  resolution 0.024/0.034 (main 0.00037/0.00050, 0.026/0.034).  Run time 1355 s -> speed-ups without method changes:
+  residual-width slices with precomputed codes (180 -> 14 s), the Z+X bootstrap with precomputed fake-rate selections
+  (132 -> 23 s), the lepton four-vectors computed once per selection and the control rows only for the control events
+  (175 -> 60 s), the refit only for candidates within 25 GeV of the window, the ggZZ control rows from a fifth of the
+  files as for qqZZ.  The simplified T&P had only a background alternative applied to the data (sel_eff muon 0.99447 +-
+  0.00033 against the truth 0.99352, pull +2.9): now the main analysis's fit-model systematic (stand-alone DSCB signal and
+  cubic Bernstein background, applied to data and MC alike, the largest SF deviation, alternatives with errors above 5 x
+  the nominal left out): sel_eff muon 0.99447 +- 0.00110 (pull +0.86), electron 1.00228 +- 0.00283 (+0.81).  The response
+  pass of the calibration with the weighted MC and negative ttbar/ZZ weights made NaN in the Barlow-Beeston-lite root on
+  dev_small (electron calibration diverged there): the root without a real solution keeps beta = 1 (main analysis).
+  Signal shape fits, the signal D_mass template and the flavour fractions with the normalization weights (no SF) and the
+  D_mass edges the unweighted quintiles, as the main analysis.  The reader's work files: one per worker slot (a 10 fb^-1
+  run left 2.2 GB of chunk files before).  test_10fb_b_1 (half B, 42 shards, 10.01 fb^-1, fresh read, final code): mu
+  0.814 +0.269/-0.231, m_H 124.64 +0.58/-0.53, Z 5.11 (exp 6.04), GoF p 0.52, coverage 0.72, 944 s; pyhf MLE mu 0.8137
+  (reported 0.8144).  full_20fb_1 (all 83 shards) running.
+- 2026-09-26T06:00Z, SUBMISSION ENVIRONMENT: the conda "root" meta package pulls Jupyter, notebook and GUI packages (293
+  packages; the installs on EOS stalled on a stale cache lock and network errors).  pixi.toml now asks for root_base (the
+  ROOT libraries, headers and root-config): 182 packages; pixi.lock regenerated (the previous files kept as
+  production_v3/tmp/pixi.{toml,lock}.v1_root_meta_20260926).  Install test in production_v3/tmp/eval_sandbox/my_analysis_c
+  (cache pixi_cache_c) running.
+- 2026-09-26T06:25Z, full_20fb_1 FAILED in the read stage: uproot read a corrupted basket from a reused worker-slot file
+  (a file name rewritten on EOS FUSE is read back stale).  The one-file-per-worker-slot change is reverted (a new output
+  file per chunk, as in every earlier run; the work/ directory of a run keeps them); full_20fb_2 relaunched.
+- 2026-09-26T06:50Z, MEMORY: the 20 fb^-1 run peaks near 35-40 GB (the two calibration processes hold float64 copies
+  and int64 bin indices of every pair in several pair sets).  PairSet now stores its bin indices as int16 and the
+  fine-grid bins as int32 (casts to int64 in the arithmetic); results unchanged by construction (checked on the next
+  runs).  The pixi install of the root_base environment failed once more on a network error while downloading root_base
+  ("stream error received: unspecific protocol error detected"); retried in a loop (pixi_install_e<i>.log).
+- 2026-09-26T07:20Z, CALIBRATION TEMPLATE (root cause of a smear bias): the eval's "equivalent" histogram convolution
+  smoothed the MC template with the width sqrt(delta^2 + E), so a larger E also removed more of the template's statistical
+  noise and was favoured; the main analysis's template_fit.cpp avoids exactly this (frozen pair deviates carry the
+  D-dependence, a fixed 0.3 % kernel keeps the likelihood smooth, likelihood groups >= 1.2 GeV with >= 20 effective MC
+  entries, D in [-0.98 delta^2, d_max], E = D + eta^2, strategy 2 retry, at-limit fits invalid).  Evidence: the eval smear
+  exceeded the main's on the same data (full 20 fb^-1 with half the MC: muon 0.0123 vs 0.0116, electron 0.0134 vs
+  0.0113; dev_small with 10 % MC: muon 0.0145).  Ported in histogram form (48 deviate bins of 0.2 in [-4.8, 4.8], each
+  bin's kernel-smoothed histogram shifted by ln k + ln(1 + s eps)); the old module kept as
+  production_v3/tmp/calibration_eval_v2_histconv_20260926.py.  dev_small_8: muon -0.02010 / smear 0.01164 (was 0.01454),
+  electron -0.01988 / 0.01377; lambda MC now 2.5 % above data as in the main; calibration 53 s (was 66 s).
+  full_20fb_2 (old template, final otherwise): mu 0.832 +0.183/-0.165, m_H 125.15 +-0.38, Z 7.50 (exp 8.76), GoF p 0.16,
+  1566 s; superseded.  Final runs with the new template: full_20fb_3 running, then test_10fb (A) and test_10fb_b (B).
+- 2026-09-26T08:05Z, full_20fb_3 (new template) calibration: muon -0.01994 +- 0.00037 / smear 0.01142 +- 0.00048,
+  electron -0.01990 +- 0.00049 / 0.01127 +- 0.00215 (main analysis: -0.01993 / 0.01157, -0.01987 / 0.01128); the residual
+  dilepton width rms 0.0022 / 0.0021 (0.0076 / 0.0112 with the old template); lambda muon data 1.465/1.258/1.042, MC
+  1.489/1.281/1.067.  The run then FAILED in lam.measure: an electron region had no valid fit in either role and the
+  fallback constants held dicts (make_eval_constants.py took r["mc"] instead of r["mc"]["lambda"]); fixed, constants.json
+  regenerated, every fit that is not ok now logged.  Final runs relaunched: test_10fb_8 (A, fresh read, with a dump for
+  the diagnosis), then full_20fb_4 and test_10fb_b_2.
+- 2026-09-26T08:50Z, LAMBDA FITS: with the new calibration template the electron MC fits of regions 0 and 3 (and the
+  reference fits depending on region 0) were not "ok" and fell back to the main analysis's lambda.  Two differences to
+  fit_lambda.cpp / h4l/binned_fit.h fixed: ok() = MIGRAD status 0 and CovMatrixStatus >= 2 (the forced-positive-definite
+  covariance is accepted there; the eval had required an accurate one), and the fits start with the main's initial steps
+  (lambda 0.02, tails 0.05 / 0.2, shifts 0.02, yields 0.01 n + 1, slopes 0.01) and retry with strategy 2.  On the half-A
+  dump every fit is ok: electron data 1.502 1.468 1.565 1.586 1.552 1.471 1.355 1.171 0.815, MC 1.534 1.497 1.615 1.608
+  1.648 1.514 1.382 1.183 0.791 (main: data 1.544 1.471 1.549 1.552 1.590 1.445 1.333 1.185 0.509).  test_10fb_9 (A from
+  the dump, before this fix): mu 0.876, m_H 125.39 +-0.46, GoF p 0.066.  Final runs: test_10fb_10 (A from the dump of
+  test_10fb_8, i.e. the same reader output), test_10fb_b_2 (B, fresh read), then full_20fb_4.
+- 2026-09-26T08:40Z, SUBMISSION ENVIRONMENT TEST: pixi lock resolves the root_base environment (182 packages) and every
+  locked package downloads quickly with curl (root_base 268 MB in 0.7 s; production_v3/tmp/conda_mirror), but the pixi
+  installs on EOS FUSE either fail on HTTP/2 stream errors of pixi's downloader or hang on a file lock (futex wait, no
+  CPU; also with the packages served from a localhost mirror, which pixi only accepts over http).  The rules forbid a
+  cache outside the repository (/tmp, $HOME), so the environment could not be materialized here.  Checked instead: the
+  reader compiles as C++23 (-std=c++2b, the root_base standard) against ROOT 6.40.04; the Python code runs with the
+  analysis environment (python 3.14, numpy 2).
+- 2026-09-26T09:40Z, FINAL EVAL RUNS (all methods of the main analysis, simplified T&P nominal; the event-level
+  calibration template, lambda fits as fit_lambda.cpp):
+  test_10fb_10 (half A, 9.99 fb^-1; reader output of test_10fb_8): mu 0.890 +0.265/-0.228 (stat 0.239, syst 0.061),
+  m_H 125.41 +0.47/-0.46, Z 5.77 (exp 6.48), GoF p 0.041 (sparse-bin fluctuations: the largest contributions 4mu D_mass
+  bin 4 with 4 events in 120-125 GeV against 0.9 and 2e2mu bin 0 with 2 in 135-140 against 0.3; no systematic pattern),
+  coverage 0.71; calibration muon -0.01993 / 0.01150, electron -0.01992 / 0.01135; sel_eff 0.99447 +- 0.00110 / 1.00235 +-
+  0.00281; 772 s from the dump (+ ~260 s read); pyhf MLE mu 0.8886 (reported 0.8896).
+  test_10fb_b_2 (half B, 10.01 fb^-1, fresh): mu 0.813 +0.270/-0.232, m_H 124.58 +0.58/-0.52, Z 5.08 (exp 6.03), GoF p 0.74,
+  coverage 0.73; calibration muon -0.01993 / 0.01156, electron -0.01989 / 0.01122; 1009 s (run concurrently with A); pyhf
+  MLE mu 0.8127 (reported 0.8133).
+  full_20fb_4 (all 83 shards, fresh): mu 0.833 +0.185/-0.166 (syst 0.050), m_H 125.09 +-0.38, Z 7.47 (exp 8.80), GoF p 0.42,
+  coverage 0.66; calibration muon -0.01994 / 0.01142, electron -0.01990 / 0.01127 (main: -0.01993 / 0.01157, -0.01987 /
+  0.01128); sel_eff 0.99450 +- 0.00106 / 1.00224 +- 0.00261; Z+X window 2.9 / 2.6 / 7.0 (main 2.85 / 2.53 / 6.93); 1498 s.
+  Main analysis (3D categorized, D_kin): mu 0.903 +- 0.179, m_H 124.96 +- 0.39, Z 8.46 (exp 10.08).  AN v4 (with the
+  section "Evaluation submission") and the GitHub update in progress.

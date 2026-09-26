@@ -596,8 +596,8 @@ the categories and discriminant working points still to do).
 |---|---|
 | Main analysis final results (EVAL_CONTRACT v0.4 format, per-flavour calibration, data-weighted averages) | done: production_v3/results/v5/final_v2 (freeze_v2 d42d3bb3...) |
 | Boundary treatment of the fits (POIs at a limit) | done; category/mode/stxs0/fid fits rerun, all valid |
-| Unblinding (user-authorized truth record) and AN with the truth comparison | done: deliverables/AN_h4l_ul16_pfnano_v2 |
-| Evaluation submission my_analysis/ (ROOT reader, main-analysis methods, T&P simplified) | done; 10 fb^-1 test 18 min, pyhf-valid MODEL.json |
+| Unblinding (user-authorized truth record) and AN with the truth comparison | done: AN v3 (truth_v2, corrected efficiency truth); v4 with the evaluation-submission section pending |
+| Evaluation submission my_analysis/: every method as the main analysis except the simplified T&P nominal fit (user 2026-09-26) | done: Z+X OS+SS, signal model with morphing, make_systematics magnitudes, lambda in situ, genWeight, T&P alternatives, the event-level calibration template; final tests test_10fb_10 (A), test_10fb_b_2 (B), full_20fb_4 |
 | Rewritten EVAL_CONTRACT.md (per-flavour Nuisance parameters section) | done: my_analysis/EVAL_CONTRACT.md |
-| GitHub branch reference | pushed (00ce415), no ref/ files |
-| Submission pixi environment (conda ROOT) build and smoke test | in progress (download retried) |
+| Submission pixi environment | re-locked with root_base (182 packages); the install on EOS FUSE hangs on file locks (not testable here within the rules); the reader compiles as C++23 |
+| GitHub branch reference | ec7f46f; the full update (submission, results, AN, truth_v2, docs) pending the tests |
