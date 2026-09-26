@@ -3164,3 +3164,12 @@ question Q1 of `PLAN.md`.
   0.01128); sel_eff 0.99450 +- 0.00106 / 1.00224 +- 0.00261; Z+X window 2.9 / 2.6 / 7.0 (main 2.85 / 2.53 / 6.93); 1498 s.
   Main analysis (3D categorized, D_kin): mu 0.903 +- 0.179, m_H 124.96 +- 0.39, Z 8.46 (exp 10.08).  AN v4 (with the
   section "Evaluation submission") and the GitHub update in progress.
+- 2026-09-26T10:05Z, AN v4 and GITHUB: deliverables/AN_h4l_ul16_pfnano_v4 (make_an.py with --eval-runs: the section
+  "Evaluation submission" with the methods, the three runs and their truth comparison); REFERENCE.md from the result files
+  (analysis_v3/documentation/make_reference.py).  Branch reference: commit 01a3dfb from the staging clone
+  production_v3/tmp/github_stage3/repo (this repository's git untouched): my_analysis/ (all changes, lam.py, shapes.py,
+  root_base lock), analysis_v3/ sources, results/eval_test_10fb_A, _B, eval_full_20fb (RESULT.json, MODEL.json,
+  MODEL_meta.json, summary.txt, results_full.json, logs/run.log), results/truth (truth_v2), deliverables/AN v4 (AN v2 and
+  the old eval test removed from the tree), AGENTS.md, PLAN.md, README.md, experiment_log.md, REFERENCE.md; git fsck clean,
+  blob sizes checked, 212 files, no ref/ path.  The pushed branch rerun from the clone: run.sh on dev_small, 244 s, exit 0,
+  tests/check_outputs.py OK (pyhf MLE mu 0.4121, reported 0.4143).

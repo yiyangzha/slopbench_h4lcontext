@@ -600,4 +600,5 @@ the categories and discriminant working points still to do).
 | Evaluation submission my_analysis/: every method as the main analysis except the simplified T&P nominal fit (user 2026-09-26) | done: Z+X OS+SS, signal model with morphing, make_systematics magnitudes, lambda in situ, genWeight, T&P alternatives, the event-level calibration template; final tests test_10fb_10 (A), test_10fb_b_2 (B), full_20fb_4 |
 | Rewritten EVAL_CONTRACT.md (per-flavour Nuisance parameters section) | done: my_analysis/EVAL_CONTRACT.md |
 | Submission pixi environment | re-locked with root_base (182 packages); the install on EOS FUSE hangs on file locks (not testable here within the rules); the reader compiles as C++23 |
-| GitHub branch reference | ec7f46f; the full update (submission, results, AN, truth_v2, docs) pending the tests |
+| GitHub branch reference | 01a3dfb: submission, eval results (half A, half B, full), truth_v2, AN v4, docs; no ref/ files; the pushed submission reruns from a clean clone and passes tests/check_outputs.py |
+| AN | deliverables/AN_h4l_ul16_pfnano_v4 (truth comparison and the evaluation-submission section) |
