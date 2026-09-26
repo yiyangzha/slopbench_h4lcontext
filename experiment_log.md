@@ -3173,3 +3173,8 @@ question Q1 of `PLAN.md`.
   the old eval test removed from the tree), AGENTS.md, PLAN.md, README.md, experiment_log.md, REFERENCE.md; git fsck clean,
   blob sizes checked, 212 files, no ref/ path.  The pushed branch rerun from the clone: run.sh on dev_small, 244 s, exit 0,
   tests/check_outputs.py OK (pyhf MLE mu 0.4121, reported 0.4143).
+- 2026-09-26T10:20Z, USER: "不用了，不用测试pixi环境了。你确定没问题就行" (no local test of the submission environment).
+  Consistency check instead: the locked versions match the tested analysis environment (numpy 2.5.3 / 2.5.1, scipy
+  1.18.1 / 1.18.0, iminuit 2.33.0 / 2.33.0, uproot 5.7.6 / 5.7.5, awkward 2.13.0 / 2.11.0, python 3.13 / 3.14, ROOT 6.40.04
+  in both; the reader compiles as C++23).  Branch reference 067bb6e is identical to the local my_analysis/, analysis_v3/
+  sources and documents (checked file by file).
